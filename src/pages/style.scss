@@ -1,0 +1,51 @@
+$col-txt-1: #7b8692;
+$col-txt-b: #000000;
+$col-txt-w: #ffffff;
+
+$col-bgd-w: #ffffff;
+$col-bgd-1: #0061ff;
+
+@mixin txt-stl-1 {
+  font-family: NanumBarunGothic;
+  font-style: normal;
+  font-size: 48px;
+  line-height: 60px;
+  margin: 0px;
+}
+
+@mixin txt-stl-2 {
+  font-family: NanumBarunGothic;
+  font-size: 24px;
+  line-height: 0px;
+  margin: 0px;
+}
+
+@mixin column($w, $h, $gap) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  > * {
+    width: $w;
+    height: $h;
+  }
+}
+
+@mixin row($w, $h, $gap) {
+  display: flex;
+  flex-direction: row;
+  gap: $gap;
+  > * {
+    width: $w;
+    height: $h;
+  }
+}
+
+@mixin box($w, $h, $r, $col-border, $col-fill) {
+  box-sizing: border-box;
+  color: $col-txt-b;
+  width: $w;
+  height: $h;
+  background: $col-fill;
+  border: solid $col-border 2px;
+  border-radius: $r;
+}
