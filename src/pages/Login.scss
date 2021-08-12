@@ -1,25 +1,24 @@
 @import "./style.scss";
 
-*:not(.disconnector) > .Login {
-  background-color: red;
-  .wrapper {
-    display: flex;
-    width: 100%;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-  }
+.wrapper {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
 
-  .frame {
-    @include column(600px, 60px, 20px);
-  }
+.frame {
+  @include column(600px, 60px, 20px);
+}
 
-  h1 {
-    @include txt-stl-1();
-  }
+.title {
+  @include txt-stl-1();
+}
 
-  .box-input {
-    @include txt-stl-2();
+.box {
+  @include txt-stl-2();
+  &.input {
     @include box(600px, 60px, 2px, $col-txt-1, $col-bgd-w);
     padding: 10px;
     &:hover,
@@ -31,14 +30,14 @@
     }
   }
 
-  .box-btn {
-    @include txt-stl-2();
+  &.btn {
     @include box(600px, 60px, 2px, $col-bgd-1, $col-bgd-1);
     color: $col-txt-w;
-    :active {
-      width: 99.9%;
-      justify-content: center;
-      align-items: center;
+    &:hover {
+      background-color: $col-bgd-1-hover;
+    }
+    &:active {
+      background-color: $col-bgd-1-pressed;
     }
   }
 }

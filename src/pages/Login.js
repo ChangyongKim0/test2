@@ -64,22 +64,22 @@ class Login extends React.Component {
           <div className="wrapper">
             <form onSubmit={this.handleSubmit}>
               <div className="frame">
-                <h1>Log in</h1>
+                <h1 className="title">Log in</h1>
                 <input
-                  className="box-input"
+                  className="box input"
                   type="text"
                   id="id"
                   placeholder="Email"
                   onChange={this.handleIdChange}
                 />
                 <input
-                  className="box-input"
+                  className="box input"
                   type="password"
                   id="pwd"
                   placeholder="Password"
                   onChange={this.handlePwdChange}
                 />
-                <input className="box-btn" type="submit" value="Log in"></input>
+                <input className="box btn" type="submit" value="Log in"></input>
               </div>
             </form>
           </div>
