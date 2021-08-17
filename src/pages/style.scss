@@ -7,6 +7,10 @@ $col-bgd-1: #0061ff;
 $col-bgd-1-hover: #0055df;
 $col-bgd-1-pressed: #004ac2;
 
+h2 {
+  color: $col-bgd-1;
+}
+
 @mixin txt-stl-1 {
   font-family: NanumBarunGothic;
   font-style: normal;
