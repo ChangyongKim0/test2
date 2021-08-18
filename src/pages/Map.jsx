@@ -9,10 +9,7 @@ import Location from "../components/location";
 const Map = () => {
   return (
     <div className='wrapper'>
-      <div>
-        <h2>MAP</h2>
-      </div>
-      <RenderAfterNavermapsLoaded clientId='843rt7rkkc' loading={<div>LOADING</div>} error={<div>ERROR</div>}>
+      <RenderAfterNavermapsLoaded clientId='843rt7rkkc' loading={<h2>MAP</h2>} error={<div>ERROR</div>}>
         <Location/>
       </RenderAfterNavermapsLoaded>
     </div>

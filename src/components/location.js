@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import $ from "jquery";
+import $, { map } from "jquery";
 
 import "./location.scss";
 
@@ -24,14 +24,54 @@ const Location = () => {
     // var HOME_PATH = window.HOME_PATH || ".",
 
     var GITHUB_PATH =
-        "https://raw.githubusercontent.com/navermaps/maps.js.ncp/master/docs",
+        "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src",
       urlPrefix = GITHUB_PATH + "/data/region",
       urlSuffix = ".json",
       regionGeoJson = [];
     let loadCount = 0;
 
-    window.naver.maps.Event.once(map, "init_stylemap", function () {
-      for (var i = 1; i < 18; i++) {
+    window.naver.maps.Event.addListener(map, "init_stylemap", function () {
+      loadDataLayer();
+    });
+
+    window.naver.maps.Event.addListener(map, "zoom_changed", function () {
+      if (isWiderThan(0.3, 1)) {
+        startDataLayer();
+        console.log("listening and wider.");
+      } else {
+        endDataLayer();
+      }
+    });
+
+    function isWiderThan(lng_thres, lat_thres) {
+      var bounds = map.getBounds(),
+        southWest = bounds.getSW(),
+        northEast = bounds.getNE(),
+        lngSpan = northEast.lng() - southWest.lng(),
+        latSpan = northEast.lat() - southWest.lat();
+      console.log(lngSpan, latSpan);
+      if (lngSpan > lng_thres || latSpan > lat_thres) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    // function isNarrowerThan(lng_thres, lat_thres) {
+    //   var bounds = map.getBounds(),
+    //     southWest = bounds.getSW(),
+    //     northEast = bounds.getNE(),
+    //     lngSpan = northEast.lng() - southWest.lng(),
+    //     latSpan = northEast.lat() - southWest.lat();
+    //   if (lngSpan < lng_thres || latSpan < lat_thres) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
+
+    function loadDataLayer() {
+      for (var i = 1; i < 3; i++) {
         var keyword = i + "";
 
         if (keyword.length === 1) {
@@ -48,14 +88,14 @@ const Location = () => {
               loadCount++;
               // console.log(loadCount);
 
-              if (loadCount === 17) {
+              if (loadCount === 2) {
                 startDataLayer();
               }
             };
           })(i - 1),
         });
       }
-    });
+    }
 
     var tooltip = $(
       '<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>'
@@ -64,20 +104,24 @@ const Location = () => {
     tooltip.appendTo(map.getPanes().floatPane);
 
     function startDataLayer() {
-      console.log(regionGeoJson);
+      // console.log(regionGeoJson);
       map.data.setStyle(function (feature) {
         var styleOptions = {
-          fillColor: "#ff0000",
-          fillOpacity: 0.0001,
-          strokeColor: "#ff0000",
+          fillColor: "#0061ff",
+          fillOpacity: 0,
+          strokeColor: "#0061ff",
           strokeWeight: 2,
-          strokeOpacity: 0.4,
+          strokeOpacity: 0,
         };
+
+        if (feature.getProperty("hover")) {
+          styleOptions.fillOpacity = 0;
+          styleOptions.strokeWeight = 4;
+          styleOptions.strokeOpacity = 0.5;
+        }
 
         if (feature.getProperty("focus")) {
           styleOptions.fillOpacity = 0.6;
-          styleOptions.fillColor = "#0f0";
-          styleOptions.strokeColor = "#0f0";
           styleOptions.strokeWeight = 4;
           styleOptions.strokeOpacity = 1;
         }
@@ -103,6 +147,8 @@ const Location = () => {
         var feature = e.feature,
           regionName = feature.getProperty("area1");
 
+        feature.setProperty("hover", true);
+
         tooltip
           .css({
             display: "",
@@ -110,18 +156,28 @@ const Location = () => {
             top: e.offset.y,
           })
           .text(regionName);
-
-        map.data.overrideStyle(feature, {
-          fillOpacity: 0.6,
-          strokeWeight: 4,
-          strokeOpacity: 1,
-        });
       });
 
       map.data.addListener("mouseout", function (e) {
         tooltip.hide().empty();
         map.data.revertStyle();
+
+        e.feature.setProperty("hover", false);
       });
+    }
+
+    function endDataLayer() {
+      map.data.setStyle(function (feature) {
+        var styleOptions = {
+          fillColor: "#0061ff",
+          fillOpacity: 0,
+          strokeColor: "#0061ff",
+          strokeWeight: 2,
+          strokeOpacity: 0,
+        };
+        return styleOptions;
+      });
+      map.data.clearListeners();
     }
   }, []);
 
