@@ -12,11 +12,16 @@ $col-txt-g2: #808080;
 $col-txt-g3: #333333;
 $col-txt-1: #93278f;
 
+$col-bgd-b: #000000;
 $col-bgd-w: #ffffff;
 $col-bgd-g3: #333333;
 $col-bgd-1: #0061ff;
 $col-bgd-1-hover: #0055df;
 $col-bgd-1-pressed: #004ac2;
+
+$col-brd-g1: #cccccc;
+
+$col-shd-b: rgba(0, 0, 0, 0.15);
 
 $font-xs: 0.75rem;
 $font-sm: 0.875rem;
@@ -71,4 +76,17 @@ $font-xl: 1.25rem;
   background: $col-fill;
   border: solid $col-border 2px;
   border-radius: $r;
+}
+
+@mixin columnWithBorder($w, $h, $gap, $col-border) {
+  @include column($w, $h, 0px);
+  > * {
+    border-top: 1px solid $col-border;
+    padding-top: ($gap / 2);
+    padding-bottom: ($gap / 2);
+  }
+  :first-child {
+    border-top: none;
+    padding-top: 0px;
+  }
 }

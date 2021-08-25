@@ -4,6 +4,8 @@ import $, { map } from "jquery";
 import styles from "./location.module.scss";
 import classNames from "classnames/bind";
 
+const cx = classNames.bind(styles);
+
 const Location = () => {
   // console.log(window.naver);
 

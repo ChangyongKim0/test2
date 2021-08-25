@@ -1,0 +1,50 @@
+@import "../pages/style.scss";
+
+.wrapper {
+  @include columnWithBorder(500px, auto, 50px, $col-brd-g1);
+  margin-top: 30px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  * {
+    @include txt-stl-2();
+    text-align: left;
+    color: $col-txt-g3;
+  }
+}
+
+.block {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.addr1 {
+  margin-top: 20px;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  font-weight: 300;
+}
+
+.addr2 {
+  margin-top: 10px;
+  font-weight: 300;
+}
+
+.keys {
+  font-weight: 700;
+}
+
+.vals {
+  margin-top: 10px;
+  font-size: 1.25rem;
+  line-height: 1.25rem;
+  font-weight: 300;
+}
+
+.emph {
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: 600;
+  color: $col-txt-1;
+}
