@@ -1,28 +1,42 @@
-$col-txt-1: #7b8692;
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+// $col-txt-1: #7b8692;
+* {
+  font-size: 16px;
+}
+
 $col-txt-b: #000000;
 $col-txt-w: #ffffff;
+$col-txt-g0: #dddddd;
+$col-txt-g1: #cccccc;
+$col-txt-g2: #808080;
+$col-txt-g3: #333333;
+$col-txt-1: #93278f;
 
 $col-bgd-w: #ffffff;
+$col-bgd-g3: #333333;
 $col-bgd-1: #0061ff;
 $col-bgd-1-hover: #0055df;
 $col-bgd-1-pressed: #004ac2;
 
-h2 {
-  color: $col-bgd-1;
-}
+$font-xs: 0.75rem;
+$font-sm: 0.875rem;
+$font-base: 1rem;
+$font-lg: 1.125rem;
+$font-xl: 1.25rem;
 
 @mixin txt-stl-1 {
-  font-family: NanumBarunGothic;
-  font-style: normal;
-  font-size: 48px;
-  line-height: 60px;
+  font-family: "Noto Sans KR";
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 2rem;
   margin: 0px;
 }
 
 @mixin txt-stl-2 {
-  font-family: NanumBarunGothic;
-  font-size: 24px;
-  line-height: 0px;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
+  font-size: $font-base;
+  line-height: $font-base;
   margin: 0px;
 }
 
@@ -30,9 +44,11 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: $gap;
+  align-items: center;
   > * {
     width: $w;
     height: $h;
+    text-align: center;
   }
 }
 
@@ -40,6 +56,7 @@ h2 {
   display: flex;
   flex-direction: row;
   gap: $gap;
+  align-items: center;
   > * {
     width: $w;
     height: $h;

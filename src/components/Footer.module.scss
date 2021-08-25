@@ -1,0 +1,44 @@
+@import "../pages/style.scss";
+
+.wrapper {
+  @include column(100%, 56px, 0px);
+  @include txt-stl-2();
+  background-color: $col-bgd-g3;
+  color: $col-txt-w;
+}
+
+.frame {
+  @include row(auto, 60px, 0px);
+  width: (200%/3);
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 10px;
+}
+
+.brand {
+  width: 50%;
+  @include column(100%, 1rem, 0.5rem);
+  > * {
+    text-align: left;
+  }
+}
+
+.title {
+  margin: 0;
+}
+
+.text {
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navigator {
+  width: 40%;
+  font-weight: 700;
+  @include row(30px, auto, 10%);
+  justify-content: space-between;
+  align-items: flex-start;
+}

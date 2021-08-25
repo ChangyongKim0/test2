@@ -1,0 +1,44 @@
+@import "style.scss";
+
+.wrapper {
+  @include column(100%, 100vh, 0px);
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 8px;
+    &-thumb {
+      height: 17%;
+      background-color: $col-txt-g0;
+      border-radius: 10px;
+    }
+    &-track {
+      background-color: none;
+    }
+  }
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroller {
+  @include column(100%, 200vh, 1000px);
+}
+
+.frame {
+  @include column((200%/3), auto, 30px);
+  margin-top: 100px;
+}
+
+.title {
+  @include txt-stl-1;
+  color: $col-txt-1;
+}
+
+.subtitle {
+  @include txt-stl-2();
+  margin-top: -15px;
+}
+
+.line-input {
+  width: 40%;
+  &::placeholder {
+    @include txt-stl-2;
+  }
+}

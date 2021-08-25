@@ -2,7 +2,10 @@ import React from "react";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 
-import "./Login.scss";
+import styles from "./Login.module.scss";
+import classNames from "classnames/bind";
+
+const cx = classNames.bind(styles);
 
 class Login extends React.Component {
   constructor(props) {
@@ -59,33 +62,29 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div className="disconnector">
-        <div className="Login">
-          <div className="wrapper">
+          <div className={cx("wrapper")}>
             <form onSubmit={this.handleSubmit}>
-              <div className="frame">
-                <h1 className="title">Log in</h1>
+              <div className={cx("frame")}>
+                <h1 className={cx("title")}>Log in</h1>
                 <input
-                  className="box input"
+                  className={cx("box input")}
                   type="text"
                   id="id"
                   placeholder="Email"
                   onChange={this.handleIdChange}
                 />
                 <input
-                  className="box input"
+                  className={cx("box input")}
                   type="password"
                   id="pwd"
                   placeholder="Password"
                   onChange={this.handlePwdChange}
                 />
-                <input className="box btn" type="submit" value="Log in"></input>
+                <input className={cx("box btn")} type="submit" value="Log in"></input>
               </div>
             </form>
           </div>
-          {this.state.success && <Redirect to="/loggedin" />}
-        </div>
-      </div>
+          // {this.state.success && <Redirect to="/loggedin" />}
     );
   }
 }

@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import $, { map } from "jquery";
 
-import "./location.scss";
+import styles from "./location.module.scss";
+import classNames from "classnames/bind";
 
 const Location = () => {
   // console.log(window.naver);
@@ -183,7 +184,7 @@ const Location = () => {
 
   return (
     <div>
-      <div id="map" className="map"></div>
+      <div id="map" className={cx("map")}></div>
     </div>
   );
 };
