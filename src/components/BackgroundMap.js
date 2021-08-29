@@ -28,7 +28,7 @@ const BackgroundMap = ({ handleBldgInfo, handleAddress }) => {
         let data_list = response.data;
         console.log(data_list);
         for (let data in data_list) {
-          let area = convertGeoData(data."gml:posList");
+          let area = convertGeoData(data.gmlPosList);
           displayGeoData(area);
         }
       });
