@@ -6,3 +6,10 @@ a {
   text-decoration: none;
   color: inherit;
 }
+button {
+  border-width: 0;
+  border-style: none;
+}
+button:active {
+  border-style: none;
+}

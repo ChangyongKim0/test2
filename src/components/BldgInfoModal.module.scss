@@ -1,18 +1,32 @@
 @import "../pages/style.scss";
 
 .wrapper {
-  z-index: 1;
-  position: absolute;
-  top: 0px;
-  width: 590px;
-  height: 100vh;
-  pointer-events: none;
+  width: 560px;
+  height: calc(100vh - 60px);
+  margin: 30px;
+  margin-right: 0;
 }
 
 .modal {
+  position: relative;
   @include column(560px, auto, 25px);
   @include box(560px, calc(100vh - 60px), 15px, auto, $col-bgd-w);
-  margin: 30px;
   box-shadow: 7px 7px 5px $col-shd-b;
   pointer-events: auto;
+}
+
+.box-btn {
+  position: absolute;
+  @include box(488px, 60px, 0px, auto, $col-bgd-1);
+  @include txt-stl-2;
+  font-size: 1.25rem;
+  bottom: 36px;
+  color: $col-txt-w;
+  box-shadow: 0px 0px 20px 20px $col-shd-w;
+  &:hover {
+    background-color: $col-bgd-1-hover;
+  }
+  &:active {
+    background-color: $col-bgd-1-pressed;
+  }
 }

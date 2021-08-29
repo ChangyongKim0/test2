@@ -17,6 +17,9 @@ const BldgInfoModal = ({ info }) => {
     <div className={cx("wrapper")}>
       <div className={cx("modal")}>
         <BldgInfoModalContent keys={info.keys} vals={info.vals} />
+        <button className={cx("box-btn")} type="submit" value="좌표">
+          개발 Valuation 검토
+        </button>
       </div>
     </div>
   );

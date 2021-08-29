@@ -1,0 +1,15 @@
+@import "../pages/style.scss";
+
+.wrapper {
+  @include column(100%, none, 0px);
+  width: 100%;
+}
+
+.modal {
+  @include textBox(300px, 30px, 15px, none, $col-bgd-w);
+  @include txt-stl-2;
+  align-items: center;
+  text-align: center;
+  pointer-events: auto;
+  box-shadow: 7px 7px 5px $col-shd-b;
+}

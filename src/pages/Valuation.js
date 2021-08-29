@@ -3,6 +3,7 @@ import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded
 import Location from "../components/location";
 import BackgroundMap from "../components/BackgroundMap";
 import BldgInfoModal from "../components/BldgInfoModal";
+import AddressModal from "../components/AddressModal";
 
 import styles from "./Valuation.module.scss";
 import classNames from "classnames/bind";
@@ -11,7 +12,7 @@ const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
 // var map = new naver.maps.Map(mapDiv);
 
-var bldg_info_vals_sample = {
+let bldg_info_vals_sample = {
   name: "강욱 빌딩",
   addr1: "서울 영등포구 국회대로 777",
   addr2: "서울 영등포구 여의도동 7",
@@ -30,11 +31,11 @@ var bldg_info_vals_sample = {
     far: "800%",
     bcr: "60%",
     height: "70m",
-    use_area: ["일반상업지역", "지구단위계획구역"],
+    use_area: ["일반상업지역,", "지구단위계획구역"],
   },
 };
 
-var bldg_info_keys_sample = {
+let bldg_info_keys_sample = {
   buy_price: "최근 실거래가",
   noc: "건물 명목 NOC",
   land_area: "토지면적",
@@ -53,6 +54,8 @@ var bldg_info_keys_sample = {
   },
 };
 
+let address = "서울 서초구 강남대로1길 11";
+
 const bldgInfoReducer = (state, action) => {
   if (state.id === true && action.id === state.id) {
     console.log("modal disappears.");
@@ -65,18 +68,27 @@ const bldgInfoReducer = (state, action) => {
   }
 };
 
+const handle = () => {
+  console.log("clicked");
+};
+
 const Valuation = () => {
   const [bldg_info, handleBldgInfo] = useReducer(bldgInfoReducer, {
-    show: true,
+    show: false,
     id: -1,
     keys: bldg_info_keys_sample,
     vals: bldg_info_vals_sample,
   });
-  useEffect(() => {});
+  useEffect(() => {
+    console.log("useEffect");
+  });
   return (
     <div className={cx("wrapper")}>
-      <BackgroundMap />
-      <BldgInfoModal info={bldg_info} />
+      <BackgroundMap handleBldgInfo={handleBldgInfo} />
+      <div className={cx("modal-frame")}>
+        <BldgInfoModal info={bldg_info} handleBldgInfo={handleBldgInfo} />
+        <AddressModal address={address} />
+      </div>
     </div>
   );
 };
