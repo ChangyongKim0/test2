@@ -54,37 +54,47 @@ let bldg_info_keys_sample = {
   },
 };
 
-let address = "서울 서초구 강남대로1길 11";
-
 const bldgInfoReducer = (state, action) => {
-  if (state.id === true && action.id === state.id) {
+  if (state.active === true && action.id === state.id) {
     console.log("modal disappears.");
-    return { show: false };
+    return { active: false };
   } else {
     console.log("modal updated.");
-    var new_keys = bldg_info_keys_sample;
-    var new_vals = bldg_info_vals_sample;
-    return { show: true, id: action.id, keys: new_keys, vals: new_vals };
+    let new_keys = bldg_info_keys_sample;
+    let new_vals = bldg_info_vals_sample;
+    return {
+      active: true,
+      id: action.id,
+      keys: new_keys,
+      vals: new_vals,
+    };
   }
 };
 
-const handle = () => {
-  console.log("clicked");
+const addressReducer = (state, action) => {
+  console.log("primary address is changed");
+  return action;
 };
 
 const Valuation = () => {
   const [bldg_info, handleBldgInfo] = useReducer(bldgInfoReducer, {
-    show: false,
+    active: false,
     id: -1,
     keys: bldg_info_keys_sample,
     vals: bldg_info_vals_sample,
   });
+
+  const [address, handleAddress] = useReducer(addressReducer, "");
+
   useEffect(() => {
-    console.log("useEffect");
+    // console.log("useEffect");
   });
   return (
     <div className={cx("wrapper")}>
-      <BackgroundMap handleBldgInfo={handleBldgInfo} />
+      <BackgroundMap
+        handleBldgInfo={handleBldgInfo}
+        handleAddress={handleAddress}
+      />
       <div className={cx("modal-frame")}>
         <BldgInfoModal info={bldg_info} handleBldgInfo={handleBldgInfo} />
         <AddressModal address={address} />

@@ -10,7 +10,7 @@ const BldgInfoModal = ({ info }) => {
   useEffect(() => {
     // console.log(info.keys);
   });
-  if (info.show === false) {
+  if (info.active === false) {
     return <></>;
   }
   return (

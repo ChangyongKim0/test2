@@ -7,8 +7,8 @@ const cx = classNames.bind(styles);
 
 const BldgInfoModalContent = ({ keys, vals }) => {
   useEffect(() => {
-    console.log(keys);
-    console.log(vals);
+    // console.log(keys);
+    // console.log(vals);
   });
   return (
     <div className={cx("wrapper")}>
