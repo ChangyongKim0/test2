@@ -22,13 +22,13 @@ const BackgroundMap = ({ handleBldgInfo, handleAddress }) => {
     getAddress(handleAddress);
     axios
       .get(
-        "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/junggu.json"
+        "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/area.json"
       )
       .then((response) => {
         let data_list = response.data;
         console.log(data_list);
-        for (let data in data_list) {
-          let area = convertGeoData(data.gmlPosList);
+        for (let i = 0; i < data_list.length; i++) {
+          let area = convertGeoData(data_list[i].gmlPosList);
           displayGeoData(area);
         }
       });
