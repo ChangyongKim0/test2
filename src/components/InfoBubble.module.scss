@@ -1,0 +1,30 @@
+@import "../util/style.scss";
+
+.info-bubble {
+  @include textBox(auto, auto, none, none, none);
+  position: relative;
+}
+
+.info-bubble-svg {
+  filter: drop-shadow(7px 7px 5px $col-shd-b);
+}
+
+.frame {
+  @include column(auto, auto, 3px);
+  position: absolute;
+  top: 3px;
+}
+
+.info-bubble * {
+  @include txt-stl-2();
+  color: $col-txt-g2;
+  font-size: 11px;
+  line-height: 11px;
+}
+
+.title {
+  color: $col-bgd-1;
+  font-size: 19px;
+  line-height: 19px;
+  font-weight: 700;
+}

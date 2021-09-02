@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 
-import styles from "./BldgInfoModalContent.module.scss";
+import styles from "./BldgInfo.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const BldgInfoModalContent = ({ keys, vals }) => {
+const BldgInfo = ({ keys, vals }) => {
   useEffect(() => {
     // console.log(keys);
     // console.log(vals);
@@ -96,4 +96,4 @@ const BldgInfoModalContent = ({ keys, vals }) => {
   );
 };
 
-export default BldgInfoModalContent;
+export default BldgInfo;

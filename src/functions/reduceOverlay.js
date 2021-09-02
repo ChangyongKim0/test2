@@ -1,0 +1,168 @@
+import axios from "axios";
+import { _default, _avg } from "../util/alias";
+import { col_primary } from "../util/style";
+
+const convertGeoData = (map, data) => {
+  let path = [];
+  let lats = [];
+  let lngs = [];
+  let data_list = data.gmlPosList.split(" ");
+  //   console.log(data_list);
+  for (let i = 0; i < data_list.length; ) {
+    let lat = parseFloat(data_list[i]);
+    let lng = parseFloat(data_list[i + 1]);
+    path.push(new window.kakao.maps.LatLng(lng, lat));
+    lats.push(lat);
+    lngs.push(lng);
+    i += 2;
+  }
+  let center = new window.kakao.maps.LatLng(_avg(lngs), _avg(lats));
+  let polygon = new window.kakao.maps.Polygon({
+    map: map, // 다각형을 표시할 지도 객체
+    path: path,
+    strokeWeight: 0,
+    fillColor: "#fff",
+    fillOpacity: 0.001,
+  });
+  handlePolygon({ type: "create", polygon: polygon });
+  return {
+    id: data.NSDIPNU,
+    addr: data.NSDILNM_LNDCGR_SMBOL,
+    price: data.NSDIPBLNTF_PCLND,
+    polygon: polygon,
+    center: center,
+  };
+};
+
+// const upgradeGeoData = (map, data) => {
+
+//   polygon.setMap(map);
+//   return polygon;
+// };
+// console.log(options);
+
+const reduceOverlay = (state, action) => {
+  const returnOverlay = (options) => {
+    options = _default(options, {
+      map: state.map,
+      getMapState: state.getMapState,
+      show: false,
+      data: [],
+      data_pushed: [],
+      data_removed: [],
+      is_clicked: false,
+      clicked_data: { id: -1, polygon: -1 },
+      clicked_data_before: { id: -1, polygon: -1 },
+      map_base_state: { level: 2, lat: 0, lng: 0 },
+    });
+    return {
+      map: options.map,
+      getMapState: options.getMapState,
+      show: options.show,
+      data: options.data,
+      data_pushed: options.data_pushed,
+      data_removed: options.data_removed,
+      is_clicked: options.is_clicked,
+      clicked_data: options.clicked_data,
+      clicked_data_before: options.clicked_data_before,
+      map_base_state: options.map_base_state,
+    };
+  };
+
+  let new_state = {};
+  switch (action.type) {
+    case "create":
+      new_state = returnOverlay({
+        map: action.map,
+        getMapState: action.getMapState,
+      });
+      console.log("created overlays:");
+      console.log(new_state);
+      return new_state;
+    case "update":
+      let new_data_pushed = [];
+      let new_data = state.data;
+      if (state.data.length === 0) {
+        new_data_pushed = action.data;
+        new_data = action.data;
+      }
+      new_state = returnOverlay({
+        show: true,
+        data: new_data,
+        data_pushed: new_data_pushed,
+        is_clicked: state.is_clicked,
+        clicked_data: state.clicked_data,
+        clicked_data_before: state.clicked_data_before,
+        map_base_state: state.getMapState(),
+      });
+      console.log("updated overlays:");
+      console.log(new_state);
+      return new_state;
+    case "click":
+      let new_clicked_data = undefined;
+      let is_clicked_new = undefined;
+      if (state.clicked_data.id !== action.clicked_data.id) {
+        new_clicked_data = action.clicked_data;
+        is_clicked_new = true;
+      }
+      new_state = returnOverlay({
+        show: true,
+        data: state.data,
+        is_clicked: true,
+        clicked_data: new_clicked_data,
+        clicked_data_before: state.clicked_data,
+        map_base_state: state.map_base_state,
+      });
+      console.log("clicked an overlay:");
+      console.log(new_state);
+      return new_state;
+    case "remove":
+      if (state.show === false) {
+        return state;
+      } else {
+        new_state = returnOverlay({
+          map_base_state: state.getMapState(),
+          data_removed: state.data,
+        });
+        console.log("removed all overlays:");
+        console.log(new_state);
+        return new_state;
+      }
+  }
+};
+
+const getOverlayData = async (map) => {
+  console.log("request new overlay data.");
+  let response = await axios.get(
+    "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/area.json"
+  );
+  let data_list = response.data;
+  // console.log(data_list);
+  let new_data = [];
+  for (let i = 0; i < data_list.length; i++) {
+    let data = convertGeoData(map, data_list[i]);
+    new_data.push(data);
+  }
+  // console.log(new_data);
+  console.log("get new overlay data.");
+  return new_data;
+};
+
+const handlePolygon = (action) => {
+  switch (action.type) {
+    case "create":
+      action.polygon.setOptions({ fillColor: col_primary });
+      break;
+    case "hide":
+      action.polygon.setOptions({ fillOpacity: 0.001 });
+      break;
+    case "opaque":
+      action.polygon.setOptions({ fillOpacity: 0.1 });
+      break;
+    case "show":
+      action.polygon.setOptions({ fillOpacity: 0.5 });
+      break;
+  }
+};
+
+export { reduceOverlay, getOverlayData, handlePolygon };

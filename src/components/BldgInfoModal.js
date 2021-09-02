@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BldgInfoModalContent from "./BldgInfoModalContent";
+import BldgInfo from "./BldgInfo";
 
 import styles from "./BldgInfoModal.module.scss";
 import classNames from "classnames/bind";
@@ -16,7 +16,7 @@ const BldgInfoModal = ({ info }) => {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("modal")}>
-        <BldgInfoModalContent keys={info.keys} vals={info.vals} />
+        <BldgInfo keys={info.keys} vals={info.vals} />
         <button className={cx("box-btn")} type="submit" value="좌표">
           개발 Valuation 검토
         </button>

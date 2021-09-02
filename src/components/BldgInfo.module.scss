@@ -1,4 +1,4 @@
-@import "../pages/style.scss";
+@import "../util/style.scss";
 
 .wrapper {
   @include columnWithBorder(488px, auto, 50px, $col-brd-g1);

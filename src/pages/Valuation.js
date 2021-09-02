@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from "react";
-import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
-import Location from "../components/location";
+// import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
+// import Location from "../components/location";
 import BackgroundMap from "../components/BackgroundMap";
 import BldgInfoModal from "../components/BldgInfoModal";
 import AddressModal from "../components/AddressModal";
@@ -72,7 +72,7 @@ const bldgInfoReducer = (state, action) => {
 };
 
 const addressReducer = (state, action) => {
-  console.log("primary address is changed");
+  // console.log("primary address is changed");
   return action;
 };
 
