@@ -19,14 +19,14 @@
     color: blue;
   }
   & > * {
-    @include textBox(auto, 40px, 0px, $col-brd-g1, $col-bgd-w);
+    @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
     padding: 8px 16px;
     &:hover:not(.emph) {
-      background-color: $col-txt-g8;
+      background-color: $col-bgd-g95;
     }
     &.emph {
-      border-color: $col-bgd-1;
-      color: $col-txt-1;
+      border-color: $col-bgd-2;
+      color: $col-txt-2;
     }
   }
   & > :first-child {
@@ -38,13 +38,4 @@
   & > :last-child {
     border-radius: 0px 2px 2px 0px;
   }
-}
-
-.modal {
-  @include textBox(300px, 30px, 15px, none, $col-bgd-w);
-  @include txt-stl-2;
-  align-items: center;
-  text-align: center;
-  pointer-events: auto;
-  box-shadow: 7px 7px 5px $col-shd-b;
 }

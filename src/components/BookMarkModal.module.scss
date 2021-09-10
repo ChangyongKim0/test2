@@ -12,6 +12,10 @@
   justify-content: space-between;
 }
 
+.title {
+  @include txt-head-h1;
+}
+
 .btn-close {
   width: 16px;
   height: 16px;
@@ -24,11 +28,42 @@
   }
 }
 
-.modal {
-  @include textBox(300px, 30px, 15px, none, $col-bgd-w);
-  @include txt-stl-2;
+.input-field {
+  @include row(auto, 51px, 0px);
+  height: 51px;
+  justify-content: space-between;
+  border-bottom: 1.5px solid $col-brd-g4;
+  z-index: 1;
+}
+
+.input {
+  @include textBox(auto, auto, 0px, none, $col-bgd-w);
+  @include txt-head;
+  font-size: 33px;
   align-items: center;
-  text-align: center;
-  pointer-events: auto;
-  box-shadow: 7px 7px 5px $col-shd-b;
+  text-align: left;
+  z-index: 0;
+  &::placeholder {
+    color: $col-txt-g8;
+  }
+}
+
+.btn-field {
+  @include row(auto, 35px, 0px);
+  justify-content: space-between;
+  * {
+    background: none;
+    @include txt-head-h15;
+    color: $col-bgd-g5;
+  }
+}
+
+.btn-list-save {
+  @include row(auto, 35px, 27px);
+}
+
+.emph {
+  @include textBox(auto, auto, 0px, none, $col-bgd-2);
+  padding: 10px 20px;
+  color: $col-txt-w;
 }

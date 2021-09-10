@@ -21,16 +21,19 @@ const TestPage = () => {
   });
   return (
     <div className={cx("wrapper")}>
-      <p>UseAutoComplete</p>
+      <p className={cx("title")}>UseAutoComplete</p>
       <UseAutocomplete />
-      <p>AddressSearcher</p>
+      <p className={cx("title")}>AddressSearcher</p>
       <AddressSearcher />
-      <p>Header</p>
+      <p className={cx("title")}>Header</p>
       <Header nav_emph="map" />
-      <p>AddressModal</p>
+      <p className={cx("title")}>AddressModal</p>
       <AddressModal address={"address"} />
-      <p></p>
+      <p className={cx("title")}>BookMarkModal</p>
       <BookMarkModal />
+      <p></p>
+      <p></p>
+      <p className={cx("title")}>END OF PAGE</p>
     </div>
   );
 };
