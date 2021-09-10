@@ -19,12 +19,14 @@
 .btn-close {
   width: 16px;
   height: 16px;
-  stroke: $col-txt-g1;
+  stroke: $col-brd-b;
+  stroke-width: 2px;
+  opacity: 0.5;
   &:hover {
-    stroke: $col-bgd-1-hover;
+    opacity: 0.6;
   }
   &:active {
-    stroke: $col-bgd-1-pressed;
+    opacity: 0.9;
   }
 }
 
@@ -49,7 +51,8 @@
 }
 
 .btn-field {
-  @include row(auto, 35px, 0px);
+  @include row(auto, auto, 0px);
+  height: 35px;
   justify-content: space-between;
   * {
     background: none;
