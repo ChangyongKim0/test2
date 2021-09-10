@@ -1,11 +1,11 @@
 import React, {
-  // useContext,
+  useContext,
   useEffect,
-  // useLayoutEffect,
+  useLayoutEffect,
   useReducer,
   useState,
 } from "react";
-import {
+import Overlay, {
   reduceOverlay,
   getOverlayData,
   handlePolygon,
@@ -35,12 +35,7 @@ const checkFarMove = (state, map_state, thres_lat, thres_lng) => {
   return Math.abs(lat_moves) > thres_lat || Math.abs(lng_moves) > thres_lng;
 };
 
-const BackgroundMap = ({
-  handleBldgInfo,
-  handleAddress,
-  is_clicked,
-  setIsClicked,
-}) => {
+const BackgroundMap = ({ handleBldgInfo, handleAddress }) => {
   let [overlay, handleOverlay] = useReducer(reduceOverlay, {
     show: false,
     data: [],
@@ -88,7 +83,7 @@ const BackgroundMap = ({
     let container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     let options = {
       // //지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(37.5662135, 126.984985), //지도의 중심좌표.
+      center: new window.kakao.maps.LatLng(37.5652135, 126.980985), //지도의 중심좌표.
       level: 2, //지도의 레벨(확대, 축소 정도)
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -99,7 +94,6 @@ const BackgroundMap = ({
     // window.kakao.maps.event.addListener(map, "click", onClick);
     window.kakao.maps.event.addListener(map, "center_changed", onCenterChanged);
     pushAddress(getMapState(), handleAddress);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -114,7 +108,6 @@ const BackgroundMap = ({
     } else {
       setNeedUpdateOverlay(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [need_update_overlay]);
 
   const onCenterChanged = (event) => {
@@ -124,13 +117,12 @@ const BackgroundMap = ({
     if (level <= 2) {
       setNeedUpdateOverlay(true);
     } else {
-      handleOverlay({ type: "remove start" });
+      handleOverlay({ type: "remove" });
     }
   };
 
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
-    overlay.data_pushed.map((each) => {
+    overlay.data.map((each) => {
       const content = document.getElementById(each.id);
       const position = each.center;
       const customOverlay = new window.kakao.maps.CustomOverlay({
@@ -138,21 +130,20 @@ const BackgroundMap = ({
         content: content,
         xAnchor: 0.5,
         yAnchor: 1.0,
-        clickable: false,
+        clickable: true,
       });
       info_bubbles[each.id] = customOverlay;
-      each.polygon.setMap(map);
       info_bubbles[each.id].setMap(map);
     });
   }, [overlay.data_pushed]);
 
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
     overlay.data_pushed.map((each) => {
+      each.polygon.setMap(map);
       handleKakaoListener({
         type: "create",
         id: each.id,
-        object: each.polygon,
+        object: info_bubbles[each.id],
         mouse_event: "mouseover",
         handler: () => handlePolygon({ type: "opaque", polygon: each.polygon }),
       });
@@ -176,54 +167,37 @@ const BackgroundMap = ({
     });
     console.log("update polygons:");
     console.log(overlay.data_pushed);
-    // console.log(info_bubbles);
     setNeedUpdateOverlay(false);
     // console.log(overlay);
   }, [overlay.data_pushed]);
 
   useEffect(() => {
-    if (is_clicked) {
-      handlePolygon({ type: "hide", polygon: overlay.clicked_data.polygon });
-      handleOverlay({ type: "click", clicked_data: overlay.clicked_data });
-      setIsClicked(false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [is_clicked]);
-
-  useEffect(() => {
-    console.log("time to remove?");
-    if (overlay.need_to_remove) {
-      // console.log(overlay);
-      console.log("time to remove");
-      // eslint-disable-next-line array-callback-return
-      overlay.data_removed.map((each) => {
-        handleKakaoListener({
-          type: "remove",
-          id: each.id,
-          object: each.polygon,
-          mouse_event: "mouseover",
-        });
-        handleKakaoListener({
-          type: "remove",
-          id: each.id,
-          object: each.polygon,
-          mouse_event: "mouseout",
-        });
-        handleKakaoListener({
-          type: "remove",
-          id: each.id,
-          object: each.polygon,
-          mouse_event: "click",
-        });
-        each.polygon.setMap(null);
-        info_bubbles[each.id].setMap(null);
-        delete info_bubbles[each.id];
+    overlay.data_removed.map((each) => {
+      handleKakaoListener({
+        type: "remove",
+        id: each.id,
+        object: each.polygon,
+        mouse_event: "mouseover",
       });
-      handleOverlay({ type: "remove end" });
-    }
-    // console.log(info_bubbles);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [overlay.need_to_remove]);
+      handleKakaoListener({
+        type: "remove",
+        id: each.id,
+        object: each.polygon,
+        mouse_event: "mouseout",
+      });
+      handleKakaoListener({
+        type: "remove",
+        id: each.id,
+        object: each.polygon,
+        mouse_event: "click",
+      });
+      each.polygon.setMap(null);
+      info_bubbles[each.id].setMap(null);
+      delete info_bubbles[each.id];
+      console.log(each.id);
+    });
+    // console.log(overlay);
+  }, [overlay.data_removed]);
 
   useEffect(() => {
     if (overlay.clicked_data.id !== -1) {
@@ -259,11 +233,7 @@ const BackgroundMap = ({
           handlePolygon({ type: "hide", polygon: new_polygon });
         },
       });
-      handleBldgInfo({ show: true, id: overlay.clicked_data.id });
-    } else {
-      handleBldgInfo({ show: false, id: overlay.clicked_data.id });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [overlay.clicked_data]);
 
   useEffect(() => {
@@ -326,11 +296,11 @@ const BackgroundMap = ({
     });
   };
 
-  // const onClick = () =>
-  //   handleBldgInfo({
-  //     active: true,
-  //     id: -1,
-  //   });
+  const onClick = () =>
+    handleBldgInfo({
+      active: true,
+      id: -1,
+    });
 
   return (
     <div className={cx("wrapper")}>
@@ -340,7 +310,6 @@ const BackgroundMap = ({
           <InfoBubble
             key={each.id}
             id={each.id}
-            handler={handlePolygon}
             data={{
               price: "2,000억",
               date: "'20. 03",

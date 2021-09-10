@@ -1,5 +1,5 @@
 import axios from "axios";
-import { _default, _avg } from "../util/alias";
+import { _default, _center } from "../util/alias";
 import { col_primary } from "../util/style";
 
 const convertGeoData = (map, data) => {
@@ -16,7 +16,8 @@ const convertGeoData = (map, data) => {
     lngs.push(lng);
     i += 2;
   }
-  let center = new window.kakao.maps.LatLng(_avg(lngs), _avg(lats));
+  let center_value = _center(lats, lngs);
+  let center = new window.kakao.maps.LatLng(center_value.y, center_value.x);
   let polygon = new window.kakao.maps.Polygon({
     map: map, // 다각형을 표시할 지도 객체
     path: path,
@@ -49,6 +50,7 @@ const reduceOverlay = (state, action) => {
       show: false,
       data: [],
       data_pushed: [],
+      need_to_remove: false,
       data_removed: [],
       is_clicked: false,
       clicked_data: { id: -1, polygon: -1 },
@@ -61,6 +63,7 @@ const reduceOverlay = (state, action) => {
       show: options.show,
       data: options.data,
       data_pushed: options.data_pushed,
+      need_to_remove: options.need_to_remove,
       data_removed: options.data_removed,
       is_clicked: options.is_clicked,
       clicked_data: options.clicked_data,
@@ -108,7 +111,7 @@ const reduceOverlay = (state, action) => {
       new_state = returnOverlay({
         show: true,
         data: state.data,
-        is_clicked: true,
+        is_clicked: is_clicked_new,
         clicked_data: new_clicked_data,
         clicked_data_before: state.clicked_data,
         map_base_state: state.map_base_state,
@@ -116,25 +119,44 @@ const reduceOverlay = (state, action) => {
       console.log("clicked an overlay:");
       console.log(new_state);
       return new_state;
-    case "remove":
+    case "remove start":
       if (state.show === false) {
         return state;
       } else {
         new_state = returnOverlay({
+          show: true,
+          data: state.data,
+          is_clicked: state.is_clicked,
+          clicked_data: state.clicked_data,
+          clicked_data_before: state.clicked_data_before,
           map_base_state: state.getMapState(),
+          need_to_remove: true,
           data_removed: state.data,
         });
-        console.log("removed all overlays:");
+        console.log("remove overlays start:");
         console.log(new_state);
         return new_state;
       }
+    case "remove end":
+      if (state.show === false) {
+        return state;
+      } else {
+        new_state = returnOverlay({
+          map_base_state: state.map_base_state,
+          data_removed: state.data_removed,
+        });
+        console.log("removed overlays:");
+        console.log(new_state);
+        return new_state;
+      }
+    default:
   }
 };
 
 const getOverlayData = async (map) => {
   console.log("request new overlay data.");
   let response = await axios.get(
-    "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/area.json"
+    "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/selected_area_sample.json"
   );
   let data_list = response.data;
   // console.log(data_list);
@@ -162,6 +184,7 @@ const handlePolygon = (action) => {
     case "show":
       action.polygon.setOptions({ fillOpacity: 0.5 });
       break;
+    default:
   }
 };
 

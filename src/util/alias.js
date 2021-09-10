@@ -9,14 +9,19 @@ export const _default = (options, default_json) => {
 
 export const _getBoundingBox = (x, y) => {
   return {
-    left: Math.min(x),
-    right: Math.max(x),
-    top: Math.min(y),
-    bottom: Math.max(y),
+    left: Math.min(...x),
+    right: Math.max(...x),
+    top: Math.min(...y),
+    bottom: Math.max(...y),
   };
 };
 
 export const _center = (x, y) => {
+  let bb = _getBoundingBox(x, y);
+  return { x: (bb.left + bb.right) / 2, y: (bb.top + bb.bottom) / 2 };
+};
+
+export const _centroid = (x, y) => {
   return { x: _avg(x), y: _avg(y) };
 };
 

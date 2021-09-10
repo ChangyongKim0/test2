@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
-import { About, Valuation } from "./pages";
+import { About, TestPage, Valuation } from "./pages";
 
 class App extends Component {
   render() {
@@ -13,6 +13,7 @@ class App extends Component {
         <Route exact path="/tips" component={Tips} />
         <Route path="/tips/new" component={NewTips} /> */}
         <Route path="/valuation" component={Valuation} />
+        <Route path="/testpage" component={TestPage} />
       </div>
     );
   }

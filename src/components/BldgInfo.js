@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import styles from "./BldgInfo.module.scss";
 import classNames from "classnames/bind";
+import InfoWindow from "./InfoWindow";
 
 const cx = classNames.bind(styles);
 
 const BldgInfo = ({ keys, vals }) => {
+  let [show_info, setShowInfo] = useState(false);
+
   useEffect(() => {
     // console.log(keys);
     // console.log(vals);
   });
+
   return (
     <div className={cx("wrapper")}>
       <div className={cx("block")}>
@@ -24,7 +28,24 @@ const BldgInfo = ({ keys, vals }) => {
           <p className={cx("vals")}>{vals.buy_price_date}</p>
         </div>
         <div>
-          <p className={cx("keys")}>{keys.noc}</p>
+          <div className={cx("with-info")}>
+            <p className={cx("keys")}>{keys.noc}</p>
+            <div className={cx("info-frame")}>
+              <p
+                className={cx("info")}
+                onMouseOver={() => setShowInfo(true)}
+                onMouseOut={() => setShowInfo(false)}
+              >
+                ⓘ
+              </p>
+              {}
+              <div className={cx("info-window")}>
+                <InfoWindow
+                  info={{ active: show_info, content: "이것은 인포윈도우!" }}
+                />
+              </div>
+            </div>
+          </div>
           <p className={cx("vals", "emph")}>{vals.noc}</p>
         </div>
       </div>

@@ -15,6 +15,21 @@
   pointer-events: auto;
 }
 
+.btn-close {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 19px;
+  right: 17px;
+  stroke: $col-txt-g1;
+  &:hover {
+    stroke: $col-bgd-1-hover;
+  }
+  &:active {
+    stroke: $col-bgd-1-pressed;
+  }
+}
+
 .box-btn {
   position: absolute;
   @include box(488px, 60px, 0px, auto, $col-bgd-1);

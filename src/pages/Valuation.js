@@ -1,4 +1,5 @@
-import React, { useEffect, useReducer } from "react";
+import React, { useEffect, useReducer, useState } from "react";
+import "../util/reset.css";
 // import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
 // import Location from "../components/location";
 import BackgroundMap from "../components/BackgroundMap";
@@ -54,21 +55,13 @@ let bldg_info_keys_sample = {
   },
 };
 
-const bldgInfoReducer = (state, action) => {
-  if (state.active === true && action.id === state.id) {
-    console.log("modal disappears.");
-    return { active: false };
-  } else {
-    console.log("modal updated.");
-    let new_keys = bldg_info_keys_sample;
-    let new_vals = bldg_info_vals_sample;
-    return {
-      active: true,
-      id: action.id,
-      keys: new_keys,
-      vals: new_vals,
-    };
-  }
+const reduceBldgInfo = (state, action) => {
+  return {
+    active: action.show,
+    id: action.id,
+    keys: bldg_info_keys_sample,
+    vals: bldg_info_vals_sample,
+  };
 };
 
 const addressReducer = (state, action) => {
@@ -77,12 +70,14 @@ const addressReducer = (state, action) => {
 };
 
 const Valuation = () => {
-  const [bldg_info, handleBldgInfo] = useReducer(bldgInfoReducer, {
+  const [bldg_info, handleBldgInfo] = useReducer(reduceBldgInfo, {
     active: false,
     id: -1,
     keys: bldg_info_keys_sample,
     vals: bldg_info_vals_sample,
   });
+
+  const [is_clicked, setIsClicked] = useState(false);
 
   const [address, handleAddress] = useReducer(addressReducer, "");
 
@@ -94,9 +89,15 @@ const Valuation = () => {
       <BackgroundMap
         handleBldgInfo={handleBldgInfo}
         handleAddress={handleAddress}
+        is_clicked={is_clicked}
+        setIsClicked={setIsClicked}
       />
       <div className={cx("modal-frame")}>
-        <BldgInfoModal info={bldg_info} handleBldgInfo={handleBldgInfo} />
+        <BldgInfoModal
+          info={bldg_info}
+          handleBldgInfo={handleBldgInfo}
+          setIsClicked={setIsClicked}
+        />
         <AddressModal address={address} />
       </div>
     </div>

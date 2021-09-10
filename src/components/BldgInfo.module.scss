@@ -25,6 +25,30 @@
   align-items: flex-start;
 }
 
+.with-info {
+  @include row(auto, auto, 5px);
+}
+
+.info-frame {
+  display: flex;
+  position: relative;
+  white-space: nowrap;
+}
+
+.info {
+  color: $col-txt-g1;
+  &:hover {
+    color: $col-txt-g2;
+  }
+}
+
+.info-window {
+  position: absolute;
+  bottom: 19px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .secondary,
 .construction {
   display: grid;

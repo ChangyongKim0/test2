@@ -13,3 +13,16 @@ button {
 button:active {
   border-style: none;
 }
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-style: none;
+}
+input:focus {
+  border-style: none;
+  outline: none;
+}
+p {
+  margin: 0px;
+}

@@ -5,21 +5,52 @@
 }
 
 $col-txt-b: #000000;
+$col-txt-g1: #1a1a1a;
+$col-txt-g2: #333333;
+$col-txt-g25: #404040;
+$col-txt-g3: #4d4d4d;
+$col-txt-g4: #666666;
+$col-txt-g5: #808080;
+$col-txt-g6: #999999;
+$col-txt-g7: #b3b3b3;
+$col-txt-g8: #cccccc;
+$col-txt-g9: #e6e6e6;
+$col-txt-g95: #f2f2f2;
 $col-txt-w: #ffffff;
-$col-txt-g0: #dddddd;
-$col-txt-g1: #cccccc;
-$col-txt-g2: #808080;
-$col-txt-g3: #333333;
-$col-txt-1: #93278f;
+$col-txt-1: #b74bdd;
+$col-txt-1: #7c4dff;
 
 $col-bgd-b: #000000;
+$col-bgd-g1: #1a1a1a;
+$col-bgd-g2: #333333;
+$col-bgd-g25: #404040;
+$col-bgd-g3: #4d4d4d;
+$col-bgd-g4: #666666;
+$col-bgd-g5: #808080;
+$col-bgd-g6: #999999;
+$col-bgd-g7: #b3b3b3;
+$col-bgd-g8: #cccccc;
+$col-bgd-g9: #e6e6e6;
+$col-bgd-g95: #f2f2f2;
 $col-bgd-w: #ffffff;
-$col-bgd-g3: #333333;
-$col-bgd-1: #93278f;
+$col-bgd-1: #b74bdd;
 $col-bgd-1-hover: #a726a2;
 $col-bgd-1-pressed: #850180;
+$col-bgd-2: #7c4dff;
 
-$col-brd-g1: #cccccc;
+$col-brd-b: #000000;
+$col-brd-g1: #1a1a1a;
+$col-brd-g2: #333333;
+$col-brd-g25: #404040;
+$col-brd-g3: #4d4d4d;
+$col-brd-g4: #666666;
+$col-brd-g5: #808080;
+$col-brd-g6: #999999;
+$col-brd-g7: #b3b3b3;
+$col-brd-g8: #cccccc;
+$col-brd-g9: #e6e6e6;
+$col-brd-g95: #f2f2f2;
+$col-brd-w: #ffffff;
 
 $col-shd-b: rgba(0, 0, 0, 0.15);
 $col-shd-w: #ffffff;
@@ -44,6 +75,80 @@ $font-xl: 1.25rem;
   font-size: $font-base;
   line-height: $font-base;
   margin: 0px;
+}
+
+@mixin txt-head {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: bold;
+  margin: 0px;
+}
+
+@mixin txt-body {
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 300;
+  margin: 0px;
+}
+
+@mixin txt-head-h1 {
+  @include txt-head;
+  font-size: 21px;
+  line-height: 30px;
+}
+
+@mixin txt-head-h15 {
+  @include txt-head;
+  font-size: 19px;
+  line-height: 28px;
+}
+
+@mixin txt-body-h2 {
+  @include txt-head;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin txt-head-h3 {
+  @include txt-head;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+@mixin txt-head-h4 {
+  @include txt-head;
+  font-size: 9px;
+  line-height: 13px;
+}
+
+@mixin txt-body-h1 {
+  @include txt-body;
+  font-size: 21px;
+  line-height: 30px;
+}
+
+@mixin txt-body-h2 {
+  @include txt-body;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin txt-body-h3 {
+  @include txt-body;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+@mixin txt-body-h4 {
+  @include txt-body;
+  font-size: 9px;
+  line-height: 13px;
+}
+
+@mixin txt-body-h5 {
+  @include txt-body;
+  font-size: 7px;
+  line-height: 10px;
 }
 
 @mixin column($w, $h, $gap) {
@@ -75,7 +180,7 @@ $font-xl: 1.25rem;
   width: $w;
   height: $h;
   background: $col-fill;
-  border: solid $col-border 2px;
+  border: solid $col-border 1px;
   border-radius: $r;
 }
 
@@ -88,7 +193,7 @@ $font-xl: 1.25rem;
   width: $w;
   height: $h;
   background: $col-fill;
-  border: solid $col-border 2px;
+  border: solid $col-border 1px;
   border-radius: $r;
 }
 

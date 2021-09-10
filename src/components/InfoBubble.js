@@ -6,14 +6,14 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const InfoBubble = ({ id, data }) => {
+const InfoBubble = ({ id, data, handler }) => {
   return (
-    <div>
+    <div className={cx("wrapper")}>
       <div id={id} className={cx("info-bubble")}>
         <InfoBubbleSvg
           className={cx("info-bubble-svg")}
-          width="98"
-          height="65"
+          width="98px"
+          height="65px"
           fill={col_w}
           stroke={col_primary}
           strokeWidth="1px"

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+// { useEffect }
 
 import styles from "./AddressModal.module.scss";
 import classNames from "classnames/bind";

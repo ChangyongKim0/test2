@@ -1,0 +1,36 @@
+@import "../util/style.scss";
+
+.wrapper {
+  position: relative;
+}
+.text-field {
+  display: block;
+  width: calc(100% - 20px);
+  &::placeholder {
+    color: $col-txt-g1;
+  }
+}
+
+.drop-down {
+  background-color: $col-bgd-w;
+  color: $col-txt-g3;
+  width: 200px;
+  margin: 0px;
+  padding: 0px;
+  z-index: 1;
+  position: absolute;
+  top: 30px;
+  list-style: none;
+  overflow: auto;
+  max-height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  & li[data-focus="true"] {
+    background-color: #4a8df6;
+    color: white;
+    cursor: pointer;
+  }
+  & li:active {
+    background-color: #2977f5;
+    color: white;
+  }
+}

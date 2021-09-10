@@ -1,0 +1,19 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include box(200px, 40px, 2px, $col-brd-g1, $col-bgd-w);
+  @include row(auto, auto, 0px);
+  @include txt-stl-2();
+  padding: 8px 16px;
+}
+
+.text-field {
+  width: calc(100% - 20px);
+  &::placeholder {
+    color: $col-txt-g1;
+  }
+}
+
+.icon {
+  width: 20px;
+}

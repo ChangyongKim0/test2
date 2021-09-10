@@ -15,6 +15,7 @@ const About = () => {
     handleState2({type:4});
     console.log(state);
     he();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   const he = () => {console.log("new"+state);}

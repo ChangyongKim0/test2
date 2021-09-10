@@ -1,6 +1,10 @@
 @import "../util/style.scss";
 
 .info-bubble {
+  pointer-events: none;
+}
+
+.info-bubble {
   @include textBox(auto, auto, none, none, none);
   position: relative;
 }
