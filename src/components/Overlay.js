@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ZIndexer from "../functions/Zindexer";
 
 import styles from "./Overlay.module.scss";
@@ -6,13 +6,15 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const Overlay = ({ open, background, animation, children }) => {
+const Overlay = ({ open, backdrop, animation, children }) => {
+  const [style, setStyle] = useState([]);
+
   if (open) {
     return (
       <ZIndexer>
         {({ zIndex }) => (
           <div
-            className={cx("wrapper")}
+            className={cx("wrapper", "backdrop")}
             zIndex={zIndex}
             backgroundColor={background.color}
           >
