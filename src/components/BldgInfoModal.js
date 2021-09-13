@@ -11,14 +11,14 @@ const cx = classNames.bind(styles);
 const BldgInfoModal = ({ info, handleBldgInfo, setIsClicked }) => {
   const [anime, setAnime] = useAnimation("a");
   useEffect(() => {
-    setAnime("b", 1000, info.active);
+    setAnime("close", 1000, info.active);
   }, [info.active]);
   if (anime.active === false) {
     return <></>;
   } else {
     return (
-      <div className={cx("wrapper", anime.name)}>
-        <div className={cx("modal")}>
+      <div className={cx("wrapper")}>
+        <div className={cx("modal", anime.name)}>
           <BldgInfo keys={info.keys} vals={info.vals} />
           <CloseSvg
             className={cx("btn-close")}

@@ -2,7 +2,7 @@ import { useReducer, useEffect } from "react";
 
 const useAnimation = (in_class_name) => {
   const reduceState = (state, action) => {
-    if (state.active === action.active) {
+    if (state.active === action.active && action.active == false) {
       return state;
     } else {
       return action;
@@ -16,11 +16,12 @@ const useAnimation = (in_class_name) => {
 
   const setAnime = (new_class_name, delay_unmount = 0, state) => {
     if (delay_unmount === 0 || state === true) {
-      handleState({ name: new_class_name, active: state });
+      handleState({ name: "", active: state });
     } else {
+      handleState({ name: new_class_name, active: true });
       setTimeout(() => {
         console.log("omg");
-        handleState({ name: new_class_name, active: false });
+        handleState({ name: "", active: false });
       }, delay_unmount);
     }
   };

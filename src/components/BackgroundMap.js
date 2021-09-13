@@ -182,7 +182,7 @@ const BackgroundMap = ({
   }, [overlay.data_pushed]);
 
   useEffect(() => {
-    if (is_clicked) {
+    if (is_clicked && overlay.clicked_data.id != -1) {
       handlePolygon({ type: "hide", polygon: overlay.clicked_data.polygon });
       handleOverlay({ type: "click", clicked_data: overlay.clicked_data });
       setIsClicked(false);
