@@ -7,10 +7,6 @@ import classNames from "classnames/bind";
 const cx = classNames.bind(styles);
 
 const BookMarkModal = ({ title, placeholder }) => {
-  title = title || "title";
-  placeholder = placeholder || "input";
-  console.log("1");
-
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title-field")}>
@@ -33,6 +29,11 @@ const BookMarkModal = ({ title, placeholder }) => {
       </div>
     </div>
   );
+};
+
+BookMarkModal.defaultProps = {
+  title: "title",
+  placeholder: "input",
 };
 
 export default BookMarkModal;

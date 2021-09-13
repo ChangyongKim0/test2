@@ -10,6 +10,8 @@ import classNames from "classnames/bind";
 import AddressSearcher from "../components/AddressSearcher";
 import UseAutocomplete from "../components/UseAutoComplete";
 import BookMarkModal from "../components/BookMarkModal";
+import SaveSuccessModal from "../components/SaveSuccessModal";
+import Overlay from "../components/Overlay";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -21,6 +23,7 @@ const TestPage = () => {
   });
   return (
     <div className={cx("wrapper")}>
+      <p className={cx("title")}>TEST PAGE</p>
       <p className={cx("title")}>UseAutoComplete</p>
       <UseAutocomplete />
       <p className={cx("title")}>AddressSearcher</p>
@@ -31,9 +34,14 @@ const TestPage = () => {
       <AddressModal address={"address"} />
       <p className={cx("title")}>BookMarkModal</p>
       <BookMarkModal />
-      <p></p>
-      <p></p>
+      <p className={cx("title")}>BookMarkModal with text</p>
+      <BookMarkModal title="밸류에이션 저장" placeholder="강남로 1, 210906-1" />
+      <p className={cx("title")}>SaveSuccessModal</p>
+      <SaveSuccessModal />
       <p className={cx("title")}>END OF PAGE</p>
+      <Overlay>
+        <SaveSuccessModal />
+      </Overlay>
     </div>
   );
 };

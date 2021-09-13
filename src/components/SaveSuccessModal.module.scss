@@ -1,0 +1,9 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include textBox(675px, 94px, 0px, none, $col-bgd-b);
+  @include txt-head;
+  font-size: 32px;
+  color: $col-txt-w;
+  opacity: 0.85;
+}
