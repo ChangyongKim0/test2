@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../util/reset.css";
 // import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
 // import Location from "../components/location";
@@ -20,7 +20,8 @@ const cx = classNames.bind(styles);
 const TestPage = () => {
   useEffect(() => {
     // console.log("useEffect");
-  });
+  }, []);
+
   return (
     <div className={cx("wrapper")}>
       <p className={cx("title")}>TEST PAGE</p>

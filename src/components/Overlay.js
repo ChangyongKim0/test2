@@ -16,7 +16,7 @@ const Overlay = ({ open, backdrop, animation, children }) => {
           <div
             className={cx("wrapper", "backdrop")}
             zIndex={zIndex}
-            backgroundColor={background.color}
+            backgroundColor={backdrop.color}
           >
             {children}
           </div>
@@ -30,7 +30,7 @@ const Overlay = ({ open, backdrop, animation, children }) => {
 
 Overlay.defaultProps = {
   open: true,
-  background: { color: "000000", opacity: "0.25" },
+  backdrop: { color: "000000", opacity: "0.25" },
   animation: { type: "dissolve", delay: "50" },
 };
 

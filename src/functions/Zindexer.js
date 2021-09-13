@@ -1,4 +1,4 @@
-import React, { useState, useContext, createContext } from "react";
+import React, { useState, useContext, createContext, useEffect } from "react";
 
 export const ZIndexContext = createContext({
   zIndexes: [],
@@ -22,6 +22,8 @@ export function ZIndexProvider({ children }) {
 
   const value = { zIndexes, addZIndex, removeZIndex };
 
+  console.log(zIndexes);
+
   return (
     <ZIndexContext.Provider value={value}>{children}</ZIndexContext.Provider>
   );
@@ -30,14 +32,25 @@ export function ZIndexProvider({ children }) {
 const defaultZIndex = 30;
 
 function ZIndexer({ children }) {
+  const [zIndex, setZIndex] = useState(-1);
   const { zIndexes, addZIndex, removeZIndex } = useContext(ZIndexContext);
 
-  const hasLastIndex = zIndexes.length > 0;
-  const nextZIndex = hasLastIndex
-    ? zIndexes[zIndexes.length - 1] + 1
-    : defaultZIndex;
+  useEffect(() => {
+    console.log(zIndexes);
+    const hasLastIndex = zIndexes.length > 0;
+    const nextZIndex = hasLastIndex
+      ? zIndexes[zIndexes.length - 1] + 1
+      : defaultZIndex;
 
-  return children({ zIndex: nextZIndex });
+    setZIndex(nextZIndex);
+    addZIndex(nextZIndex);
+
+    return () => {
+      removeZIndex(nextZIndex);
+    };
+  }, []);
+
+  return children({ zIndex });
 }
 
 export default ZIndexer;

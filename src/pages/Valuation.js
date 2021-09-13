@@ -8,6 +8,7 @@ import AddressModal from "../components/AddressModal";
 
 import styles from "./Valuation.module.scss";
 import classNames from "classnames/bind";
+import InfoBubble from "../components/InfoBubble";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -56,12 +57,16 @@ let bldg_info_keys_sample = {
 };
 
 const reduceBldgInfo = (state, action) => {
-  return {
-    active: action.show,
-    id: action.id,
-    keys: bldg_info_keys_sample,
-    vals: bldg_info_vals_sample,
-  };
+  if (state.show == action.show && action.show == false) {
+    return state;
+  } else {
+    return {
+      active: action.show,
+      id: action.id,
+      keys: bldg_info_keys_sample,
+      vals: bldg_info_vals_sample,
+    };
+  }
 };
 
 const addressReducer = (state, action) => {
