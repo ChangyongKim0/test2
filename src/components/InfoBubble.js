@@ -28,4 +28,10 @@ const InfoBubble = ({ id, data, handler }) => {
   );
 };
 
+InfoBubble.defaultProps = {
+  id: 1000,
+  data: { price: "price", date: "date", price_per_py: "price_per_py" },
+  handler: () => {},
+};
+
 export default InfoBubble;

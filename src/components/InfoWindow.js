@@ -18,4 +18,8 @@ const InfoWindow = ({ info }) => {
   }
 };
 
+InfoWindow.defaultProps = {
+  info: { active: true, content: "content" },
+};
+
 export default InfoWindow;

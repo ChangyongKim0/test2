@@ -1,22 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ZIndexer from "../functions/Zindexer";
+import useAnimation from "../hooks/useAnimation";
 
 import styles from "./Overlay.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const Overlay = ({ open, backdrop, animation, children }) => {
-  const [style, setStyle] = useState([]);
+const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
+  const new_backdrop = backdrop ? "backdrop" : "";
 
-  if (open) {
+  const [anime, setAnime] = useAnimation("");
+  useEffect(() => {
+    if (auto_close && open) {
+      setAnime("close", 1000, open);
+      setOpen("false");
+    } else {
+      setAnime("close", 0, open);
+    }
+  }, [open]);
+
+  if (anime.active) {
     return (
       <ZIndexer>
         {({ zIndex }) => (
           <div
-            className={cx("wrapper", "backdrop")}
+            className={cx("wrapper", anime.name, new_backdrop)}
             zIndex={zIndex}
-            backgroundColor={backdrop.color}
           >
             {children}
           </div>
@@ -30,8 +40,7 @@ const Overlay = ({ open, backdrop, animation, children }) => {
 
 Overlay.defaultProps = {
   open: true,
-  backdrop: { color: "000000", opacity: "0.25" },
-  animation: { type: "dissolve", delay: "50" },
+  backdrop: false,
 };
 
 export default Overlay;

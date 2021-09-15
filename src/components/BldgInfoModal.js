@@ -4,21 +4,16 @@ import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
 
 import styles from "./BldgInfoModal.module.scss";
 import classNames from "classnames/bind";
-import useAnimation from "../hooks/useAnimation";
 
 const cx = classNames.bind(styles);
 
 const BldgInfoModal = ({ info, handleBldgInfo, setIsClicked }) => {
-  const [anime, setAnime] = useAnimation("a");
-  useEffect(() => {
-    setAnime("close", 1000, info.active);
-  }, [info.active]);
-  if (anime.active === false) {
+  if (info.active === false) {
     return <></>;
   } else {
     return (
       <div className={cx("wrapper")}>
-        <div className={cx("modal", anime.name)}>
+        <div className={cx("modal")}>
           <BldgInfo keys={info.keys} vals={info.vals} />
           <CloseSvg
             className={cx("btn-close")}
@@ -34,6 +29,12 @@ const BldgInfoModal = ({ info, handleBldgInfo, setIsClicked }) => {
       </div>
     );
   }
+};
+
+BldgInfoModal.defaultProps = {
+  info: { active: true },
+  handleBldgInfo: (_) => {},
+  setIsClicked: (_) => {},
 };
 
 export default BldgInfoModal;

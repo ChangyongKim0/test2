@@ -354,4 +354,11 @@ const BackgroundMap = ({
   );
 };
 
+BackgroundMap.defaultProps = {
+  handleBldgInfo: (_) => {},
+  handleAddress: (_) => {},
+  is_clicked: false,
+  setIsClicked: (_) => {},
+};
+
 export default BackgroundMap;

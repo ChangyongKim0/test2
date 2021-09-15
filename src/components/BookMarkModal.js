@@ -3,10 +3,18 @@ import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
 
 import styles from "./BookMarkModal.module.scss";
 import classNames from "classnames/bind";
+import SaveSuccessModal from "./SaveSuccessModal";
+import Overlay from "./Overlay";
 
 const cx = classNames.bind(styles);
 
-const BookMarkModal = ({ title, placeholder }) => {
+const BookMarkModal = ({
+  title,
+  placeholder,
+  onClick1,
+  onClick2,
+  onClick3,
+}) => {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("title-field")}>
@@ -23,7 +31,7 @@ const BookMarkModal = ({ title, placeholder }) => {
       <div className={cx("btn-field")}>
         <button>닫기</button>
         <div className={cx("btn-list-save")}>
-          <button>저장 후 닫기</button>
+          <button onClick={onClick2}>저장 후 닫기</button>
           <button className={cx("emph")}>저장 후 비교</button>
         </div>
       </div>

@@ -11,13 +11,20 @@ import AddressSearcher from "../components/AddressSearcher";
 import UseAutocomplete from "../components/UseAutoComplete";
 import BookMarkModal from "../components/BookMarkModal";
 import SaveSuccessModal from "../components/SaveSuccessModal";
-import Overlay from "../components/Overlay";
+import BackgroundMap from "../components/BackgroundMap";
+import InfoBubble from "../components/InfoBubble";
+import BldgInfo from "../components/BldgInfo";
+import BldgInfoModal from "../components/BldgInfoModal";
+import InfoWindow from "../components/InfoWindow";
+import BarChart from "../components/BarChart";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
 // var map = new naver.maps.Map(mapDiv);
 
 const TestPage = () => {
+  const [SSM_open, setSSMOpen] = useState(false);
+
   useEffect(() => {
     // console.log("useEffect");
   }, []);
@@ -31,18 +38,48 @@ const TestPage = () => {
       <AddressSearcher />
       <p className={cx("title")}>Header</p>
       <Header nav_emph="map" />
+      <p className={cx("title")}>InfoBubble</p>
+      <InfoBubble />
+      <p className={cx("title")}>BackgroundMap</p>
+      <div className={cx("map-wrapper")}>
+        <BackgroundMap />
+      </div>
       <p className={cx("title")}>AddressModal</p>
       <AddressModal address={"address"} />
+      <p className={cx("title")}>InfoWindow</p>
+      <InfoWindow />
+      <p className={cx("title")}>BldgInfo</p>
+      <BldgInfo />
+      <p className={cx("title")}>BldgInfoModal</p>
+      <BldgInfoModal />
       <p className={cx("title")}>BookMarkModal</p>
-      <BookMarkModal />
+      <BookMarkModal
+        onClick2={() => {
+          setSSMOpen(true);
+        }}
+      />
       <p className={cx("title")}>BookMarkModal with text</p>
-      <BookMarkModal title="밸류에이션 저장" placeholder="강남로 1, 210906-1" />
+      <BookMarkModal
+        title="밸류에이션 저장"
+        placeholder="강남로 1, 210906-1"
+        onClick2={() => {
+          setSSMOpen(true);
+        }}
+      />
       <p className={cx("title")}>SaveSuccessModal</p>
-      <SaveSuccessModal />
+      {/* <SaveSuccessModal /> */}
+      <div
+        className={cx("event")}
+        onClick={() => {
+          setSSMOpen(true);
+        }}
+      >
+        CLICK_EVENT
+      </div>
+      <p className={cx("title")}>BarChart</p>
+      <BarChart />
+      <SaveSuccessModal open={SSM_open} setOpen={setSSMOpen} />
       <p className={cx("title")}>END OF PAGE</p>
-      <Overlay>
-        <SaveSuccessModal />
-      </Overlay>
     </div>
   );
 };

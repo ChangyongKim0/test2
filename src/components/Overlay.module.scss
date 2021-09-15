@@ -7,3 +7,17 @@
   height: 100vh;
   top: 0;
 }
+
+.close {
+  animation: fadeout 1s;
+  pointer-events: none;
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

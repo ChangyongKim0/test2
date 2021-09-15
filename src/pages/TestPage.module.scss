@@ -22,3 +22,23 @@
     color: $col-bgd-2;
   }
 }
+
+.event {
+  @include txt-head;
+  background-color: $col-bgd-g8;
+  padding: 15px;
+  color: $col-txt-w;
+  cursor: pointer;
+  &:hover {
+    background-color: $col-bgd-g9;
+  }
+  &:active {
+    background-color: $col-bgd-g8;
+  }
+}
+
+.map-wrapper {
+  width: 80%;
+  height: 80vh;
+  overflow: hidden;
+}

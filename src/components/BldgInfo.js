@@ -117,4 +117,48 @@ const BldgInfo = ({ keys, vals }) => {
   );
 };
 
+BldgInfo.defaultProps = {
+  vals: {
+    name: "name",
+    addr1: "addr1",
+    addr2: "addr2",
+    buy_price: "buy_price",
+    buy_price_date: "buy_price_date",
+    noc: "noc",
+    land_area: "land_area",
+    use_area: "use_area",
+    bldg_area: "bldg_area",
+    bldg_size: "bldg_size",
+    construction_year: "construction_year",
+    far: "far",
+    bcr: "bcr",
+    par: "par",
+    construction: {
+      far: "construction.far",
+      bcr: "construction.bcr",
+      height: "construction.height",
+      use_area: ["[use_area]"],
+    },
+  },
+
+  keys: {
+    buy_price: "최근 실거래가",
+    noc: "건물 명목 NOC",
+    land_area: "토지면적",
+    use_area: "용도지구",
+    bldg_area: "건물면적",
+    bldg_size: "건물규모",
+    construction_year: "준공년도",
+    far: "용적률",
+    bcr: "건폐율",
+    par: "전용률",
+    construction: {
+      far: "상한용적률",
+      bcr: "상한건폐율",
+      height: "높이제한",
+      use_area: "토지이용계획",
+    },
+  },
+};
+
 export default BldgInfo;
