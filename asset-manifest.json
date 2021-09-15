@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/test2/static/css/main.6dda8e31.chunk.css",
-    "main.js": "/test2/static/js/main.48ff7d9b.chunk.js",
-    "main.js.map": "/test2/static/js/main.48ff7d9b.chunk.js.map",
-    "runtime-main.js": "/test2/static/js/runtime-main.0d9b9f65.js",
-    "runtime-main.js.map": "/test2/static/js/runtime-main.0d9b9f65.js.map",
-    "static/js/2.8e970aa2.chunk.js": "/test2/static/js/2.8e970aa2.chunk.js",
-    "static/js/2.8e970aa2.chunk.js.map": "/test2/static/js/2.8e970aa2.chunk.js.map",
-    "static/js/3.716feaed.chunk.js": "/test2/static/js/3.716feaed.chunk.js",
-    "static/js/3.716feaed.chunk.js.map": "/test2/static/js/3.716feaed.chunk.js.map",
+    "main.css": "/test2/static/css/main.61466bed.chunk.css",
+    "main.js": "/test2/static/js/main.e7bafa3d.chunk.js",
+    "main.js.map": "/test2/static/js/main.e7bafa3d.chunk.js.map",
+    "runtime-main.js": "/test2/static/js/runtime-main.aaa9ebad.js",
+    "runtime-main.js.map": "/test2/static/js/runtime-main.aaa9ebad.js.map",
+    "static/js/2.95c5b9ac.chunk.js": "/test2/static/js/2.95c5b9ac.chunk.js",
+    "static/js/2.95c5b9ac.chunk.js.map": "/test2/static/js/2.95c5b9ac.chunk.js.map",
+    "static/js/3.f919ceaa.chunk.js": "/test2/static/js/3.f919ceaa.chunk.js",
+    "static/js/3.f919ceaa.chunk.js.map": "/test2/static/js/3.f919ceaa.chunk.js.map",
     "index.html": "/test2/index.html",
-    "static/css/main.6dda8e31.chunk.css.map": "/test2/static/css/main.6dda8e31.chunk.css.map",
-    "static/js/2.8e970aa2.chunk.js.LICENSE.txt": "/test2/static/js/2.8e970aa2.chunk.js.LICENSE.txt",
+    "static/css/main.61466bed.chunk.css.map": "/test2/static/css/main.61466bed.chunk.css.map",
+    "static/js/2.95c5b9ac.chunk.js.LICENSE.txt": "/test2/static/js/2.95c5b9ac.chunk.js.LICENSE.txt",
     "static/media/CloseSvg.e8dd2ffb.svg": "/test2/static/media/CloseSvg.e8dd2ffb.svg",
     "static/media/InfoBubbleSvg.61f0f015.svg": "/test2/static/media/InfoBubbleSvg.61f0f015.svg",
     "static/media/TriangleDownSvg.baabf1de.svg": "/test2/static/media/TriangleDownSvg.baabf1de.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.0d9b9f65.js",
-    "static/js/2.8e970aa2.chunk.js",
-    "static/css/main.6dda8e31.chunk.css",
-    "static/js/main.48ff7d9b.chunk.js"
+    "static/js/runtime-main.aaa9ebad.js",
+    "static/js/2.95c5b9ac.chunk.js",
+    "static/css/main.61466bed.chunk.css",
+    "static/js/main.e7bafa3d.chunk.js"
   ]
 }
