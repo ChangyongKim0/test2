@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../util/reset.css";
+import useToggleState from "../hooks/useToggle";
 // import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
 // import Location from "../components/location";
 import AddressModal from "../components/AddressModal";
@@ -17,6 +18,7 @@ import BldgInfo from "../components/BldgInfo";
 import BldgInfoModal from "../components/BldgInfoModal";
 import InfoWindow from "../components/InfoWindow";
 import BarChart from "../components/BarChart";
+import Dropdown from "../components/Dropdown";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -24,6 +26,10 @@ const cx = classNames.bind(styles);
 
 const TestPage = () => {
   const [SSM_open, setSSMOpen] = useState(false);
+  const [toggle_type_state, setTTState] = useToggleState({
+    SSM: false,
+    Dropdown: false,
+  });
 
   useEffect(() => {
     // console.log("useEffect");
@@ -78,6 +84,23 @@ const TestPage = () => {
       </div>
       <p className={cx("title")}>BarChart</p>
       <BarChart />
+      <p className={cx("title")}>Dropdown</p>
+      <div className={cx("relative")}>
+        <div
+          className={cx("event")}
+          onClick={() => {
+            setTTState("Dropdown");
+          }}
+        >
+          CLICK_EVENT
+        </div>
+        <Dropdown
+          open={toggle_type_state.Dropdown}
+          handleOpen={() => {
+            setTTState("Dropdown");
+          }}
+        ></Dropdown>
+      </div>
       <SaveSuccessModal open={SSM_open} setOpen={setSSMOpen} />
       <p className={cx("title")}>END OF PAGE</p>
     </div>

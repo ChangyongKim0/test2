@@ -1,0 +1,41 @@
+@import "../util/style.scss";
+
+.wrapper {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+}
+
+.open {
+  animation: open 300ms ease-out;
+  max-height: 100px;
+}
+
+.close {
+  animation: close 300ms ease-in;
+  max-height: 0px;
+}
+
+.children {
+  width: 100px;
+  height: 100px;
+  background-color: $col-bgd-g9;
+}
+
+@keyframes open {
+  from {
+    max-height: 0px;
+  }
+  to {
+    max-height: 100px;
+  }
+}
+
+@keyframes close {
+  from {
+    max-height: 100px;
+  }
+  to {
+    max-height: 0px;
+  }
+}

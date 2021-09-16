@@ -16,7 +16,7 @@ const useAnimation = (in_class_name) => {
 
   const setAnime = (new_class_name, delay_unmount = 0, state) => {
     if (delay_unmount === 0) {
-      handleState({ name: "", active: state });
+      handleState({ name: new_class_name, active: state });
     } else {
       handleState({ name: new_class_name, active: true });
       setTimeout(() => {
