@@ -165,6 +165,7 @@ const getOverlayData = async (map) => {
   const min_lng_code = Math.floor(min_lng * 400);
   const max_lat_code = Math.floor(max_lat * 400);
   const max_lng_code = Math.floor(max_lng * 400);
+
   // console.log(data_list);
   let new_data = [];
   let lat_code, lng_code;
