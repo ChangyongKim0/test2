@@ -6,7 +6,7 @@ const convertGeoData = (map, data) => {
   let path = [];
   let lats = [];
   let lngs = [];
-  let data_list = data.gmlPosList.split(" ");
+  let data_list = data.land_char_WFS["gml:posList"].split(" ");
   //   console.log(data_list);
   for (let i = 0; i < data_list.length; ) {
     let lat = parseFloat(data_list[i]);
@@ -27,9 +27,9 @@ const convertGeoData = (map, data) => {
   });
   handlePolygon({ type: "create", polygon: polygon });
   return {
-    id: data.NSDIPNU,
-    addr: data.NSDILNM_LNDCGR_SMBOL,
-    price: data.NSDIPBLNTF_PCLND,
+    id: data.pnu,
+    addr: "address needed",
+    price: data.land_price["NSDI:PBLNTF_PCLND"],
     polygon: polygon,
     center: center,
   };
@@ -154,17 +154,55 @@ const reduceOverlay = (state, action) => {
 };
 
 const getOverlayData = async (map) => {
+  let bounds = map.getBounds();
+  var min_lat = bounds.getSouthWest().getLat();
+  var min_lng = bounds.getSouthWest().getLng();
+  var max_lat = bounds.getNorthEast().getLat();
+  var max_lng = bounds.getNorthEast().getLng();
   console.log("request new overlay data.");
-  let response = await axios.get(
-    "https://raw.githubusercontent.com/ChangyongKim0/test2/master/src/data/selected_area_sample.json"
-  );
-  let data_list = response.data;
+  let response = [];
+  const min_lat_code = Math.floor(min_lat * 400);
+  const min_lng_code = Math.floor(min_lng * 400);
+  const max_lat_code = Math.floor(max_lat * 400);
+  const max_lng_code = Math.floor(max_lng * 400);
   // console.log(data_list);
   let new_data = [];
-  for (let i = 0; i < data_list.length; i++) {
-    let data = convertGeoData(map, data_list[i]);
-    new_data.push(data);
+  let lat_code, lng_code;
+  for (
+    lng_code = min_lng_code * 1 - 1;
+    lng_code <= max_lng_code * 1;
+    lng_code++
+  ) {
+    for (
+      lat_code = min_lat_code * 1 - 1;
+      lat_code <= max_lat_code * 1;
+      lat_code++
+    ) {
+      try {
+        response = await axios.get(
+          "https://raw.githubusercontent.com/ChangyongKim0/background_algorithms/master/data/land_data/dist/" +
+            lng_code +
+            "/" +
+            lat_code +
+            ".json"
+        );
+      } catch (err) {
+        if (err.response && err.response.status === 404) {
+          console.log("exist non-data area.");
+          response = { data: [] };
+        } else {
+          console.log("unexpected error occured");
+          response = { data: [] };
+        }
+      }
+      let data_list = response.data;
+      for (let i = 0; i < data_list.length; i++) {
+        let data = convertGeoData(map, data_list[i]);
+        new_data.push(data);
+      }
+    }
   }
+
   // console.log(new_data);
   console.log("get new overlay data.");
   return new_data;

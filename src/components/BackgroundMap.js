@@ -88,12 +88,15 @@ const BackgroundMap = ({
     let container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     let options = {
       // //지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(37.5662135, 126.984985), //지도의 중심좌표.
+      center: new window.kakao.maps.LatLng(37.497928, 127.027583), //지도의 중심좌표.
       level: 2, //지도의 레벨(확대, 축소 정도)
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    var zoomControl = new window.kakao.maps.ZoomControl();
+    map.addControl(zoomControl, window.kakao.maps.ControlPosition.BOTTOMRIGHT);
+
     handleOverlay({ type: "create", map: map, getMapState: getMapState });
-    getOverlayData().then((data) => {
+    getOverlayData(map).then((data) => {
       handleOverlay({ type: "update", data: data });
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
@@ -103,12 +106,17 @@ const BackgroundMap = ({
   }, []);
 
   useEffect(() => {
+    let bounds = map.getBounds();
+    var min_lat = bounds.getSouthWest().getLat();
+    var min_lng = bounds.getSouthWest().getLng();
+    var max_lat = bounds.getNorthEast().getLat();
+    var max_lng = bounds.getSouthWest().getLng();
     if (
       need_update_overlay &&
       (checkFarMove(overlay, getMapState(), 0.002, 0.004) ||
         overlay.show === false)
     ) {
-      getOverlayData().then((data) => {
+      getOverlayData(map).then((data) => {
         handleOverlay({ type: "update", data: data });
       });
     } else {

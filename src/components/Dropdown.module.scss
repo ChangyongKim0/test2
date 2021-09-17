@@ -7,12 +7,12 @@
 }
 
 .open {
-  animation: open 300ms ease-out;
+  animation: open 100ms ease-out;
   max-height: 100px;
 }
 
 .close {
-  animation: close 300ms ease-in;
+  animation: close 100ms ease-in;
   max-height: 0px;
 }
 
