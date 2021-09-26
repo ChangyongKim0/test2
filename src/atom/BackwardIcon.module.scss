@@ -1,0 +1,15 @@
+@import "../util/style.scss";
+
+.btn-backward {
+  position: absolute;
+  width: 14px;
+  height: 24px;
+  fill: $col-brd-g25;
+  stroke: $col-bgd-g25;
+  &:hover {
+    fill: $col-brd-g2;
+  }
+  &:active {
+    fill: $col-brd-g25;
+  }
+}

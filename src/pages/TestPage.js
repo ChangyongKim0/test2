@@ -19,6 +19,7 @@ import BldgInfoModal from "../components/BldgInfoModal";
 import InfoWindow from "../components/InfoWindow";
 import BarChart from "../components/BarChart";
 import Dropdown from "../components/Dropdown";
+import ValuationHeader from "../components/ValuationHeader";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -44,6 +45,11 @@ const TestPage = () => {
       <AddressSearcher />
       <p className={cx("title")}>Header</p>
       <Header nav_emph="map" />
+      <p className={cx("title")}>Header without AddressSearcher</p>
+      <Header nav_emph="map" is_searchable={false} />
+      <p className={cx("title")}>ValuationHeader</p>
+      <ValuationHeader />
+
       <p className={cx("title")}>InfoBubble</p>
       <InfoBubble />
       <p className={cx("title")}>BackgroundMap</p>

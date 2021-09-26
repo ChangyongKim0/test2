@@ -6,8 +6,8 @@ import AddressSearcher from "./AddressSearcher";
 
 const cx = classNames.bind(styles);
 
-const Header = ({ nav_emph }) => {
-  const nav_list = ["map", "navigation"];
+const Header = ({ nav_emph, is_searchable }) => {
+  const nav_list = ["map", "valuation"];
   let nav_emph_list = {};
   // eslint-disable-next-line array-callback-return
   nav_list.map((e) => {
@@ -26,11 +26,16 @@ const Header = ({ nav_emph }) => {
           <p className={cx(nav_emph_list.map)}>지도</p>
           <p>밸류에이션</p>
         </div>
-        <AddressSearcher />
+        {!is_searchable || <AddressSearcher />}
       </div>
       <div className={cx("other icon")}>BOOKMARK</div>
     </div>
   );
+};
+
+Header.defaultProps = {
+  nav_emph: "map",
+  is_searchable: true,
 };
 
 export default Header;

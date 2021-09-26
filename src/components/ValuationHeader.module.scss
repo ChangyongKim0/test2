@@ -1,0 +1,41 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include box(100%, 58px, 0px, none, $col-bgd-w);
+  @include row(auto, 58px, 0px);
+  border-bottom: 1px solid $col-brd-g1;
+  width: 100%;
+  justify-content: space-between;
+  @include txt-stl-2();
+}
+
+.frame {
+  @include row(auto, auto, 15px);
+}
+
+.navigation {
+  @include row(auto, 40px, 0px);
+  &.emph {
+    color: blue;
+  }
+  & > * {
+    @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
+    padding: 8px 16px;
+    &:hover:not(.emph) {
+      background-color: $col-bgd-g95;
+    }
+    &.emph {
+      border-color: $col-bgd-2;
+      color: $col-txt-2;
+    }
+  }
+  & > :first-child {
+    border-radius: 2px 0px 0px 2px;
+  }
+  & > :not(:first-child) {
+    border-left: 0px;
+  }
+  & > :last-child {
+    border-radius: 0px 2px 2px 0px;
+  }
+}
