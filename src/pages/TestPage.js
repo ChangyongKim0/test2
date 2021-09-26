@@ -20,10 +20,15 @@ import InfoWindow from "../components/InfoWindow";
 import BarChart from "../components/BarChart";
 import Dropdown from "../components/Dropdown";
 import ValuationHeader from "../components/ValuationHeader";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
 // var map = new naver.maps.Map(mapDiv);
+
+const newFunction = () => {
+  axios.get('/api')
+}
 
 const TestPage = () => {
   const [SSM_open, setSSMOpen] = useState(false);
@@ -96,6 +101,7 @@ const TestPage = () => {
           className={cx("event")}
           onClick={() => {
             setTTState("Dropdown");
+            newFunction();
           }}
         >
           CLICK_EVENT
