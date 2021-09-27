@@ -152,6 +152,72 @@ $font-xl: 1.25rem;
   line-height: 10px;
 }
 
+@mixin txt-bold{
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: bold;
+  margin: 0px;
+}
+
+@mixin txt-regular{
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: normal;
+  margin: 0px;
+}
+
+@mixin txt-light{
+  font-family: "Noto Sans KR";
+  font-style: normal;
+  font-weight: 300;
+  margin: 0px;
+}
+
+@mixin txt-28{
+  font-size: 28px;
+  line-height: 41px;
+}
+
+@mixin txt-21{
+  font-size: 21px;
+  line-height: 30px;
+}
+
+@mixin txt-19{
+  font-size: 19px;
+  line-height: 28px;
+}
+
+@mixin txt-17{
+  font-size: 17px;
+  line-height: 25px;
+}
+
+@mixin txt-14{
+  font-size: 14px;
+  line-height: 20px;
+}
+
+@mixin txt-12{
+  font-size: 12px;
+  line-height: 17px;
+}
+
+@mixin txt-11{
+  font-size: 11px;
+  line-height: 16px;
+}
+
+@mixin txt-9{
+  font-size: 9px;
+  line-height: 13px;
+}
+
+@mixin txt-7{
+  font-size: 7px;
+  line-height: 10px;
+}
+
 @mixin column($w, $h, $gap) {
   display: flex;
   flex-direction: column;

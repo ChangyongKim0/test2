@@ -21,6 +21,7 @@ import BarChart from "../components/BarChart";
 import Dropdown from "../components/Dropdown";
 import ValuationHeader from "../components/ValuationHeader";
 import axios from "axios";
+import CtaButton from "../atom/CtaButton";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -113,6 +114,48 @@ const TestPage = () => {
           }}
         ></Dropdown>
       </div>
+      <p className={cx("title")}>CtaButton</p>
+      <CtaButton/>
+      <p className={cx("title")}>CtaButton with data</p>
+      <CtaButton size="small" icon="none" shape="round" background="color" is_clickable={false}>
+          클릭불가형태
+      </CtaButton>
+      <CtaButton size="small" icon="none" shape="round" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="medium" icon="none" shape="round" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="big" icon="none" shape="round" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="small" icon="chart" shape="square" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="medium" icon="chart" shape="square" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="big" icon="chart" shape="square" background="color">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="small" icon="change" shape="round" background="white">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="medium" icon="change" shape="round" background="white">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="big" icon="change" shape="round" background="white">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="small" icon="default" shape="round" background="transparent">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="medium" icon="default" shape="round" background="transparent">
+          밸류에이션 저장
+      </CtaButton>
+      <CtaButton size="big" icon="default" shape="round" background="transparent">
+          밸류에이션 저장
+      </CtaButton>
       <SaveSuccessModal open={SSM_open} setOpen={setSSMOpen} />
       <p className={cx("title")}>END OF PAGE</p>
     </div>

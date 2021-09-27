@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 const BackwardIcon = ({ link_to }) => {
   return (
-    <Link to={link_to}>
+    <Link to={"/valuation"}>
       <BackwardSvg className={cx("btn-backward")} />
     </Link>
   );

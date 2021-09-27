@@ -6,11 +6,35 @@
   border-bottom: 1px solid $col-brd-g1;
   width: 100%;
   justify-content: space-between;
-  @include txt-stl-2();
 }
 
-.frame {
+.frame-left {
   @include row(auto, auto, 15px);
+  margin-left: 34px;
+}
+
+.frame-right {
+  @include row(auto, auto, 10px);
+  margin-right: 11px;
+}
+
+.title-frame{
+  position: absolute;
+  width: 100%;
+  @include row(auto, auto, 25px);
+  justify-content: center;
+}
+
+.title{
+  @include txt-bold();
+  @include txt-21();
+  color: $col-txt-g2;
+}
+
+.sub-title{
+  @include txt-bold();
+  @include txt-19();
+  color: $col-txt-g7;
 }
 
 .navigation {

@@ -1,15 +1,86 @@
 @import "../util/style.scss";
 
-.btn-backward {
-  position: absolute;
-  width: 14px;
-  height: 24px;
-  fill: $col-brd-g25;
-  stroke: $col-bgd-g25;
-  &:hover {
-    fill: $col-brd-g2;
+.btn {
+  @include txt-bold;
+  align-items: center;
+  justify-content: center;
+}
+
+.is-clickable{
+  cursor: pointer;
+}
+
+.size{
+  &-small{
+    padding: 8px 16px;
+    @include row(auto, 20px, 5px);
+    & *{
+      @include txt-14;
+    }
   }
-  &:active {
-    fill: $col-brd-g25;
+  &-medium{
+    padding: 10px 24px;
+    & *{
+    @include txt-17;}
+    @include row(auto, 25px, 7.5px);
+  }
+  &-big{
+    padding: 10px 0px;
+    width: 300px;
+    & *{
+    @include txt-19;}
+    @include row(auto, 28px, 10px);
+  }
+} 
+
+.shape{
+  &-square{
+    border-radius: 5px;
+  }
+  &-round{
+    border-radius: 100px;
+  }
+}
+
+.background{
+  &-color{
+    background-color: $col-bgd-2;
+    color: $col-txt-w;
+  }
+  &-white{
+    background-color: $col-bgd-w;
+    color: $col-txt-g2;
+  }
+  &-transparent{
+    background-color: none;
+    color: $col-txt-g3;
+  }
+}
+
+.svg{
+  &-size{
+    &-small{
+      width: 20px;
+      height: 20px;
+    }
+    &-medium{
+      width: 24px;
+      height: 24px;
+    }
+    &-big{
+      width: 28px;
+      height: 28px;
+    }
+  }
+  &-background{
+    &-color{
+      fill: $col-txt-w;
+    }
+    &-white{
+      fill: $col-txt-g2;
+    }
+    &-transparent{
+      fill: $col-txt-g3;
+    }
   }
 }

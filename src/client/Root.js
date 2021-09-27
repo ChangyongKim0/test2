@@ -1,12 +1,12 @@
 import React from "react";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 //  BrowserRouter,
 import App from "../App";
 
 const Root = () => (
-  <HashRouter>
+  <BrowserRouter>
     <App />
-  </HashRouter>
+  </BrowserRouter>
 );
 
 export default Root;
