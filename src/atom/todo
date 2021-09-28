@@ -1,0 +1,108 @@
+### AssumptionCard
+
+- use_mini_map: True / False
+- mini_map
+-- center, pnu
+- data
+-- [title, sub_title
+-- total_info
+--- [value, unit]
+-- title, base, base_unit, value, unit
+-- is_placeholder
+--- base: True / False
+--- value: True / False
+-- onKeyUp
+--- Base
+--- Value
+-- type: default / total
+]
+- style: white, border
+- use_plus: True / False
+- handlePlus
+
+AssumptionText.defaultProps = {
+  use_mini_map: "false",
+  minimap: { center: "0,0", pnu: "0" },
+  title: "title",
+  sub_title: "sub_title",
+  total_info: [{ value: "value", unit: "unit" }],
+  data: [
+    {
+      title: "title",
+      base: "base",
+      base_unit: "unit",
+      value: "value",
+      value_unit: "unit",
+      is_placeholder:{
+          base: true,
+          value: true,
+      },
+      onKeyUp:{
+          Base: () => {},
+          Value: () => {},
+      },
+      type: "total",
+    },
+    {
+      title: "title",
+      base: "base",
+      base_unit: "unit",
+      value: "value",
+      value_unit: "unit",
+      is_placeholder:{
+          base: true,
+          value: true,
+      },
+      onKeyUp:{
+          Base: () => {},
+          Value: () => {},
+      },
+      type: "default",
+    },
+  ],
+  style: "white",
+  
+};
+
+### AddModal
+
+- title, input, condition, value
+- onClick
+-- Close, Add
+
+### ValuationCompCard
+
+- data
+-- detail
+--- [[title, value, tooltip
+--- use_tooltip: True / False
+--- use_toggle: True / False
+--- toggle_content
+---- [title, value, unit, second_value, second_unit]
+-- total
+--- [title, value, unit]
+
+### ValuationCompText
+
+- style: default / detail / total
+- use_tooltip: True / False
+- use_toggle: True / False
+- tooltip
+- title, value, unit, second_value, second_unit
+- toggle_content <=children
+
+LandDataCompText
+
+- style: default
+- use_tooltip: True / False
+- tooltip
+- title, value, unit
+- onClick
+-- Close, GoOver
+
+### LandDataCompCard
+
+- data
+-- [[title, value, tooltip
+-- use_tooltip: True / False
+-- use_toggle: True / False
