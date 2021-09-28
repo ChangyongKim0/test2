@@ -14,4 +14,8 @@ const AddressModal = ({ address }) => {
   );
 };
 
+AddressModal.defaultProps = {
+  address: "address",
+};
+
 export default AddressModal;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import styles from "./BldgInfo.module.scss";
 import classNames from "classnames/bind";
-import InfoWindow from "./InfoWindow";
+import ToolTip from "./ToolTip";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +40,7 @@ const BldgInfo = ({ keys, vals }) => {
               </p>
               {}
               <div className={cx("info-window")}>
-                <InfoWindow
+                <ToolTip
                   info={{ active: show_info, content: "이것은 인포윈도우!" }}
                 />
               </div>

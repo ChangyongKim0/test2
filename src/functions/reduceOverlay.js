@@ -1,6 +1,6 @@
 import axios from "axios";
 import { _default, _center } from "../util/alias";
-import { col_primary } from "../util/style";
+import { col_secondary } from "../util/style";
 
 const convertGeoData = (map, data) => {
   let path = [];
@@ -212,7 +212,7 @@ const getOverlayData = async (map) => {
 const handlePolygon = (action) => {
   switch (action.type) {
     case "create":
-      action.polygon.setOptions({ fillColor: col_primary });
+      action.polygon.setOptions({ fillColor: col_secondary });
       break;
     case "hide":
       action.polygon.setOptions({ fillOpacity: 0.001 });

@@ -16,7 +16,7 @@ import BackgroundMap from "../components/BackgroundMap";
 import InfoBubble from "../components/InfoBubble";
 import BldgInfo from "../components/BldgInfo";
 import BldgInfoModal from "../components/BldgInfoModal";
-import InfoWindow from "../components/InfoWindow";
+import ToolTip from "../components/ToolTip";
 import BarChart from "../components/BarChart";
 import Dropdown from "../components/Dropdown";
 import ValuationHeader from "../components/ValuationHeader";
@@ -25,6 +25,8 @@ import CtaButton from "../atom/CtaButton";
 import useModalStack from "../hooks/useModal";
 import ComparisonHeader from "../components/ComparisonHeader";
 import ValuationFooter from "../components/ValuationFooter";
+import AssumptionText from "../components/AssumptionText";
+import ValuationCompText from "../components/ValuationCompText";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -128,6 +130,111 @@ const ctaButtonBundle = () => {
   );
 };
 
+const assumptionTextBundle = () => {
+  return (
+    <>
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "5",
+          base_unit: "\u00A0%",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: true,
+          value: true,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "",
+          base_unit: "",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: false,
+          value: true,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "5",
+          base_unit: "\u00A0%",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: true,
+          value: false,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "5",
+          base_unit: "\u00A0%",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: false,
+          value: true,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "",
+          base_unit: "",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: false,
+          value: false,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "5",
+          base_unit: "\u00A0%",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: false,
+          value: false,
+        }}
+        type="default"
+      />
+      <AssumptionText
+        data={{
+          title: "매매비용 계",
+          base: "5",
+          base_unit: "\u00A0%",
+          value: "3,200",
+          value_unit: "억 원",
+        }}
+        is_placeholder={{
+          base: true,
+          value: true,
+        }}
+        type="total"
+      />
+    </>
+  );
+};
+
 const TestPage = () => {
   const [SSM_open, setSSMOpen] = useState(false);
   const [toggle_type_state, setTTState] = useToggleState({
@@ -180,8 +287,8 @@ const TestPage = () => {
         </div>
         <p className={cx("title")}>AddressModal</p>
         <AddressModal address={"address"} />
-        <p className={cx("title")}>InfoWindow</p>
-        <InfoWindow />
+        <p className={cx("title")}>ToolTip</p>
+        <ToolTip />
         <p className={cx("title")}>BldgInfo</p>
         <BldgInfo />
         <p className={cx("title")}>BldgInfoModal</p>
@@ -241,6 +348,45 @@ const TestPage = () => {
             { title: "수익률", value: "4.34", unit: "%" },
           ]}
         />
+        <div className={cx("background")}>
+          <div className={cx("background-white")}>
+            <p className={cx("title")}>AssumptionText</p>
+            <AssumptionText />
+            {assumptionTextBundle()}
+            <p className={cx("title")}>ValuationCompText</p>
+            <ValuationCompText />
+            <ValuationCompText style="detail" />
+          </div>
+          <div className={cx("background-dark")}>
+            <ValuationCompText style="total" />
+          </div>
+          <div className={cx("background-white")}>
+            <ValuationCompText
+              style="default"
+              data={{ title: "최근 실거래가", value: "2,000", unit: "억 원" }}
+            />
+            <ValuationCompText
+              style="detail"
+              data={{
+                title: "취득세 등 부대비용",
+                value: "18,000",
+                unit: "백만 원",
+                second_value: "5.5",
+                second_unit: "\u00A0%",
+              }}
+            />
+          </div>
+          <div className={cx("background-dark")}>
+            <ValuationCompText
+              style="total"
+              data={{
+                title: "매각예상가",
+                value: "5,500",
+                unit: "억 원",
+              }}
+            />
+          </div>
+        </div>
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>

@@ -1,11 +1,11 @@
 import { ReactComponent as TriangleDownSvg } from "../atom/TriangleDownSvg.svg";
 
-import styles from "./InfoWindow.module.scss";
+import styles from "./ToolTip.module.scss";
 import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const InfoWindow = ({ info }) => {
+const ToolTip = ({ info }) => {
   if (!info.active) {
     return <></>;
   } else {
@@ -18,8 +18,8 @@ const InfoWindow = ({ info }) => {
   }
 };
 
-InfoWindow.defaultProps = {
+ToolTip.defaultProps = {
   info: { active: true, content: "content" },
 };
 
-export default InfoWindow;
+export default ToolTip;

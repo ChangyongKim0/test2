@@ -1,15 +1,78 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include column(100%, none, 0px);
-  width: 100%;
+  @include row(90px, 24px, 0px);
+  width: 290px;
+  height: 28px;
+  justify-content: space-between;
+  border-radius: 5px;
+  &:hover{
+    background-color: $col-bgd-g95;
+  }
+  padding: 2px 0px;
+  & > * {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      overflow: hidden; 
+  }
 }
 
-.modal {
-  @include textBox(300px, 30px, 15px, none, $col-bgd-w);
-  @include txt-stl-2;
-  align-items: center;
-  text-align: center;
-  pointer-events: auto;
-  box-shadow: 7px 7px 5px $col-shd-b;
+.type {
+   &-default {
+    * {
+        @include txt-regular();
+        @include txt-12();
+        color: $col-txt-g3;
+        &::placeholder{
+            color: $col-txt-g3;
+        }
+    }
+   } 
+   &-total {
+    * {
+        @include txt-bold();
+        @include txt-14();
+        color: $col-txt-g2;
+        &::placeholder{
+            color: $col-txt-g2;
+        }
+    }
+   } 
+}
+
+.frame { 
+    @include row(auto, auto, 0px);
+    height: 24px;
+    width: 200px;
+    padding-right: 6px;
+    justify-content: flex-end;
+}
+
+.blob {
+    border-radius: 5px;
+    background-color: $col-bgd-g95;
+}
+
+.input {
+    background-color: transparent;
+    width: 70px;
+    &:focus::-webkit-input-placeholder{
+        color: $col-txt-g8;
+    }
+    text-align: right;
+    padding: 0px;
+}
+
+.text {
+    text-align: right;
+}
+
+.frame-left{
+    @include row(auto, auto, 0px);
+    padding-left: 6px;
+}
+
+.title{
+    text-align: left;
 }
