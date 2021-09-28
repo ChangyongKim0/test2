@@ -73,8 +73,8 @@ const ValuationHeader = ({
 };
 
 ValuationHeader.defaultProps = {
-  title: "address",
-  sub_title: "sub_address",
+  title: "title",
+  sub_title: "sub_title",
   saved_name: "saved_name",
   onClick: {
     Backward: () => {},
@@ -86,17 +86,3 @@ export default ValuationHeader;
 
 // ValuationHeader Scheme
 // - title, sub_title, saved_name, onClickBackward
-
-// ComparisonHeader Scheme
-// - title
-// - onClick
-// -- Backward, ChangeUnit
-
-// ValuationFooter Scheme
-// - data
-// -- period, sell_price, return
-// - onClickExtractExcel
-
-// MiniMap Scheme
-// - center, level, pnu
-// - shape: round / square

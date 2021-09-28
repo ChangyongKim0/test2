@@ -51,9 +51,10 @@ $col-brd-g8: #cccccc;
 $col-brd-g9: #e6e6e6;
 $col-brd-g95: #f2f2f2;
 $col-brd-w: #ffffff;
+$col-brd-2: #7c4dff;
 
 $col-shd-b: rgba(0, 0, 0, 0.15);
-$eff-shd-1: 6px 6px 20px rgba(0, 0, 0, 0.05);
+$eff-shd-1: 4px 6px 22px rgba(0, 0, 0, 0.03);
 $col-shd-w: #ffffff;
 
 $font-xs: 0.75rem;
@@ -175,47 +176,56 @@ $font-xl: 1.25rem;
 
 @mixin txt-28{
   font-size: 28px;
-  line-height: 41px;
+  line-height: 28px;
+  // line-height: 41px;
 }
 
 @mixin txt-21{
   font-size: 21px;
-  line-height: 30px;
+  line-height: 21px;
+  // line-height: 30px;
 }
 
 @mixin txt-19{
   font-size: 19px;
-  line-height: 28px;
+  line-height: 19px;
+  // line-height: 28px;
 }
 
 @mixin txt-17{
   font-size: 17px;
-  line-height: 25px;
+  line-height: 17px;
+  // line-height: 25px;
 }
 
 @mixin txt-14{
   font-size: 14px;
+  line-height: 14px;
   line-height: 20px;
 }
 
 @mixin txt-12{
   font-size: 12px;
-  line-height: 17px;
+  line-height: 12px;
+  // line-height: 17px;
 }
 
 @mixin txt-11{
   font-size: 11px;
-  line-height: 16px;
+  line-height: 11px;
+  // line-height: 16px;
 }
 
 @mixin txt-9{
   font-size: 9px;
-  line-height: 13px;
+  line-height: 9px;
+  // line-height: 13px;
 }
 
 @mixin txt-7{
   font-size: 7px;
-  line-height: 10px;
+  line-height: 7px;
+  // line-height: 10px;
 }
 
 @mixin column($w, $h, $gap) {

@@ -1,0 +1,43 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include box(100%, 119px, 0px, none, $col-bgd-g25);
+  @include row(auto, auto, 0px);
+  width: 100%;
+  justify-content: space-between;
+  z-index: 2;
+  padding-left: 29px;
+  padding-right: 36.5px;
+  color: $col-txt-w;
+}
+
+.frame-left {
+  @include row(auto, auto, 70px);
+}
+
+.frame-data{
+    @include column(auto, auto, 0px);
+}
+
+.title{
+    width: 100%;
+  @include txt-regular();
+  @include txt-17();
+  text-align: left;
+}
+
+.frame-value{
+    @include row(auto, auto, 6px);
+}
+
+.value{
+    @include txt-bold();
+  font-size: 40px;
+  line-height: 58px;
+}
+
+.unit{
+    @include txt-bold();
+    @include txt-28();
+    line-height: 40.5px;
+}

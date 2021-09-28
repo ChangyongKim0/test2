@@ -6,18 +6,11 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const InfoBubble = ({ id, data, handler }) => {
+const InfoBubble = ({ id, data, onClick }) => {
   return (
     <div className={cx("wrapper")}>
       <div id={id} className={cx("info-bubble")}>
-        <InfoBubbleSvg
-          className={cx("info-bubble-svg")}
-          width="98px"
-          height="65px"
-          fill={col_w}
-          stroke={col_primary}
-          strokeWidth="1px"
-        />
+        <InfoBubbleSvg className={cx("info-bubble-svg")} />
         <div className={cx("frame")}>
           <div className={cx("title")}>{data.price}</div>
           <div>{data.date}</div>
@@ -31,7 +24,7 @@ const InfoBubble = ({ id, data, handler }) => {
 InfoBubble.defaultProps = {
   id: 1000,
   data: { price: "price", date: "date", price_per_py: "price_per_py" },
-  handler: () => {},
+  onClick: () => {},
 };
 
 export default InfoBubble;

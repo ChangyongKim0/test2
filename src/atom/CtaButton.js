@@ -8,40 +8,59 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const CtaButton = ({ id, size, icon, shape, background, onClick, children, is_clickable}) => {
+const CtaButton = ({
+  id,
+  size,
+  icon,
+  shape,
+  background,
+  onClick,
+  children,
+  border,
+  is_clickable,
+}) => {
   let class_list = [
-    "size-"+size,
-    "icon-"+icon,
-    "shape-"+shape,
-    "background-"+background,
+    "size-" + size,
+    "icon-" + icon,
+    "shape-" + shape,
+    "background-" + background,
+    "border-" + border,
   ];
 
-  if (is_clickable){
-    class_list.push("is-clickable")
+  if (is_clickable) {
+    class_list.push("is-clickable");
   }
 
   const selectSvg = () => {
-    const css_style = cx("svg-size-"+size, "svg-background-"+background);
-    switch(icon) {
+    const css_style = cx("svg-size-" + size, "svg-background-" + background);
+    switch (icon) {
       case "default":
-        return <ChartSvg className={css_style}/>;
+        return <ChartSvg className={css_style} />;
       case "change":
-        return <ChangeSvg className={css_style}/>;
+        return <ChangeSvg className={css_style} />;
       case "chart":
-        return <ChartSvg className={css_style}/>;
+        return <ChartSvg className={css_style} />;
       default:
         return <></>;
     }
-  }
+  };
 
   const putCTALog = () => {
-    console.log("cta button ["+id+"] is clicked!!!")
-  }
+    console.log("cta button [" + id + "] is clicked!!!");
+  };
 
   return (
-    <div onClick={()=>{onClick(); putCTALog();}} className={cx("btn", ...class_list)}>
+    <div
+      onClick={() => {
+        onClick();
+        putCTALog();
+      }}
+      className={cx("btn", ...class_list)}
+    >
       {selectSvg()}
-      <div>{children}</div>
+      <div className={cx("frame-text")}>
+        <div>{children}</div>
+      </div>
     </div>
   );
 };
@@ -52,17 +71,18 @@ CtaButton.defaultProps = {
   icon: "none",
   shape: "square",
   background: "color",
+  border: "none",
   onClick: () => {},
   children: "children",
-  is_clickable: true
-}
+  is_clickable: true,
+};
 
 export default CtaButton;
 
 // CTAButton Scheme
 // - size: small / medium / big
-// - icon: none / default / change / chart / 
-// - shape: round / square 
+// - icon: none / default / change / chart /
+// - shape: round / square
 // - background: color / white / transparent
 // - onClick
 // - text <= children

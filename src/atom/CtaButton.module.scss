@@ -46,15 +46,28 @@
   &-color{
     background-color: $col-bgd-2;
     color: $col-txt-w;
+    box-shadow: $eff-shd-1;
   }
   &-white{
     background-color: $col-bgd-w;
     color: $col-txt-g2;
+    box-shadow: $eff-shd-1;
   }
   &-transparent{
     background-color: none;
     color: $col-txt-g3;
   }
+}
+
+.border{
+  &-gray{
+    border: 0.5px solid $col-brd-g7;
+    box-sizing: border-box;
+  }
+}
+
+.frame-text{
+  @include row(auto, auto, 0px);
 }
 
 .svg{

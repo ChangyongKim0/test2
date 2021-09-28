@@ -11,6 +11,11 @@
 
 .info-bubble-svg {
   filter: drop-shadow(7px 7px 5px $col-shd-b);
+  width: 98px;
+  height: 65px;
+  fill: $col-bgd-w;
+  stroke: $col-brd-2;
+  stroke-width: 1.5px;
 }
 
 .frame {
@@ -20,15 +25,13 @@
 }
 
 .info-bubble * {
-  @include txt-stl-2();
-  color: $col-txt-g2;
-  font-size: 11px;
-  line-height: 11px;
+  @include txt-light();
+  @include txt-11();
+  color: $col-txt-g6;
 }
 
 .title {
-  color: $col-bgd-1;
-  font-size: 19px;
-  line-height: 19px;
-  font-weight: 700;
+  @include txt-bold();
+  @include txt-19();
+  color: $col-txt-2;
 }

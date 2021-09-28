@@ -23,6 +23,8 @@ import ValuationHeader from "../components/ValuationHeader";
 import axios from "axios";
 import CtaButton from "../atom/CtaButton";
 import useModalStack from "../hooks/useModal";
+import ComparisonHeader from "../components/ComparisonHeader";
+import ValuationFooter from "../components/ValuationFooter";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -69,6 +71,33 @@ const ctaButtonBundle = () => {
         밸류에이션 저장
       </CtaButton>
       <CtaButton size="big" icon="change" shape="round" background="white">
+        밸류에이션 저장
+      </CtaButton>
+      <CtaButton
+        size="small"
+        icon="change"
+        shape="round"
+        background="white"
+        border="gray"
+      >
+        밸류에이션 저장
+      </CtaButton>
+      <CtaButton
+        size="medium"
+        icon="change"
+        shape="round"
+        background="white"
+        border="gray"
+      >
+        밸류에이션 저장
+      </CtaButton>
+      <CtaButton
+        size="big"
+        icon="change"
+        shape="round"
+        background="white"
+        border="gray"
+      >
         밸류에이션 저장
       </CtaButton>
       <CtaButton
@@ -122,15 +151,29 @@ const TestPage = () => {
         <AddressSearcher />
         <p className={cx("title")}>Header</p>
         <Header nav_emph="map" />
-        <p className={cx("title")}>Header without AddressSearcher</p>
         <Header nav_emph="map" is_searchable={false} />
         <p className={cx("title")}>ValuationHeader</p>
         <ValuationHeader createUseModal={createUseModal} />
-        <div>{Object.keys(modal_stack).map((e) => e)}</div>
-        <ValuationHeader createUseModal={createUseModal} />
-        <ValuationHeader createUseModal={createUseModal} />
+        {/* <div>{Object.keys(modal_stack).map((e) => e)}</div>
+        <ValuationHeader createUseModal={createUseModal} /> */}
+        <ValuationHeader
+          createUseModal={createUseModal}
+          title="서울시 강남구 강남로 1"
+          sub_title="강욱 빌딩"
+          saved_name="강남로 1, 210906-1"
+        />
+        <p className={cx("title")}>ComparisonHeader</p>
+        <ComparisonHeader createUseModal={createUseModal} />
+        <ComparisonHeader createUseModal={createUseModal} type="land" />
         <p className={cx("title")}>InfoBubble</p>
         <InfoBubble />
+        <InfoBubble
+          data={{
+            price: "2,000억",
+            date: "'20.03",
+            price_per_py: "250,000원/평",
+          }}
+        />
         <p className={cx("title")}>BackgroundMap</p>
         <div className={cx("map-wrapper")}>
           <BackgroundMap />
@@ -149,7 +192,6 @@ const TestPage = () => {
             setSSMOpen(true);
           }}
         />
-        <p className={cx("title")}>BookMarkModal with text</p>
         <BookMarkModal
           title="밸류에이션 저장"
           placeholder="강남로 1, 210906-1"
@@ -189,8 +231,16 @@ const TestPage = () => {
         </div>
         <p className={cx("title")}>CtaButton</p>
         <CtaButton />
-        <p className={cx("title")}>CtaButton with data</p>
         {ctaButtonBundle()}
+        <p className={cx("title")}>ValuationFooter</p>
+        <ValuationFooter />
+        <ValuationFooter
+          data={[
+            { title: "예상 사업 기간", value: "30", unit: "개월" },
+            { title: "매각금액 가정", value: "5,424", unit: "억 원" },
+            { title: "수익률", value: "4.34", unit: "%" },
+          ]}
+        />
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>
