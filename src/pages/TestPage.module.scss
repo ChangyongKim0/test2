@@ -46,3 +46,8 @@
   height: 80vh;
   overflow: hidden;
 }
+
+.modal-area{
+  position: relative;
+  z-index: 30;
+}

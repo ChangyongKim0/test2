@@ -16,7 +16,7 @@ const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
       setAnime("close", 1000, open);
       setOpen("false");
     } else {
-      setAnime("close", 0, open);
+      setAnime("open", 0, open);
     }
   }, [open]);
 
@@ -41,6 +41,7 @@ const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
 Overlay.defaultProps = {
   open: true,
   backdrop: false,
+  auto_close: false,
 };
 
 export default Overlay;

@@ -3,7 +3,7 @@
 .wrapper {
   @include box(100%, 58px, 0px, none, $col-bgd-w);
   @include row(auto, 58px, 0px);
-  border-bottom: 1px solid $col-brd-g1;
+  border-bottom: 1px solid $col-brd-g8;
   width: 100%;
   justify-content: space-between;
   @include txt-stl-2();

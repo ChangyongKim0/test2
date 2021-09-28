@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Overlay from "./Overlay";
 // { useEffect }
 
@@ -7,7 +7,9 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const SaveSuccessModal = ({ text, dela, open, setOpen }) => {
+const SaveSuccessModal = ({ text, delay, open, setOpen }) => {
+  // const [open, setOpen] = useState(true);
+  
   return (
     <Overlay open={open} setOpen={setOpen} auto_close={true}>
       <button className={cx("wrapper")}>{text}</button>
@@ -18,6 +20,7 @@ const SaveSuccessModal = ({ text, dela, open, setOpen }) => {
 SaveSuccessModal.defaultProps = {
   text: "저장 됐어요!",
   delay: 2000,
+  setOpen: () => {},
 };
 
 export default SaveSuccessModal;
