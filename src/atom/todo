@@ -91,14 +91,6 @@ AssumptionText.defaultProps = {
 - title, value, unit, second_value, second_unit
 - toggle_content <=children
 
-LandDataCompText
-
-- style: default
-- use_tooltip: True / False
-- tooltip
-- title, value, unit
-- onClick
--- Close, GoOver
 
 ### LandDataCompCard
 
@@ -106,3 +98,5 @@ LandDataCompText
 -- [[title, value, tooltip
 -- use_tooltip: True / False
 -- use_toggle: True / False
+- onClick
+-- Close, GoOver
