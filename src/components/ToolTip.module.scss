@@ -1,17 +1,33 @@
 @import "../util/style.scss";
 
-.wrapper {
+.wrapper{
+  position: relative;
+}
+
+.frame {
   @include column(auto, auto, 0px);
+  position: absolute;
+  bottom: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .box {
-  @include textBox(auto, 24px, 5px, none, $col-txt-g3);
-  @include txt-stl-2();
+  @include box(auto, auto, 5px, none, $col-txt-g3);
+  @include column(auto, auto, 2px);
   padding-left: 8px;
   padding-right: 8px;
+  padding-top: 3px;
+  padding-bottom: 5px;
   color: $col-txt-w;
-  font-size: 0.75rem;
   box-shadow: 0px 0px 5px 3px $col-shd-b;
+  align-items: flex-start;
+}
+
+.text{
+  @include txt-light();
+  @include txt-11();
+  white-space: nowrap;
 }
 
 .triangle-down-svg {

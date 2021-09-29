@@ -10,12 +10,6 @@
     background-color: $col-bgd-g95;
   }
   padding: 2px 0px;
-  & > * {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      overflow: hidden; 
-  }
 }
 
 .type {
@@ -47,6 +41,13 @@
     width: 200px;
     padding-right: 6px;
     justify-content: flex-end;
+    &-value{
+        display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      overflow: hidden;
+      width: 90px;
+    }
 }
 
 .blob {
@@ -71,6 +72,7 @@
 .frame-left{
     @include row(auto, auto, 0px);
     padding-left: 6px;
+    height: 24px;
 }
 
 .title{

@@ -1,13 +1,13 @@
 import React from "react";
 // { useEffect }
 
-import styles from "./ValuationCompText.module.scss";
+import styles from "./LandDataCompText.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 
 const cx = classNames.bind(styles);
 
-const ValuationCompText = ({
+const LandDataCompText = ({
   data,
   use_tooltip,
   use_toggle,
@@ -51,35 +51,24 @@ const ValuationCompText = ({
   );
 };
 
-ValuationCompText.defaultProps = {
+LandDataCompText.defaultProps = {
   data: {
     title: "title",
     value: "value",
     unit: "u.",
-    second_value: "second_value",
-    second_unit: "u.",
   },
-  use_tooltip: {
-    title: true,
-    value: true,
-    second_value: true,
-  },
-  use_toggle: false,
-  tooltip: {
-    title: ["tooltip.title[0]", "tooltip.title[1]"],
-    value: ["tooltip.value[0]", "tooltip.value[1]"],
-    second_value: ["tooltip.second_value[0]", "tooltip.second_value[1]"],
-  },
+  use_tooltip: false,
+  tooltip: ["tooltip[0]", "tooltip[1]"],
   style: "default",
 };
 
-export default ValuationCompText;
+export default LandDataCompText;
 
-// ### ValuationCompText
+// ### LandDataCompText
 
-// - style: default / detail / total
+// - style: default
 // - use_tooltip: True / False
-// - use_toggle: True / False
 // - tooltip
-// - title, value, unit, second_value, second_unit
-// - toggle_content <=children
+// - title, value, unit
+// - onClick
+// -- Close, GoOver

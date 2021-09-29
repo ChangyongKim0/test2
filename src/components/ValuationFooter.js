@@ -21,9 +21,9 @@ const ValuationFooter = ({ data, onClickExtractExcel }) => {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("frame-left")}>
-        {data.map((e) => {
+        {data.map((e, idx) => {
           return (
-            <div className={cx("frame-data")}>
+            <div key={idx} className={cx("frame-data")}>
               <div className={cx("title")}>{e.title}</div>
               <div className={cx("frame-value")}>
                 <div className={cx("value")}>{e.value}</div>

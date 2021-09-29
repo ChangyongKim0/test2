@@ -27,6 +27,7 @@ import ComparisonHeader from "../components/ComparisonHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionText from "../components/AssumptionText";
 import ValuationCompText from "../components/ValuationCompText";
+import LandDataCompText from "../components/LandDataCompText";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -146,6 +147,12 @@ const assumptionTextBundle = () => {
           value: true,
         }}
         type="default"
+        use_tooltip={{ title: true, base: true, value: true }}
+        tooltip={{
+          title: ["매매비용의 합계입니다."],
+          base: ["무엇 대비"],
+          value: ["총 매매비용"],
+        }}
       />
       <AssumptionText
         data={{
@@ -160,6 +167,11 @@ const assumptionTextBundle = () => {
           value: true,
         }}
         type="default"
+        use_tooltip={{ title: true, base: false, value: true }}
+        tooltip={{
+          title: ["매매비용의 합계입니다."],
+          value: ["총 매매비용"],
+        }}
       />
       <AssumptionText
         data={{
@@ -174,6 +186,10 @@ const assumptionTextBundle = () => {
           value: false,
         }}
         type="default"
+        use_tooltip={{ title: true, base: false, value: false }}
+        tooltip={{
+          title: ["나머지 텍스트는 툴팁을", "사용하지 않았습니다."],
+        }}
       />
       <AssumptionText
         data={{
@@ -282,9 +298,7 @@ const TestPage = () => {
           }}
         />
         <p className={cx("title")}>BackgroundMap</p>
-        <div className={cx("map-wrapper")}>
-          <BackgroundMap />
-        </div>
+        <div className={cx("map-wrapper")}>{/* <BackgroundMap /> */}</div>
         <p className={cx("title")}>AddressModal</p>
         <AddressModal address={"address"} />
         <p className={cx("title")}>ToolTip</p>
@@ -351,19 +365,38 @@ const TestPage = () => {
         <div className={cx("background")}>
           <div className={cx("background-white")}>
             <p className={cx("title")}>AssumptionText</p>
-            <AssumptionText />
+            <AssumptionText
+              use_tooltip={{ title: true, base: true, value: true }}
+            />
             {assumptionTextBundle()}
             <p className={cx("title")}>ValuationCompText</p>
-            <ValuationCompText />
-            <ValuationCompText style="detail" />
+            <ValuationCompText
+              use_tooltip={{ title: true, value: true, second_value: true }}
+            />
+            <ValuationCompText
+              style="detail"
+              use_tooltip={{ title: true, value: true, second_value: true }}
+            />
           </div>
           <div className={cx("background-dark")}>
-            <ValuationCompText style="total" />
+            <ValuationCompText
+              style="total"
+              use_tooltip={{ title: true, value: true, second_value: true }}
+            />
           </div>
           <div className={cx("background-white")}>
             <ValuationCompText
               style="default"
               data={{ title: "최근 실거래가", value: "2,000", unit: "억 원" }}
+              tooltip={{
+                title: [
+                  "최근 실거래가는",
+                  "국토교통부 공시 자료를",
+                  "바탕으로 합니다.",
+                ],
+                value: ["정말 비싸군요 ㄷㄷ.."],
+              }}
+              use_tooltip={{ title: true, value: true, second_value: true }}
             />
             <ValuationCompText
               style="detail"
@@ -374,6 +407,10 @@ const TestPage = () => {
                 second_value: "5.5",
                 second_unit: "\u00A0%",
               }}
+              tooltip={{
+                title: ["다른 텍스트는", "툴팁을 제거해 보았습니다."],
+              }}
+              use_tooltip={{ title: true, value: false, second_value: false }}
             />
           </div>
           <div className={cx("background-dark")}>
@@ -384,7 +421,12 @@ const TestPage = () => {
                 value: "5,500",
                 unit: "억 원",
               }}
+              use_tooltip={{ title: false, value: false, second_value: false }}
             />
+          </div>
+          <div className={cx("background-dark")}>
+            <p className={cx("title")}>LandDataCompText</p>
+            <LandDataCompText use_toggle={true} />
           </div>
         </div>
         <p className={cx("title")}>END OF PAGE</p>
