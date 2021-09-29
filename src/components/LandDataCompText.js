@@ -7,46 +7,15 @@ import ToolTip from "./ToolTip";
 
 const cx = classNames.bind(styles);
 
-const LandDataCompText = ({
-  data,
-  use_tooltip,
-  use_toggle,
-  tooltip,
-  style,
-}) => {
+const LandDataCompText = ({ data, use_tooltip, tooltip, style }) => {
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("frame-title")}>
-        <ToolTip enable={use_tooltip.title} data={tooltip.title}>
-          <div className={cx("style-" + style)}>
-            <div className={cx("title-" + style)}>
-              {style == "detail" ? "\u00A0\u00A0" : ""}
-              {data.title}
-            </div>
-          </div>
-        </ToolTip>
-      </div>
-      <div className={cx("frame-value")}>
-        <ToolTip enable={use_tooltip.value} data={tooltip.value}>
-          <div className={cx("frame-left", "style-" + style)}>
-            <div className={cx("text-" + style)}>{data.value}</div>
-            <div className={cx("unit-" + style)}>{data.unit}</div>
-          </div>
-        </ToolTip>
-        {style == "detail" ? (
-          <ToolTip
-            enable={use_tooltip.second_value}
-            data={tooltip.second_value}
-          >
-            <div className={cx("frame-right", "style-" + style)}>
-              <div className={cx("text-" + style)}>{data.second_value}</div>
-              <div className={cx("unit-" + style)}>{data.second_unit}</div>
-            </div>
-          </ToolTip>
-        ) : (
-          <></>
-        )}
-      </div>
+      <ToolTip enable={use_tooltip} data={tooltip}>
+        <div className={cx("frame")}>
+          <div className={cx("text")}>{data.value}</div>
+          <div className={cx("unit")}>{data.unit}</div>
+        </div>
+      </ToolTip>
     </div>
   );
 };

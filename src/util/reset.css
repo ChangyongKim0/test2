@@ -9,6 +9,7 @@ a {
 button {
   border-width: 0;
   border-style: none;
+  cursor: pointer;
 }
 button:active {
   border-style: none;

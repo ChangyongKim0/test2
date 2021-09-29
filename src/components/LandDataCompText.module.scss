@@ -1,78 +1,23 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include row(50%, 24px, 0px);
-  width: 290px;
-  height: 28px;
-  justify-content: space-between;
-  border-radius: 5px;
-  padding: 2px 0px;
-}
-
-.style {
-   &-default {
-    * {
-        @include txt-regular();
-        @include txt-14();
-        color: $col-txt-g3;
-    }
-   } 
-   &-total {
-    * {
-        @include txt-regular();
-        @include txt-14();
-        color: $col-txt-w;
-    }
-   } 
-   &-detail {
-    * {
-        @include txt-light();
-        @include txt-11();
-        color: $col-txt-g5;
-    }
-   } 
+  @include textBox(auto, auto, 0px, none, none);
+  width: 200px;
+  height: 25px;
 }
 
 .frame { 
-    &-title{
-        @include row(auto, auto, 0px);
-        text-align: left;
-    }
-    &-value{
-        @include row(auto, auto, 0px);
-        justify-content: space-between;
-    }
-    &-left{
-        @include row(auto, auto, 0px);
-        text-align: left;
-    }
-    &-right{
-        @include row(auto, auto, 0px);
-        text-align: right;
+    @include row(auto, auto, 0px);
+    *{
+        @include txt-bold();
+        @include txt-17();
     }
 }
 
-.text {
-    &-default{
-        @include txt-bold();
-    }
-    &-total{
-        @include txt-bold();
-        @include txt-21();
-    }
-    &-detail{
-        @include txt-bold();
-    }
+.text{
+    color: $col-txt-g3;
 }
 
 .unit{
-    &-default{
-        @include txt-bold();
-    }
-    &-total{
-        @include txt-bold();
-    }
-    &-detail{
-        @include txt-bold();
-    }
+    color: $col-txt-g25;
 }

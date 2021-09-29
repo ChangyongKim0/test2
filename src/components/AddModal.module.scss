@@ -1,0 +1,78 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include box(auto, auto, 20px, $col-brd-g7, $col-bgd-w);
+  @include column(auto, auto, 24px);
+  padding: 20px;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  border-width: 0.5px;
+      *{
+          @include txt-regular;
+        @include txt-14;
+    }
+}
+
+.frame-title {
+  @include row(auto, 26px, 0px);
+  width: 100%;
+  border-bottom: 0.5px solid $col-brd-g8;
+}
+
+.title {
+  @include txt-bold;
+  @include txt-19;
+}
+
+.btn-close {
+  width: 16px;
+  height: 16px;
+  stroke: $col-brd-b;
+  stroke-width: 2px;
+  opacity: 0.5;
+  &:hover {
+    opacity: 0.6;
+  }
+  &:active {
+    opacity: 0.9;
+  }
+}
+
+.frame-input-field {
+  @include row(auto, auto, 5px);
+}
+
+.frame-input {
+  @include column(auto, auto, 6px);
+  align-items: flex-start;
+  color: $col-txt-g2;
+}
+
+.input {
+  @include textBox(115px, 25px, 5px, none, $col-bgd-g95);
+  text-align: left;
+  padding: 0px 7px;
+  color: $col-txt-g1;
+  &:focus::-webkit-input-placeholder {
+    color: $col-txt-g8;
+  }
+}
+
+.frame-btn {
+  @include row(auto, auto, 0px);
+  width: 100%;
+  justify-content: space-between;
+}
+
+.btn {
+    &-close{
+        background: none;
+    @include txt-bold;
+    color: $col-bgd-g6;
+    padding: 0px;
+    }
+    &-add{
+  @include textBox(auto, auto, 0px, none, $col-bgd-2);
+  padding: 5px 10px;
+  color: $col-txt-w;}
+}

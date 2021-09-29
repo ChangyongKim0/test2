@@ -28,6 +28,7 @@ import ValuationFooter from "../components/ValuationFooter";
 import AssumptionText from "../components/AssumptionText";
 import ValuationCompText from "../components/ValuationCompText";
 import LandDataCompText from "../components/LandDataCompText";
+import AddModal from "../components/AddModal";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -424,11 +425,31 @@ const TestPage = () => {
               use_tooltip={{ title: false, value: false, second_value: false }}
             />
           </div>
-          <div className={cx("background-dark")}>
+          <div className={cx("background-white")}>
             <p className={cx("title")}>LandDataCompText</p>
-            <LandDataCompText use_toggle={true} />
+            <LandDataCompText use_tooltip={true} />
+            <LandDataCompText
+              use_tooltip={true}
+              data={{
+                title: "최근 실거래가",
+                value: "2,000억",
+                unit: "\u00A0원",
+              }}
+              tooltip={["꽤 비싼 금액이네요."]}
+            />
+            <LandDataCompText
+              use_tooltip={true}
+              data={{
+                title: "규모",
+                value: "B6 / 32F",
+                unit: "",
+              }}
+              tooltip={["단위를 사용하지 않는 케이스."]}
+            />
           </div>
         </div>
+        <p className={cx("title")}>AddModal</p>
+        <AddModal />
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>
