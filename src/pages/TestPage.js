@@ -499,9 +499,13 @@ const TestPage = () => {
         <p className={cx("title")}>BackgroundMap</p>
         <div className={cx("map-wrapper")}>{/* <BackgroundMap /> */}</div>
         <p className={cx("title")}>AddressModal</p>
-        <AddressModal address={"address"} />
+        <AddressModal />
+        <AddressModal address={"서울시 종로구 소공동"} />
         <p className={cx("title")}>ToolTip</p>
         <ToolTip />
+        <ToolTip data={["샘플로 작성된", "툴팁입니다."]}>
+          <div className={cx("event")}>HOVER_EVENT</div>
+        </ToolTip>
         <p className={cx("title")}>BldgInfo</p>
         <BldgInfo />
         <p className={cx("title")}>BldgInfoModal</p>
