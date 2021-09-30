@@ -1,0 +1,74 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include column(290px, auto, 24px);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.white {
+    background-color: white;
+}
+
+.border{
+    border: 1px dashed $col-brd-g7;
+}
+
+.frame { 
+    &-title {
+        @include column(auto, auto, 10px);
+        align-items: flex-start;
+    }
+    &-info{
+        @include row(auto, auto, 5px);
+        > *{
+            @include row(auto, auto, 5px);
+        }
+    }
+    &-data{
+        @include columnWithBorder(auto, auto, 8px, $col-brd-g8);
+    }
+    &-data-each{
+        @include column(290px, auto, 4px);
+    }
+}
+
+.input {
+    background-color: transparent;
+    width: 70px;
+    &:focus::-webkit-input-placeholder{
+        color: $col-txt-g8;
+    }
+    text-align: right;
+    padding: 0px;
+}
+
+.title{
+    @include txt-regular;
+    @include txt-19;
+    color: $col-txt-g2;
+}
+
+.sub-title{
+    @include txt-regular;
+    @include txt-14;
+    color: $col-txt-g5;
+}
+
+.value{
+    @include txt-bold;
+    @include txt-28;
+    color: $col-txt-g2;
+}
+
+.unit{
+    @include txt-regular;
+    @include txt-17;
+    color: $col-txt-g4;
+}
+
+.seperator{
+    @include txt-regular;
+    @include txt-21;
+    color: $col-txt-g4;
+}

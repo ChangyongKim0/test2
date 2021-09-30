@@ -14,6 +14,7 @@ const AssumptionText = ({
   type,
   use_tooltip,
   tooltip,
+  force_use_tooltip,
 }) => {
   let blob_class = {};
   Object.keys(is_placeholder).map((e) =>
@@ -26,14 +27,20 @@ const AssumptionText = ({
 
   return (
     <div className={cx("wrapper")}>
-      <ToolTip enable={use_tooltip.title} data={tooltip.title}>
+      <ToolTip
+        enable={use_tooltip.title || force_use_tooltip}
+        data={tooltip.title}
+      >
         <div className={cx("frame-left")}>
           <div className={cx(class_names.type)}>
             <div className={cx("title")}>{data.title}</div>
           </div>
         </div>
       </ToolTip>
-      <ToolTip enable={use_tooltip.base} data={tooltip.base}>
+      <ToolTip
+        enable={use_tooltip.base || force_use_tooltip}
+        data={tooltip.base}
+      >
         <div className={cx("frame-value", blob_class.base, class_names.type)}>
           <div className={cx("frame")}>
             {is_placeholder.base ? (
@@ -45,7 +52,10 @@ const AssumptionText = ({
           </div>
         </div>
       </ToolTip>
-      <ToolTip enable={use_tooltip.value} data={tooltip.value}>
+      <ToolTip
+        enable={use_tooltip.value || force_use_tooltip}
+        data={tooltip.value}
+      >
         <div className={cx("frame-value", blob_class.value, class_names.type)}>
           <div className={cx("frame")}>
             {is_placeholder.value ? (
@@ -88,6 +98,7 @@ AssumptionText.defaultProps = {
     base: ["tooltip.base[0]", "tooltip.base[1]"],
     value: ["tooltip.value[0]", "tooltip.value[1]"],
   },
+  force_use_tooltip: false,
 };
 
 export default AssumptionText;

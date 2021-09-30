@@ -29,6 +29,7 @@ import AssumptionText from "../components/AssumptionText";
 import ValuationCompText from "../components/ValuationCompText";
 import LandDataCompText from "../components/LandDataCompText";
 import AddModal from "../components/AddModal";
+import AssumptionCard from "../components/AssumptionCard";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -252,6 +253,203 @@ const assumptionTextBundle = () => {
   );
 };
 
+const assumptionCardBundle = () => {
+  let properties = {
+    use_mini_map: false,
+    minimap: { center: "0,0", pnu: "0" },
+    title: "자금 가정",
+    sub_title: "필요 자금 총액과 대출 이자율",
+    total_info: [
+      { value: "4,000억", unit: "원" },
+      { value: "5.5", unit: "%" },
+    ],
+    data: [
+      [
+        {
+          data: {
+            title: "PF 대출",
+            base: "75",
+            base_unit: "\u00A0%",
+            value: "3,000억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: true,
+            value: false,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "total",
+          use_tooltip: {
+            title: false,
+            base: true,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: ["사업자금 총액 대비 비율"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+        {
+          data: {
+            title: "Tr-A",
+            base: "5.8",
+            base_unit: "\u00A0%",
+            value: "2,000억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: true,
+            value: true,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "default",
+          use_tooltip: {
+            title: false,
+            base: true,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: ["이자율"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+        {
+          data: {
+            title: "Tr-B",
+            base: "5.2",
+            base_unit: "\u00A0%",
+            value: "1,000억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: true,
+            value: true,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "default",
+          use_tooltip: {
+            title: false,
+            base: true,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: ["이자율"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+      ],
+      [
+        {
+          data: {
+            title: "자본금",
+            base: "25",
+            base_unit: "\u00A0%",
+            value: "1,000억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: true,
+            value: false,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "total",
+          use_tooltip: {
+            title: false,
+            base: true,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: ["사업자금 총액 대비 비율"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+        {
+          data: {
+            title: "우선주",
+            base: "",
+            base_unit: "",
+            value: "400억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: false,
+            value: true,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "default",
+          use_tooltip: {
+            title: false,
+            base: false,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: [""],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+        {
+          data: {
+            title: "보통주",
+            base: "",
+            base_unit: "",
+            value: "600억",
+            value_unit: "\u00A0원",
+          },
+          is_placeholder: {
+            base: false,
+            value: true,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "default",
+          use_tooltip: {
+            title: false,
+            base: false,
+            value: false,
+          },
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            base: [""],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+          },
+        },
+      ],
+    ],
+    style: "white",
+    use_plus: true,
+    handlePlus: () => {},
+    force_use_tooltip: false,
+  };
+
+  return (
+    <>
+      <AssumptionCard {...properties} />
+    </>
+  );
+};
+
 const TestPage = () => {
   const [SSM_open, setSSMOpen] = useState(false);
   const [toggle_type_state, setTTState] = useToggleState({
@@ -366,9 +564,7 @@ const TestPage = () => {
         <div className={cx("background")}>
           <div className={cx("background-white")}>
             <p className={cx("title")}>AssumptionText</p>
-            <AssumptionText
-              use_tooltip={{ title: true, base: true, value: true }}
-            />
+            <AssumptionText force_use_tooltip={true} />
             {assumptionTextBundle()}
             <p className={cx("title")}>ValuationCompText</p>
             <ValuationCompText
@@ -450,6 +646,10 @@ const TestPage = () => {
         </div>
         <p className={cx("title")}>AddModal</p>
         <AddModal />
+        <p className={cx("title")}>AssumptionCard</p>
+        <AssumptionCard force_use_tooltip={true} />
+        <AssumptionCard total_info={[]} force_use_tooltip={true} />
+        {assumptionCardBundle()}
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>
