@@ -1,12 +1,11 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include row(50%, 24px, 0px);
+  @include row(50%, 20px, 0px);
   width: 290px;
-  height: 28px;
+  height: 20px;
   justify-content: space-between;
   border-radius: 5px;
-  padding: 2px 0px;
 }
 
 .style {
@@ -41,6 +40,8 @@
     &-value{
         @include row(auto, auto, 0px);
         justify-content: space-between;
+        white-space: nowrap;
+        overflow: visible;
     }
     &-left{
         @include row(auto, auto, 0px);

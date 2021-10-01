@@ -1,10 +1,12 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include column(290px, auto, 24px);
-  border-radius: 20px;
-  padding: 20px;
+    position: relative;
+    @include box(340px, 804px, 5px, none, $col-bgd-w);
+  @include column(auto, auto, 0px);
     box-shadow: $eff-shd-1;
+    justify-content: space-between;
+    // overflow-x: hidden;
 }
 
 .white {
@@ -16,21 +18,27 @@
 }
 
 .frame { 
-    &-title {
-        @include column(auto, auto, 10px);
-        align-items: flex-start;
+    &-content{
+        @include columnWithBorder(290px, auto, 18px, $col-brd-g8);
+        overflow-y: scroll;
+        overflow-x:visible;
+        width: 110%;
+        margin: 20px 0px;
+        &::-webkit-scrollbar {
+    display: none;
+  }
+  &-each{
+        @include column(290px, 20px, 9px);
+  }
+        
     }
-    &-info{
-        @include row(auto, auto, 5px);
-        > *{
-            @include row(auto, auto, 5px);
-        }
-    }
-    &-data{
-        @include columnWithBorder(auto, auto, 8px, $col-brd-g8);
-    }
-    &-data-each{
-        @include column(290px, auto, 4px);
+    &-footer{
+        width:340px;
+        @include column(285px, auto, 15px);
+        bottom: 0px;
+        padding: 15px 0px;
+        background-color: $col-bgd-g25;
+        border-radius: 0px 0px 5px 5px;
     }
 }
 

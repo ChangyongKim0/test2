@@ -4,9 +4,9 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 import App from "../App";
 
 const Root = () => (
-  <HashRouter>
+  <BrowserRouter>
     <App />
-  </HashRouter>
+  </BrowserRouter>
 );
 
 export default Root;

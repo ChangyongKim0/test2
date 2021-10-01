@@ -30,6 +30,7 @@ import ValuationCompText from "../components/ValuationCompText";
 import LandDataCompText from "../components/LandDataCompText";
 import AddModal from "../components/AddModal";
 import AssumptionCard from "../components/AssumptionCard";
+import ValuationCompCard from "../components/ValuationCompCard";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -450,6 +451,525 @@ const assumptionCardBundle = () => {
   );
 };
 
+const valuationCompCardBundle = () => {
+  let properties = {
+    data: {
+      content: [
+        [
+          {
+            data: {
+              title: "주소",
+              value: "서울시 강남구 역삼동 101-1",
+              unit: "",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "토지 면적",
+              value: "1,070",
+              unit: "\u00A0평",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "최대 건폐율",
+              value: "60",
+              unit: "\u00A0%",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "용도지역",
+              value: "일반상업지역",
+              unit: "",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "최근 실거래가",
+              value: "2,000억",
+              unit: "\u00A0원",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "임대료(명목 NOC)",
+              value: "20만",
+              unit: "\u00A0원/전용평/월",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+        ],
+        [
+          {
+            data: {
+              title: "적용 건폐율",
+              value: "58",
+              unit: "\u00A0%",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: true,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: ["무언가 기준"],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "적용 용적률",
+              value: "754",
+              unit: "\u00A0%",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: true,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: ["무언가 기준"],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "적용 전용률",
+              value: "54",
+              unit: "\u00A0%",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: true,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: ["무언가 기준"],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "연면적",
+              value: "4,949",
+              unit: "\u00A0평",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: true,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: ["무언가 기준"],
+              second_value: [],
+            },
+            style: "default",
+          },
+        ],
+        [
+          {
+            data: {
+              title: "구매 비용",
+              value: "3,200억",
+              unit: "\u00A0원",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+          {
+            data: {
+              title: "구매 대금",
+              value: "3,200억",
+              unit: "\u00A0원",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "취득세 등 부대비용",
+              value: "18,700백만",
+              unit: "\u00A0원",
+              second_value: "5.5",
+              second_unit: "\u00A0%",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "매입보수",
+              value: "18,700백만",
+              unit: "\u00A0원",
+              second_value: "1.0",
+              second_unit: "\u00A0%",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "중개보수",
+              value: "2,040백만",
+              unit: "\u00A0원",
+              second_value: "0.6",
+              second_unit: "\u00A0%",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "건설기간보유세",
+              value: "2,400백만",
+              unit: "\u00A0원",
+              second_value: "1,200백만",
+              second_unit: "\u00A0원/년",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "AM/PM보수",
+              value: "2,400백만",
+              unit: "\u00A0원",
+              second_value: "1,200백만",
+              second_unit: "\u00A0원/년",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+          {
+            data: {
+              title: "예비비",
+              value: "2,000백만",
+              unit: "\u00A0원",
+              second_value: "1,200백만",
+              second_unit: "\u00A0원/년",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "detail",
+          },
+        ],
+        [
+          {
+            data: {
+              title: "건축 비용",
+              value: "760억",
+              unit: "\u00A0원",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+        ],
+        [
+          {
+            data: {
+              title: "대출 이자",
+              value: "5.5",
+              unit: "\u00A0%",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+        ],
+        [
+          {
+            data: {
+              title: "임대료",
+              value: "28만",
+              unit: "\u00A0원/전용평/월",
+              second_value: "",
+              second_unit: "",
+            },
+            use_tooltip: {
+              title: false,
+              value: false,
+              second_value: false,
+            },
+            use_toggle: false,
+            tooltip: {
+              title: [],
+              value: [],
+              second_value: [],
+            },
+            style: "default",
+          },
+        ],
+      ],
+      footer: [
+        {
+          data: {
+            title: "사업비",
+            value: "4,000억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+        },
+        {
+          data: {
+            title: "총이익",
+            value: "673.6억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+        },
+        {
+          data: {
+            title: "매각예상가",
+            value: "4,600억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+        },
+        {
+          data: {
+            title: "수익률",
+            value: "17.1",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+        },
+      ],
+    },
+    style: "white",
+    handleClick: () => {},
+    force_use_tooltip: false,
+  };
+  return (
+    <>
+      <ValuationCompCard {...properties} />
+    </>
+  );
+};
+
 const TestPage = () => {
   const [toggle_type_state, setTTState] = useToggleState({
     SSM: false,
@@ -653,6 +1173,9 @@ const TestPage = () => {
         <AssumptionCard force_use_tooltip={true} />
         <AssumptionCard total_info={[]} force_use_tooltip={true} />
         {assumptionCardBundle()}
+        <p className={cx("title")}>ValuationCompCard</p>
+        <ValuationCompCard force_use_tooltip={true} />
+        {valuationCompCardBundle()}
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>

@@ -1,60 +1,21 @@
 import React from "react";
 // { useEffect }
 
-import styles from "./AssumptionCard.module.scss";
+import styles from "./ValuationCompCard.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
-import AssumptionText from "./AssumptionText";
+import ValuationCompText from "./ValuationCompText";
 
 const cx = classNames.bind(styles);
 
-const AssumptionCard = ({
-  use_mini_map,
-  minimap,
-  title,
-  sub_title,
-  total_info,
-  data,
-  style,
-  use_plus,
-  handlePlus,
-  force_use_tooltip,
-}) => {
+const ValuationCompCard = ({ data, style, handleClick, force_use_tooltip }) => {
   return (
     <div className={cx("wrapper", style)}>
-      <div className={cx("frame-title")}>
-        <div className={cx("title")}>{title}</div>
-        <div className={cx("sub-title")}>{sub_title}</div>
-        {total_info.length > 0 ? (
-          <div className={cx("frame-info")}>
-            {total_info.map((e, idx) => {
-              let comp = <></>;
-              idx == total_info.length - 1
-                ? (comp = (
-                    <div key={idx}>
-                      <div className={cx("value")}>{e.value}</div>
-                      <div className={cx("unit")}>{e.unit}</div>
-                    </div>
-                  ))
-                : (comp = (
-                    <div key={idx}>
-                      <div className={cx("value")}>{e.value}</div>
-                      <div className={cx("unit")}>{e.unit}</div>
-                      <div className={cx("seperator")}>/</div>
-                    </div>
-                  ));
-              return comp;
-            })}
-          </div>
-        ) : (
-          <></>
-        )}
-      </div>
-      <div className={cx("frame-data")}>
-        {data.map((e, idx) => {
+      <div className={cx("frame-content")}>
+        {data.content.map((e, idx) => {
           const comp = e.map((e2, idx2) => {
             return (
-              <AssumptionText
+              <ValuationCompText
                 key={idx2}
                 {...e2}
                 force_use_tooltip={force_use_tooltip}
@@ -62,9 +23,21 @@ const AssumptionCard = ({
             );
           });
           return (
-            <div key={idx} className={cx("frame-data-each")}>
+            <div key={idx} className={cx("frame-content-each")}>
               {comp}
             </div>
+          );
+        })}
+      </div>
+      <div className={cx("frame-footer")}>
+        {data.footer.map((e, idx) => {
+          return (
+            <ValuationCompText
+              key={idx}
+              {...e}
+              force_use_tooltip={force_use_tooltip}
+              style="total"
+            />
           );
         })}
       </div>
@@ -72,140 +45,1159 @@ const AssumptionCard = ({
   );
 };
 
-AssumptionCard.defaultProps = {
-  use_mini_map: false,
-  minimap: { center: "0,0", pnu: "0" },
-  title: "title",
-  sub_title: "sub_title",
-  total_info: [
-    { value: "[0].value", unit: "[0].u" },
-    { value: "[1].value", unit: "[1].u" },
-  ],
-  data: [
-    [
+ValuationCompCard.defaultProps = {
+  data: {
+    content: [
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "title",
+            value: "value",
+            unit: "u.",
+            second_value: "second_value",
+            second_unit: "u.",
+          },
+          use_tooltip: {
+            title: true,
+            value: true,
+            second_value: true,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: ["tooltip.title[0]", "tooltip.title[1]"],
+            value: ["tooltip.value[0]", "tooltip.value[1]"],
+            second_value: [
+              "tooltip.second_value[0]",
+              "tooltip.second_value[1]",
+            ],
+          },
+          style: "default",
+        },
+      ],
+    ],
+    footer: [
       {
         data: {
           title: "title",
-          base: "base",
-          base_unit: "u.",
           value: "value",
-          value_unit: "u.",
+          unit: "u.",
+          second_value: "second_value",
+          second_unit: "u.",
         },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
         use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
+          title: true,
+          value: true,
+          second_value: true,
         },
+        use_toggle: false,
         tooltip: {
           title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["tooltip.base[0]", "tooltip.base[1]"],
           value: ["tooltip.value[0]", "tooltip.value[1]"],
+          second_value: ["tooltip.second_value[0]", "tooltip.second_value[1]"],
         },
       },
       {
         data: {
           title: "title",
-          base: "base",
-          base_unit: "u.",
           value: "value",
-          value_unit: "u.",
+          unit: "u.",
+          second_value: "second_value",
+          second_unit: "u.",
         },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
         use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
+          title: true,
+          value: true,
+          second_value: true,
         },
+        use_toggle: false,
         tooltip: {
           title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["tooltip.base[0]", "tooltip.base[1]"],
           value: ["tooltip.value[0]", "tooltip.value[1]"],
+          second_value: ["tooltip.second_value[0]", "tooltip.second_value[1]"],
         },
       },
     ],
-    [
-      {
-        data: {
-          title: "title",
-          base: "base",
-          base_unit: "u.",
-          value: "value",
-          value_unit: "u.",
-        },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["tooltip.base[0]", "tooltip.base[1]"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "title",
-          base: "base",
-          base_unit: "u.",
-          value: "value",
-          value_unit: "u.",
-        },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["tooltip.base[0]", "tooltip.base[1]"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-    ],
-  ],
+  },
   style: "white",
-  use_plus: true,
-  handlePlus: () => {},
+  handleClick: () => {},
   force_use_tooltip: false,
 };
 
-export default AssumptionCard;
+export default ValuationCompCard;
 
 // - use_mini_map: True / False
 // - mini_map
