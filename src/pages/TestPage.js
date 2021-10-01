@@ -451,13 +451,17 @@ const assumptionCardBundle = () => {
 };
 
 const TestPage = () => {
-  const [SSM_open, setSSMOpen] = useState(false);
   const [toggle_type_state, setTTState] = useToggleState({
     SSM: false,
     Dropdown: false,
   });
 
   const [modal_stack, createUseModal] = useModalStack();
+  const [open_SSM, setOpenSSM, registerSSM] = createUseModal();
+
+  useEffect(() => {
+    registerSSM(<SaveSuccessModal />);
+  }, [open_SSM]);
 
   useEffect(() => {
     // console.log("useEffect");
@@ -513,14 +517,14 @@ const TestPage = () => {
         <p className={cx("title")}>BookMarkModal</p>
         <BookMarkModal
           onClick2={() => {
-            setSSMOpen(true);
+            setOpenSSM(true);
           }}
         />
         <BookMarkModal
           title="밸류에이션 저장"
           placeholder="강남로 1, 210906-1"
           onClick2={() => {
-            setSSMOpen(true);
+            setOpenSSM(true);
           }}
         />
         <p className={cx("title")}>SaveSuccessModal</p>
@@ -528,7 +532,7 @@ const TestPage = () => {
         <div
           className={cx("event")}
           onClick={() => {
-            setSSMOpen(true);
+            setOpenSSM(true);
           }}
         >
           CLICK_EVENT
