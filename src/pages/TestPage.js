@@ -650,6 +650,7 @@ const TestPage = () => {
         </div>
         <p className={cx("title")}>AddModal</p>
         <AddModal />
+        <AddModal title="밸류에이션 값 추가" />
         <p className={cx("title")}>AssumptionCard</p>
         <AssumptionCard force_use_tooltip={true} />
         <AssumptionCard total_info={[]} force_use_tooltip={true} />

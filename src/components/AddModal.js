@@ -59,7 +59,7 @@ const AddModal = ({ title, onClick }) => {
 };
 
 AddModal.defaultProps = {
-  title: "밸류에이션 값 추가",
+  title: "title",
   onClick: {
     Add: () => {},
     Close: () => {},
