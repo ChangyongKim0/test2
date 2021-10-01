@@ -9,6 +9,7 @@ const cx = classNames.bind(styles);
 
 const Dropdown = ({ children, open, handleOpen, delay }) => {
   const [anime, setAnime] = useAnimation("");
+
   useEffect(() => {
     console.log(open);
     if (!open) {
