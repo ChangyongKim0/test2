@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
 
 import styles from "./BookMarkModal.module.scss";
@@ -8,8 +8,13 @@ import Overlay from "./Overlay";
 
 const cx = classNames.bind(styles);
 
-const BookMarkModal = ({ title, placeholder, onClick }) => {
-  const [open_SS, setOpenSS] = useState(false);
+const BookMarkModal = ({ title, placeholder, onClick, createUseModal }) => {
+  const [open_SSM, setOpenSSM, registerSSM] = createUseModal();
+
+  useEffect(() => {
+    registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
+    console.log("registered SSM.");
+  }, [open_SSM]);
 
   return (
     <div className={cx("wrapper")}>
@@ -29,7 +34,7 @@ const BookMarkModal = ({ title, placeholder, onClick }) => {
         <div className={cx("btn-list-save")}>
           <button
             onClick={() => {
-              setOpenSS(true);
+              setOpenSSM(true);
             }}
           >
             저장 후 닫기
@@ -39,7 +44,6 @@ const BookMarkModal = ({ title, placeholder, onClick }) => {
           </button>
         </div>
       </div>
-      <SaveSuccessModal open={open_SS} setOpen={setOpenSS} />
     </div>
   );
 };
@@ -51,6 +55,7 @@ BookMarkModal.defaultProps = {
     Save: () => {},
     Close: () => {},
   },
+  createUseModal: () => {},
 };
 
 export default BookMarkModal;

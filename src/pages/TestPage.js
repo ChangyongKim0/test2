@@ -460,7 +460,7 @@ const TestPage = () => {
   const [open_SSM, setOpenSSM, registerSSM] = createUseModal();
 
   useEffect(() => {
-    registerSSM(<SaveSuccessModal />);
+    registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
   }, [open_SSM]);
 
   useEffect(() => {
@@ -515,17 +515,11 @@ const TestPage = () => {
         <p className={cx("title")}>BldgInfoModal</p>
         <BldgInfoModal />
         <p className={cx("title")}>BookMarkModal</p>
-        <BookMarkModal
-          onClick2={() => {
-            setOpenSSM(true);
-          }}
-        />
+        <BookMarkModal createUseModal={createUseModal} />
         <BookMarkModal
           title="밸류에이션 저장"
           placeholder="강남로 1, 210906-1"
-          onClick2={() => {
-            setOpenSSM(true);
-          }}
+          createUseModal={createUseModal}
         />
         <p className={cx("title")}>SaveSuccessModal</p>
         {/* <SaveSuccessModal /> */}

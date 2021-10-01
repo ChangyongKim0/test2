@@ -34,6 +34,7 @@ const ValuationHeader = ({
               setOpenBMM(false);
             },
           }}
+          createUseModal={createUseModal}
         />
       </Overlay>
     );

@@ -10,32 +10,29 @@ const cx = classNames.bind(styles);
 const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
   const new_backdrop = backdrop ? "backdrop" : "";
 
-  const [anime, setAnime] = useAnimation("");
+  const [anime, setAnime] = useAnimation("open");
   useEffect(() => {
     if (auto_close && open) {
       setAnime("close", 1000, open);
-      setOpen("false");
+      setTimeout(() => setOpen(false), 1000);
+      console.log("setOpen is used.");
     } else {
       setAnime("open", 0, open);
     }
   }, [open]);
 
-  if (anime.active) {
-    return (
-      <ZIndexer>
-        {({ zIndex }) => (
-          <div
-            className={cx("wrapper", anime.name, new_backdrop)}
-            zIndex={zIndex}
-          >
-            {children}
-          </div>
-        )}
-      </ZIndexer>
-    );
-  } else {
-    return <></>;
-  }
+  return (
+    <ZIndexer>
+      {({ zIndex }) => (
+        <div
+          className={cx("wrapper", anime.name, new_backdrop)}
+          zIndex={zIndex}
+        >
+          {children}
+        </div>
+      )}
+    </ZIndexer>
+  );
 };
 
 Overlay.defaultProps = {

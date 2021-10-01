@@ -33,15 +33,18 @@ const useModalStack = () => {
 
   const createUseModal = () => {
     const id = getNewModalId();
+    console.log("create useModal reloaded. (ID: " + id + ")");
     let component = <></>;
 
     const setOpen = (val) => {
-      setOpenVal(val);
       if (!val) {
         handleModalStack({ type: "remove", id: id });
       } else {
         handleModalStack({ type: "create", id: id, component: component });
+        console.log("create modal.");
+        console.log(component);
       }
+      setOpenVal(val);
     };
 
     const registerModal = (new_component) => {
