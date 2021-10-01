@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { ZIndexProvider } from "./functions/Zindexer";
-import { About, TestPage, Valuation } from "./pages";
+import { About, TestPage, Valuation, Home } from "./pages";
 
 class App extends Component {
   render() {
@@ -9,6 +9,7 @@ class App extends Component {
       <ZIndexProvider>
         {/* <Route exact path="/" component={Home} /> */}
         <Route path="/about" component={About} />
+        <Route exact path="/" component={Home} />
         {/* <Route path="/login" component={Login} />
         <Route path="/map" component={Map} />
         <Route exact path="/tips" component={Tips} />
