@@ -5,16 +5,20 @@ import styles from "./BookMarkModal.module.scss";
 import classNames from "classnames/bind";
 import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
+import { useModal } from "../hooks/useModal";
 
 const cx = classNames.bind(styles);
 
-const BookMarkModal = ({ title, placeholder, onClick, createUseModal }) => {
-  const [open_SSM, setOpenSSM, registerSSM] = createUseModal();
+const BookMarkModal = ({ title, placeholder, onClick, useModalParam }) => {
+  const [open_SSM, setOpenSSM, registerSSM, modal_update] =
+    useModal(useModalParam);
 
   useEffect(() => {
     registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
     console.log("registered SSM.");
-  }, [open_SSM]);
+    console.log(open_SSM);
+    console.log(modal_update);
+  }, [modal_update, open_SSM]);
 
   return (
     <div className={cx("wrapper")}>
@@ -55,7 +59,7 @@ BookMarkModal.defaultProps = {
     Save: () => {},
     Close: () => {},
   },
-  createUseModal: () => {},
+  useModalParam: () => {},
 };
 
 export default BookMarkModal;

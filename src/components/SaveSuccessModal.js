@@ -9,9 +9,14 @@ const cx = classNames.bind(styles);
 
 const SaveSuccessModal = ({ text, delay, open, setOpen }) => {
   // const [open, setOpen] = useState(true);
-  
+
   return (
-    <Overlay open={open} setOpen={setOpen} auto_close={true}>
+    <Overlay
+      open={open}
+      setOpen={setOpen}
+      use_backdrop={true}
+      auto_close={true}
+    >
       <button className={cx("wrapper")}>{text}</button>
     </Overlay>
   );

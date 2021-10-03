@@ -22,7 +22,7 @@ import Dropdown from "../components/Dropdown";
 import ValuationHeader from "../components/ValuationHeader";
 import axios from "axios";
 import CtaButton from "../atom/CtaButton";
-import useModalStack from "../hooks/useModal";
+import { useModalStack } from "../hooks/useModal";
 import ComparisonHeader from "../components/ComparisonHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionText from "../components/AssumptionText";
@@ -976,8 +976,8 @@ const TestPage = () => {
     Dropdown: false,
   });
 
-  const [modal_stack, createUseModal] = useModalStack();
-  const [open_SSM, setOpenSSM, registerSSM] = createUseModal();
+  const [modal_stack, useModalParam] = useModalStack();
+  const [open_SSM, setOpenSSM, registerSSM] = useModalParam();
 
   useEffect(() => {
     registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
@@ -999,18 +999,18 @@ const TestPage = () => {
         <Header nav_emph="map" />
         <Header nav_emph="map" is_searchable={false} />
         <p className={cx("title")}>ValuationHeader</p>
-        <ValuationHeader createUseModal={createUseModal} />
+        <ValuationHeader useModalParam={useModalParam} />
         {/* <div>{Object.keys(modal_stack).map((e) => e)}</div>
-        <ValuationHeader createUseModal={createUseModal} /> */}
+        <ValuationHeader useModalParam={useModalParam} /> */}
         <ValuationHeader
-          createUseModal={createUseModal}
+          useModalParam={useModalParam}
           title="서울시 강남구 강남로 1"
           sub_title="강욱 빌딩"
           saved_name="강남로 1, 210906-1"
         />
         <p className={cx("title")}>ComparisonHeader</p>
-        <ComparisonHeader createUseModal={createUseModal} />
-        <ComparisonHeader createUseModal={createUseModal} type="land" />
+        <ComparisonHeader useModalParam={useModalParam} />
+        <ComparisonHeader useModalParam={useModalParam} type="land" />
         <p className={cx("title")}>InfoBubble</p>
         <InfoBubble />
         <InfoBubble
@@ -1035,11 +1035,11 @@ const TestPage = () => {
         <p className={cx("title")}>BldgInfoModal</p>
         <BldgInfoModal />
         <p className={cx("title")}>BookMarkModal</p>
-        <BookMarkModal createUseModal={createUseModal} />
+        <BookMarkModal useModalParam={useModalParam} />
         <BookMarkModal
           title="밸류에이션 저장"
           placeholder="강남로 1, 210906-1"
-          createUseModal={createUseModal}
+          useModalParam={useModalParam}
         />
         <p className={cx("title")}>SaveSuccessModal</p>
         {/* <SaveSuccessModal /> */}

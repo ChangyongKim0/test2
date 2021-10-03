@@ -20,6 +20,9 @@
     padding: 24px;
     align-items: flex-start;
     cursor: pointer;
+    > *{
+      cursor: auto;
+    }
     overflow: auto;
     &::-webkit-scrollbar {
     width: 8px;

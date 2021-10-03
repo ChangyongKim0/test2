@@ -13,7 +13,7 @@ import Header from "../components/Header";
 import ValuationHeader from "../components/ValuationHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
-import useModalStack from "../hooks/useModal";
+import { useModalStack } from "../hooks/useModal";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -236,10 +236,7 @@ const data = {
 };
 
 const Valuation = () => {
-  const [is_clicked, setIsClicked] = useState(false);
-  const [modal_stack, createUseModal] = useModalStack();
-
-  const [address, handleAddress] = useReducer(addressReducer, "");
+  const [modal_stack, useModalParam] = useModalStack();
 
   useEffect(() => {
     const ele = document.getElementById("container");
@@ -282,7 +279,7 @@ const Valuation = () => {
         <div className={cx("frame-header")}>
           <Header />
           <ValuationHeader
-            createUseModal={createUseModal}
+            useModalParam={useModalParam}
             {...data.valuation_header}
           />
         </div>

@@ -7,8 +7,8 @@ import classNames from "classnames/bind";
 
 const cx = classNames.bind(styles);
 
-const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
-  const new_backdrop = backdrop ? "backdrop" : "";
+const Overlay = ({ open, setOpen, use_backdrop, auto_close, children }) => {
+  const backdrop = use_backdrop ? "backdrop-true" : "";
 
   const [anime, setAnime] = useAnimation("open");
   useEffect(() => {
@@ -24,10 +24,7 @@ const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
   return (
     <ZIndexer>
       {({ zIndex }) => (
-        <div
-          className={cx("wrapper", anime.name, new_backdrop)}
-          zIndex={zIndex}
-        >
+        <div className={cx("wrapper", anime.name, backdrop)} zIndex={zIndex}>
           {children}
         </div>
       )}
@@ -37,7 +34,7 @@ const Overlay = ({ open, setOpen, backdrop, auto_close, children }) => {
 
 Overlay.defaultProps = {
   open: true,
-  backdrop: false,
+  use_backdrop: false,
   auto_close: false,
 };
 

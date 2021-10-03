@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useModal } from "../hooks/useModal";
 
 import styles from "./ValuationHeader.module.scss";
 import classNames from "classnames/bind";
@@ -12,7 +13,7 @@ import BookMarkModal from "./BookMarkModal";
 const cx = classNames.bind(styles);
 
 const ValuationHeader = ({
-  createUseModal,
+  useModalParam,
   title,
   sub_title,
   saved_name,
@@ -24,22 +25,25 @@ const ValuationHeader = ({
     return -1;
   };
 
-  const [open_BMM, setOpenBMM, registerBMM] = createUseModal();
+  const [open_BMM, setOpenBMM, registerBMM, modal_update] =
+    useModal(useModalParam);
+
   useEffect(() => {
     registerBMM(
-      <Overlay open={true} setOpen={setOpenBMM}>
+      <Overlay open={true} setOpen={setOpenBMM} use_backdrop={true}>
         <BookMarkModal
           onClick={{
             Close: () => {
               setOpenBMM(false);
             },
           }}
-          createUseModal={createUseModal}
+          useModalParam={useModalParam}
         />
       </Overlay>
     );
+    console.log("registered BMM.");
     console.log(open_BMM);
-  }, [open_BMM]);
+  }, [modal_update]);
 
   return (
     <div className={cx("wrapper")}>

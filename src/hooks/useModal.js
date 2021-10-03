@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import useToggleState from "./useToggle";
 
 const reduceModalStack = (old_state, action) => {
   let state = { ...old_state };
@@ -19,10 +20,14 @@ const reduceModalStack = (old_state, action) => {
   }
 };
 
-const useModalStack = () => {
+const reduceToggle = (state, action) => {
+  return !state;
+};
+
+export const useModalStack = () => {
   let modal_id = -1;
 
-  const [open, setOpenVal] = useState(false);
+  const [toggle, setToggle] = useReducer(reduceToggle, false);
 
   const getNewModalId = () => {
     modal_id += 1;
@@ -31,7 +36,7 @@ const useModalStack = () => {
 
   const [modal_stack, handleModalStack] = useReducer(reduceModalStack, {});
 
-  const createUseModal = () => {
+  const useModalParam = () => {
     const id = getNewModalId();
     console.log("create useModal reloaded. (ID: " + id + ")");
     let component = <></>;
@@ -44,16 +49,26 @@ const useModalStack = () => {
         console.log("create modal.");
         console.log(component);
       }
-      setOpenVal(val);
+      setToggle();
     };
 
     const registerModal = (new_component) => {
       component = new_component;
     };
-    return [open, setOpen, registerModal];
+    return [toggle, setOpen, registerModal];
   };
 
-  return [modal_stack, createUseModal];
+  return [modal_stack, useModalParam];
+};
+
+export const useModal = (useModalParam) => {
+  const [modal_update, setOpen1, registerModal] = useModalParam();
+  const [open, setOpen2] = useState(false);
+  const setOpen = (state) => {
+    setOpen1(state);
+    setOpen2(state);
+  };
+  return [open, setOpen, registerModal, modal_update];
 };
 
 // reduceModalState Scheme
@@ -70,4 +85,4 @@ const useModalStack = () => {
 //     id: 4
 // }
 
-export default useModalStack;
+export default { useModalStack, useModal };
