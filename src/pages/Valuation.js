@@ -14,6 +14,7 @@ import ValuationHeader from "../components/ValuationHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
+import useDragScroll from "../hooks/useDragScroll";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -238,46 +239,13 @@ const data = {
 const Valuation = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
-  useEffect(() => {
-    const ele = document.getElementById("container");
-    let pos = { top: 0, left: 0, x: 0, y: 0 };
+  useDragScroll("container");
 
-    const mouseDownHandler = function (e) {
-      pos = {
-        // The current scroll
-        left: ele.scrollLeft,
-        top: ele.scrollTop,
-        // Get the current mouse position
-        x: e.clientX,
-        y: e.clientY,
-      };
-
-      document.addEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", mouseUpHandler);
-    };
-
-    const mouseMoveHandler = function (e) {
-      // How far the mouse has been moved
-      const dx = e.clientX - pos.x;
-      const dy = e.clientY - pos.y;
-
-      // Scroll the element
-      ele.scrollTop = pos.top - dy;
-      ele.scrollLeft = pos.left - dx;
-    };
-
-    const mouseUpHandler = function () {
-      document.removeEventListener("mousemove", mouseMoveHandler);
-      document.removeEventListener("mouseup", mouseUpHandler);
-    };
-
-    document.addEventListener("mousedown", mouseDownHandler);
-  }, []);
   return (
     <div className={cx("wrapper")}>
       <div className={cx("frame-page")}>
         <div className={cx("frame-header")}>
-          <Header />
+          <Header nav_emph="valuation" is_searchable={false} />
           <ValuationHeader
             useModalParam={useModalParam}
             {...data.valuation_header}

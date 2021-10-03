@@ -24,9 +24,9 @@ const Header = ({ nav_emph, is_searchable }) => {
       <div className={cx("frame")}>
         <div className={cx("navigation", "emph")}>
           <p className={cx(nav_emph_list.map)}>지도</p>
-          <p>밸류에이션</p>
+          <p className={cx(nav_emph_list.valuation)}>밸류에이션</p>
         </div>
-        {!is_searchable || <AddressSearcher />}
+        {is_searchable ? <AddressSearcher /> : <></>}
       </div>
       <div className={cx("other icon")}>BOOKMARK</div>
     </div>

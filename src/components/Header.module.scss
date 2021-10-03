@@ -18,17 +18,6 @@
   &.emph {
     color: blue;
   }
-  & > * {
-    @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
-    padding: 8px 16px;
-    &:hover:not(.emph) {
-      background-color: $col-bgd-g95;
-    }
-    &.emph {
-      border-color: $col-bgd-2;
-      color: $col-txt-2;
-    }
-  }
   & > :first-child {
     border-radius: 2px 0px 0px 2px;
   }
@@ -37,5 +26,18 @@
   }
   & > :last-child {
     border-radius: 0px 2px 2px 0px;
+  }
+   & > * {
+    @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
+    padding: 8px 16px;
+    &:hover:not(.emph) {
+      background-color: $col-bgd-g95;
+    }
+    &.emph {
+      border-left: 3px;
+      border-color: $col-bgd-2;
+      color: $col-txt-2;
+      z-index: 1;
+    }
   }
 }

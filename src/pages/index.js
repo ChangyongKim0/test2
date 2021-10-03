@@ -5,5 +5,6 @@ export { default as About } from "./About";
 // export { default as Tips } from "./Tips";
 // export { default as NewTips } from "./NewTips";
 export { default as Valuation } from "./Valuation";
+export { default as ValuationComp } from "./ValuationComp";
 export { default as TestPage } from "./TestPage";
 export { default as Home } from "./Home";

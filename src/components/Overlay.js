@@ -24,7 +24,10 @@ const Overlay = ({ open, setOpen, use_backdrop, auto_close, children }) => {
   return (
     <ZIndexer>
       {({ zIndex }) => (
-        <div className={cx("wrapper", anime.name, backdrop)} zIndex={zIndex}>
+        <div
+          className={cx("wrapper", anime.name, backdrop)}
+          style={{ zIndex: zIndex }}
+        >
           {children}
         </div>
       )}
