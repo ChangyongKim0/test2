@@ -10,11 +10,13 @@ import styles from "./Valuation.module.scss";
 import classNames from "classnames/bind";
 import InfoBubble from "../components/InfoBubble";
 import Header from "../components/Header";
-import ValuationHeader from "../components/ValuationHeader";
+import ComparisonHeader from "../components/ComparisonHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
 import useDragScroll from "../hooks/useDragScroll";
+import ValuationCompCard from "../components/ValuationCompCard";
+import CtaButton from "../atom/CtaButton";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -26,191 +28,514 @@ const addressReducer = (state, action) => {
 };
 
 const sample_content_data = {
-  use_mini_map: false,
-  minimap: { center: "0,0", pnu: "0" },
-  title: "자금 가정",
-  sub_title: "필요 자금 총액과 대출 이자율",
-  total_info: [
-    { value: "4,000억", unit: "원" },
-    { value: "5.5", unit: "%" },
-  ],
-  data: [
-    [
+  data: {
+    content: [
+      [
+        {
+          data: {
+            title: "주소",
+            value: "서울시 강남구 역삼동 101-1",
+            unit: "",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "토지 면적",
+            value: "1,070",
+            unit: "\u00A0평",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "최대 건폐율",
+            value: "60",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "용도지역",
+            value: "일반상업지역",
+            unit: "",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "최근 실거래가",
+            value: "2,000억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "임대료(명목 NOC)",
+            value: "20만",
+            unit: "\u00A0원/전용평/월",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "적용 건폐율",
+            value: "58",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: true,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: ["무언가 기준"],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "적용 용적률",
+            value: "754",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: true,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: ["무언가 기준"],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "적용 전용률",
+            value: "54",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: true,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: ["무언가 기준"],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "연면적",
+            value: "4,949",
+            unit: "\u00A0평",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: true,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: ["무언가 기준"],
+            second_value: [],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "구매 비용",
+            value: "3,200억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+        {
+          data: {
+            title: "구매 대금",
+            value: "3,200억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "취득세 등 부대비용",
+            value: "18,700백만",
+            unit: "\u00A0원",
+            second_value: "5.5",
+            second_unit: "\u00A0%",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "매입보수",
+            value: "18,700백만",
+            unit: "\u00A0원",
+            second_value: "1.0",
+            second_unit: "\u00A0%",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "중개보수",
+            value: "2,040백만",
+            unit: "\u00A0원",
+            second_value: "0.6",
+            second_unit: "\u00A0%",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "건설기간보유세",
+            value: "2,400백만",
+            unit: "\u00A0원",
+            second_value: "1,200백만",
+            second_unit: "\u00A0원/년",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "AM/PM보수",
+            value: "2,400백만",
+            unit: "\u00A0원",
+            second_value: "1,200백만",
+            second_unit: "\u00A0원/년",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+        {
+          data: {
+            title: "예비비",
+            value: "2,000백만",
+            unit: "\u00A0원",
+            second_value: "1,200백만",
+            second_unit: "\u00A0원/년",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "detail",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "건축 비용",
+            value: "760억",
+            unit: "\u00A0원",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "대출 이자",
+            value: "5.5",
+            unit: "\u00A0%",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+      ],
+      [
+        {
+          data: {
+            title: "임대료",
+            value: "28만",
+            unit: "\u00A0원/전용평/월",
+            second_value: "",
+            second_unit: "",
+          },
+          use_tooltip: {
+            title: false,
+            value: false,
+            second_value: false,
+          },
+          use_toggle: false,
+          tooltip: {
+            title: [],
+            value: [],
+            second_value: [],
+          },
+          style: "default",
+        },
+      ],
+    ],
+    footer: [
       {
         data: {
-          title: "PF 대출",
-          base: "75",
-          base_unit: "\u00A0%",
-          value: "3,000억",
-          value_unit: "\u00A0원",
+          title: "사업비",
+          value: "4,000억",
+          unit: "\u00A0원",
+          second_value: "",
+          second_unit: "",
         },
-        is_placeholder: {
-          base: true,
-          value: false,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
         use_tooltip: {
           title: false,
-          base: true,
           value: false,
+          second_value: false,
         },
+        use_toggle: false,
         tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["사업자금 총액 대비 비율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
+          title: [],
+          value: [],
+          second_value: [],
         },
       },
       {
         data: {
-          title: "Tr-A",
-          base: "5.8",
-          base_unit: "\u00A0%",
-          value: "2,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["이자율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
+          title: "총이익",
+          value: "673.6억",
+          unit: "\u00A0원",
+          second_value: "",
+          second_unit: "",
         },
       },
       {
         data: {
-          title: "Tr-B",
-          base: "5.2",
-          base_unit: "\u00A0%",
-          value: "1,000억",
-          value_unit: "\u00A0원",
+          title: "매각예상가",
+          value: "4,600억",
+          unit: "\u00A0원",
+          second_value: "",
+          second_unit: "",
         },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["이자율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
+      },
+      {
+        data: {
+          title: "수익률",
+          value: "17.1",
+          unit: "\u00A0%",
+          second_value: "",
+          second_unit: "",
         },
       },
     ],
-    [
-      {
-        data: {
-          title: "자본금",
-          base: "25",
-          base_unit: "\u00A0%",
-          value: "1,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: false,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["사업자금 총액 대비 비율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "우선주",
-          base: "",
-          base_unit: "",
-          value: "400억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: false,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: [""],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "보통주",
-          base: "",
-          base_unit: "",
-          value: "600억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: false,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: [""],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-    ],
-  ],
+  },
   style: "white",
-  use_plus: true,
-  handlePlus: () => {},
+  handleClick: () => {},
   force_use_tooltip: false,
 };
 
@@ -221,11 +546,18 @@ const data = {
     saved_name: "강남로 1, 210906-1",
   },
   cards: [
-    [sample_content_data, sample_content_data],
-    [sample_content_data, sample_content_data, sample_content_data],
-    [sample_content_data],
-    [sample_content_data, sample_content_data],
-    [sample_content_data],
+    {
+      saved_name: "역삼동 101-1, 210906-1",
+      content: sample_content_data,
+    },
+    {
+      saved_name: "역삼동 101-1, 210906-1",
+      content: sample_content_data,
+    },
+    {
+      saved_name: "역삼동 101-1, 210906-1",
+      content: sample_content_data,
+    },
   ],
   footer: {
     data: [
@@ -246,25 +578,19 @@ const Valuation = () => {
       <div className={cx("frame-page")}>
         <div className={cx("frame-header")}>
           <Header nav_emph="valuation" is_searchable={false} />
-          <ValuationHeader
-            useModalParam={useModalParam}
-            {...data.valuation_header}
-          />
+          <ComparisonHeader type="valuation" />
         </div>
         <div id="container" className={cx("frame-content")}>
           {data.cards.map((e, idx) => {
-            let comp = e.map((e2, idx2) => {
-              return <AssumptionCard key={idx2} {...e2} />;
-            });
             return (
-              <div key={idx} className={cx("frame-column")}>
-                {comp}
+              <div className={cx("frame-column")}>
+                <CtaButton size="big" background="transparent" icon="chart">
+                  {e.saved_name}
+                </CtaButton>
+                <ValuationCompCard key={idx} {...e.content} />
               </div>
             );
           })}
-        </div>
-        <div className={cx("frame-footer")}>
-          <ValuationFooter {...data.footer} />
         </div>
       </div>
       <div className={cx("frame-modal")}>

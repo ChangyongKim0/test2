@@ -22,7 +22,7 @@
     border-radius: 2px 0px 0px 2px;
   }
   & > :not(:first-child) {
-    border-left: 0px;
+    // border-left: 0px;
   }
   & > :last-child {
     border-radius: 0px 2px 2px 0px;
@@ -34,7 +34,7 @@
       background-color: $col-bgd-g95;
     }
     &.emph {
-      border-left: 3px;
+      border-left-width: 1px;
       border-color: $col-bgd-2;
       color: $col-txt-2;
       z-index: 1;
