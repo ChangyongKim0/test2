@@ -1172,6 +1172,12 @@ const TestPage = () => {
         <p className={cx("title")}>AssumptionCard</p>
         <AssumptionCard force_use_tooltip={true} />
         <AssumptionCard total_info={[]} force_use_tooltip={true} />
+        <AssumptionCard
+          id={2}
+          use_mini_map={true}
+          total_info={[]}
+          force_use_tooltip={true}
+        />
         {assumptionCardBundle()}
         <p className={cx("title")}>ValuationCompCard</p>
         <ValuationCompCard force_use_tooltip={true} />

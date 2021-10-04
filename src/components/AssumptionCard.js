@@ -5,10 +5,12 @@ import styles from "./AssumptionCard.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import AssumptionText from "./AssumptionText";
+import MiniMap from "../atom/MiniMap";
 
 const cx = classNames.bind(styles);
 
 const AssumptionCard = ({
+  id,
   use_mini_map,
   minimap,
   title,
@@ -63,6 +65,13 @@ const AssumptionCard = ({
           });
           return (
             <div key={idx} className={cx("frame-data-each")}>
+              {use_mini_map && idx == 0 ? (
+                <div className={cx("frame-map")}>
+                  <MiniMap id={id} />
+                </div>
+              ) : (
+                <></>
+              )}
               {comp}
             </div>
           );
@@ -73,8 +82,9 @@ const AssumptionCard = ({
 };
 
 AssumptionCard.defaultProps = {
+  id: 1,
   use_mini_map: false,
-  minimap: { center: "0,0", pnu: "0" },
+  minimap: { level: 3, pos_list: "" },
   title: "title",
   sub_title: "sub_title",
   total_info: [

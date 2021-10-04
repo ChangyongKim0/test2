@@ -32,6 +32,12 @@
     &-data-each{
         @include column(290px, auto, 4px);
     }
+    &-map{
+        width: 290px;
+        height: 200px;
+        border: 0.5px solid $col-brd-g7;
+        z-index: 0;
+    }
 }
 
 .input {
