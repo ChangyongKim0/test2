@@ -12,7 +12,7 @@ import AddressSearcher from "../components/AddressSearcher";
 import UseAutocomplete from "../components/UseAutoComplete";
 import BookMarkModal from "../components/BookMarkModal";
 import SaveSuccessModal from "../components/SaveSuccessModal";
-import BackgroundMap from "../components/BackgroundMap";
+import MiniMap from "../atom/MiniMap";
 import InfoBubble from "../components/InfoBubble";
 import BldgInfo from "../components/BldgInfo";
 import BldgInfoModal from "../components/BldgInfoModal";
@@ -1176,6 +1176,10 @@ const TestPage = () => {
         <p className={cx("title")}>ValuationCompCard</p>
         <ValuationCompCard force_use_tooltip={true} />
         {valuationCompCardBundle()}
+        <p className={cx("title")}>MiniMap</p>
+        <div className={cx("map-wrapper")}>
+          <MiniMap />
+        </div>
         <p className={cx("title")}>END OF PAGE</p>
       </div>
       <div className={cx("modal-area")}>

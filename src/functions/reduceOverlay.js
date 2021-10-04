@@ -35,6 +35,44 @@ const convertGeoData = (map, data) => {
   };
 };
 
+const getPosCenter = (pos_list) => {
+  let lats = [];
+  let lngs = [];
+  let data_list = pos_list.split(" ");
+  //   console.log(data_list);
+  for (let i = 0; i < data_list.length; ) {
+    let lat = parseFloat(data_list[i]);
+    let lng = parseFloat(data_list[i + 1]);
+    lats.push(lat);
+    lngs.push(lng);
+    i += 2;
+  }
+  let center_value = _center(lats, lngs);
+  let center = new window.kakao.maps.LatLng(center_value.y, center_value.x);
+  return center;
+};
+
+const convertPosList = (map, pos_list) => {
+  let path = [];
+  let data_list = pos_list.split(" ");
+  //   console.log(data_list);
+  for (let i = 0; i < data_list.length; ) {
+    let lat = parseFloat(data_list[i]);
+    let lng = parseFloat(data_list[i + 1]);
+    path.push(new window.kakao.maps.LatLng(lng, lat));
+    i += 2;
+  }
+  let polygon = new window.kakao.maps.Polygon({
+    map: map, // 다각형을 표시할 지도 객체
+    path: path,
+    strokeWeight: 0,
+    fillColor: "#fff",
+    fillOpacity: 0.001,
+  });
+  handlePolygon({ type: "create", polygon: polygon });
+  return polygon;
+};
+
 // const upgradeGeoData = (map, data) => {
 
 //   polygon.setMap(map);
@@ -227,4 +265,10 @@ const handlePolygon = (action) => {
   }
 };
 
-export { reduceOverlay, getOverlayData, handlePolygon };
+export {
+  getPosCenter,
+  reduceOverlay,
+  getOverlayData,
+  handlePolygon,
+  convertPosList,
+};
