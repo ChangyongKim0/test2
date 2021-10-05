@@ -10,34 +10,40 @@
 }
 
 .frame {
+  position: absolute;
+  width: 100%;
   @include row(auto, auto, 15px);
+  justify-content: center;
+  pointer-events: none;
+  > * {
+    pointer-events: auto;
+  }
 }
 
 .navigation {
   @include row(auto, 40px, 0px);
-  &.emph {
-    color: blue;
-  }
   & > :first-child {
     border-radius: 2px 0px 0px 2px;
   }
-  & > :not(:first-child) {
-    // border-left: 0px;
-  }
+  // & > :not(:first-child) {
+  //   // border-left: 0px;
+  // }
   & > :last-child {
     border-radius: 0px 2px 2px 0px;
   }
    & > * {
-    @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
-    padding: 8px 16px;
-    &:hover:not(.emph) {
-      background-color: $col-bgd-g95;
-    }
-    &.emph {
-      border-left-width: 1px;
-      border-color: $col-bgd-2;
-      color: $col-txt-2;
-      z-index: 1;
+     & > * {
+      @include textBox(auto, 40px, 0px, $col-brd-g8, $col-bgd-w);
+      padding: 8px 16px;
+      &:hover:not(.emph) {
+        background-color: $col-bgd-g95;
+      };
+      &.emph {
+        border-left-width: 1px;
+        border-color: $col-bgd-2;
+        color: $col-txt-2;
+        z-index: 1;
+      };
     }
   }
 }

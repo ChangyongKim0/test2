@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
@@ -22,9 +23,13 @@ const Header = ({ nav_emph, is_searchable }) => {
     <div className={cx("wrapper")}>
       <div>LOGO</div>
       <div className={cx("frame")}>
-        <div className={cx("navigation", "emph")}>
-          <p className={cx(nav_emph_list.map)}>지도</p>
-          <p className={cx(nav_emph_list.valuation)}>밸류에이션</p>
+        <div className={cx("navigation")}>
+          <Link to={"/"}>
+            <p className={cx(nav_emph_list.map)}>지도</p>
+          </Link>
+          <Link to={"/valuation"}>
+            <p className={cx(nav_emph_list.valuation)}>밸류에이션</p>
+          </Link>
         </div>
         {is_searchable ? <AddressSearcher /> : <></>}
       </div>
