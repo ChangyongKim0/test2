@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import AssumptionText from "./AssumptionText";
 import MiniMap from "../atom/MiniMap";
+import AddButton from "../atom/AddButton";
 
 const cx = classNames.bind(styles);
 
@@ -76,6 +77,13 @@ const AssumptionCard = ({
             </div>
           );
         })}
+        {use_plus ? (
+          <div className={cx("frame-data-each")}>
+            <AddButton />
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
