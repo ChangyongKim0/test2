@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 const AddButton = ({ onClick }) => {
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("btn")}>
+      <div className={cx("btn")} onClick={onClick}>
         <AddSvg className={cx("btn-add")} />
       </div>
     </div>
