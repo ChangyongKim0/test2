@@ -9,6 +9,8 @@ import AddressModal from "../components/AddressModal";
 import styles from "./Home.module.scss";
 import classNames from "classnames/bind";
 import InfoBubble from "../components/InfoBubble";
+import Header from "../components/Header";
+import { useModalStack } from "../hooks/useModal";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -82,6 +84,8 @@ const Home = () => {
     vals: bldg_info_vals_sample,
   });
 
+  const [modal_stack, useModalParam] = useModalStack();
+
   const [is_clicked, setIsClicked] = useState(false);
 
   const [address, handleAddress] = useReducer(addressReducer, "");
@@ -91,19 +95,34 @@ const Home = () => {
   });
   return (
     <div className={cx("wrapper")}>
-      <BackgroundMap
-        handleBldgInfo={handleBldgInfo}
-        handleAddress={handleAddress}
-        is_clicked={is_clicked}
-        setIsClicked={setIsClicked}
-      />
-      <div className={cx("modal-frame")}>
-        <BldgInfoModal
-          info={bldg_info}
-          handleBldgInfo={handleBldgInfo}
-          setIsClicked={setIsClicked}
-        />
-        <AddressModal address={address} />
+      <div className={cx("frame-page")}>
+        <div className={cx("frame-header")}>
+          <Header
+            nav_emph="map"
+            use_sub_button={true}
+            sub_button_name="북마크 필지 비교하기"
+            link_sub_button_to="/map/comp"
+          />
+        </div>
+        <div className={cx("frame-content")}>
+          <BackgroundMap
+            handleBldgInfo={handleBldgInfo}
+            handleAddress={handleAddress}
+            is_clicked={is_clicked}
+            setIsClicked={setIsClicked}
+          />
+          <div className={cx("frame-modal-preset")}>
+            <BldgInfoModal
+              info={bldg_info}
+              handleBldgInfo={handleBldgInfo}
+              setIsClicked={setIsClicked}
+            />
+            <AddressModal address={address} />
+          </div>
+        </div>
+      </div>
+      <div className={cx("frame-modal")}>
+        <div>{Object.values(modal_stack).map((e) => e.component)}</div>
       </div>
     </div>
   );

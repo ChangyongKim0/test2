@@ -50,13 +50,3 @@
     }
   };
 }
-
-.modal-frame {
-  z-index: 1;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  height: 100vh;
-  pointer-events: none;
-  @include row(none, calc(100vh - 60px), 0px);
-}

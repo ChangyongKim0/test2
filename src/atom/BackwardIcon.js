@@ -9,9 +9,9 @@ const cx = classNames.bind(styles);
 
 const BackwardIcon = ({ link_to }) => {
   return (
-    <Link to={"/valuation"}>
+    <div onClick={() => window.history.back()}>
       <BackwardSvg className={cx("btn-backward")} />
-    </Link>
+    </div>
   );
 };
 

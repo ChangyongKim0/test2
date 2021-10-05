@@ -23,7 +23,8 @@
     > *{
       cursor: auto;
     }
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     &::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -38,6 +39,14 @@
     };
   };
   &-column{
-    @include column(auto, auto, 24px);
+    @include column(auto, auto, 25px);
+    height: 100%;
+    > :last-child{
+      height: auto;
+      overflow: hidden;
+      > * {
+        height: 100%;
+      }
+    }
   };
 }

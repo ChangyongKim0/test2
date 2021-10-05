@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { Route } from "react-router-dom";
 import { ZIndexProvider } from "./functions/Zindexer";
-import { About, TestPage, Valuation, ValuationComp, Home } from "./pages";
+import {
+  About,
+  TestPage,
+  Valuation,
+  ValuationComp,
+  MapComp,
+  Home,
+} from "./pages";
 
 class App extends Component {
   render() {
@@ -17,6 +24,7 @@ class App extends Component {
         <Route exact path="/valuation" component={Valuation} />
         <Route path="/valuation/comp" component={ValuationComp} />
         <Route path="/testpage" component={TestPage} />
+        <Route path="/map/comp" component={MapComp} />
       </ZIndexProvider>
     );
   }
