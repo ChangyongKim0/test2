@@ -1,0 +1,14 @@
+@import "../util/style.scss";
+
+.wrapper{
+    @include row(auto, auto, 8px);
+}
+
+.logo{
+  @include box(22px, 22px, 3px, none, $col-bgd-2);
+}
+
+.title{
+    @include txt-bold;
+    @include txt-21;
+}

@@ -245,7 +245,13 @@ const Valuation = () => {
     <div className={cx("wrapper")}>
       <div className={cx("frame-page")}>
         <div className={cx("frame-header")}>
-          <Header nav_emph="valuation" is_searchable={false} />
+          <Header
+            nav_emph="valuation"
+            is_searchable={false}
+            use_sub_button={true}
+            sub_button_name="밸류에이션 비교하기"
+            link_sub_button_to="/valuation/comp"
+          />
           <ValuationHeader
             useModalParam={useModalParam}
             {...data.valuation_header}

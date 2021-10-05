@@ -4,10 +4,19 @@ import { Link } from "react-router-dom";
 import styles from "./Header.module.scss";
 import classNames from "classnames/bind";
 import AddressSearcher from "./AddressSearcher";
+import LogoButton from "../atom/LogoButton";
+import { ReactComponent as AccountSvg } from "../atom/AccountSvg.svg";
+import CtaButton from "../atom/CtaButton";
 
 const cx = classNames.bind(styles);
 
-const Header = ({ nav_emph, is_searchable }) => {
+const Header = ({
+  nav_emph,
+  is_searchable,
+  use_sub_button,
+  sub_button_name,
+  link_sub_button_to,
+}) => {
   const nav_list = ["map", "valuation"];
   let nav_emph_list = {};
   // eslint-disable-next-line array-callback-return
@@ -21,8 +30,10 @@ const Header = ({ nav_emph, is_searchable }) => {
   //   console.log(nav_emph_list);
   return (
     <div className={cx("wrapper")}>
-      <div>LOGO</div>
-      <div className={cx("frame")}>
+      <div className={cx("frame-left")}>
+        <LogoButton />
+      </div>
+      <div className={cx("frame-center")}>
         <div className={cx("navigation")}>
           <Link to={"/"}>
             <p className={cx(nav_emph_list.map)}>지도</p>
@@ -33,7 +44,18 @@ const Header = ({ nav_emph, is_searchable }) => {
         </div>
         {is_searchable ? <AddressSearcher /> : <></>}
       </div>
-      <div className={cx("other icon")}>BOOKMARK</div>
+      <div className={cx("frame-right")}>
+        {use_sub_button ? (
+          <Link to={link_sub_button_to}>
+            <CtaButton size="small" shape="round" background="transparent">
+              {sub_button_name}
+            </CtaButton>
+          </Link>
+        ) : (
+          <></>
+        )}
+        <AccountSvg className={cx("btn-account")} />
+      </div>
     </div>
   );
 };
@@ -41,6 +63,9 @@ const Header = ({ nav_emph, is_searchable }) => {
 Header.defaultProps = {
   nav_emph: "map",
   is_searchable: true,
+  use_sub_button: false,
+  sub_button_name: "sub_button_name",
+  link_sub_button_to: "/",
 };
 
 export default Header;

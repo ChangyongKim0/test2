@@ -2,7 +2,7 @@
 
 .wrapper {
   @include box(100%, 58px, 0px, none, $col-bgd-w);
-  @include row(auto, 58px, 0px);
+  @include row(auto, auto, 0px);
   border-bottom: 1px solid $col-brd-g8;
   width: 100%;
   justify-content: space-between;
@@ -10,13 +10,22 @@
 }
 
 .frame {
-  position: absolute;
-  width: 100%;
-  @include row(auto, auto, 15px);
-  justify-content: center;
-  pointer-events: none;
-  > * {
-    pointer-events: auto;
+  &-left{
+    margin-left: 26px;
+  }
+  &-center {
+    position: absolute;
+    width: 100%;
+    @include row(auto, auto, 15px);
+    justify-content: center;
+    pointer-events: none;
+    > * {
+      pointer-events: auto;
+    }
+  }
+  &-right {
+    @include row(auto, auto, 10px);
+    margin-right: 23px;
   }
 }
 
@@ -46,4 +55,8 @@
       };
     }
   }
+}
+
+.btn-account {
+  fill: $col-bgd-g25;
 }
