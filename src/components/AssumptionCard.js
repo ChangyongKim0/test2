@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // { useEffect }
 
 import styles from "./AssumptionCard.module.scss";
@@ -7,6 +7,9 @@ import ToolTip from "./ToolTip";
 import AssumptionText from "./AssumptionText";
 import MiniMap from "../atom/MiniMap";
 import AddButton from "../atom/AddButton";
+import Overlay from "./Overlay";
+import AddModal from "./AddModal";
+import { useModal } from "../hooks/useModal";
 
 const cx = classNames.bind(styles);
 
@@ -22,7 +25,29 @@ const AssumptionCard = ({
   use_plus,
   handlePlus,
   force_use_tooltip,
+  useModalParam,
 }) => {
+  const [open_AM, setOpenAM, registerAM, modal_update] =
+    useModal(useModalParam);
+
+  useEffect(() => {
+    registerAM(
+      <Overlay open={true} setOpen={setOpenAM} use_backdrop={true}>
+        <AddModal
+          title="밸류에이션 값 추가"
+          onClick={{
+            Add: () => {},
+            Close: () => {
+              setOpenAM(false);
+            },
+          }}
+        />
+      </Overlay>
+    );
+    console.log("registered BMM.");
+    console.log(open_AM);
+  }, [modal_update]);
+
   return (
     <div className={cx("wrapper", style)}>
       <div className={cx("frame-title")}>
@@ -78,8 +103,12 @@ const AssumptionCard = ({
           );
         })}
         {use_plus ? (
-          <div className={cx("frame-data-each")}>
-            <AddButton />
+          <div className={cx("frame-data-each", "frame-btn")}>
+            <AddButton
+              onClick={() => {
+                setOpenAM(true);
+              }}
+            />
           </div>
         ) : (
           <></>

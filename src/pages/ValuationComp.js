@@ -6,7 +6,7 @@ import BackgroundMap from "../components/BackgroundMap";
 import BldgInfoModal from "../components/BldgInfoModal";
 import AddressModal from "../components/AddressModal";
 
-import styles from "./Valuation.module.scss";
+import styles from "./ValuationComp.module.scss";
 import classNames from "classnames/bind";
 import InfoBubble from "../components/InfoBubble";
 import Header from "../components/Header";
@@ -584,10 +584,17 @@ const Valuation = () => {
           {data.cards.map((e, idx) => {
             return (
               <div className={cx("frame-column")}>
-                <CtaButton size="big" background="transparent" icon="chart">
+                <CtaButton
+                  size="big"
+                  background="transparent"
+                  icon="chart"
+                  is_clickable={false}
+                >
                   {e.saved_name}
                 </CtaButton>
-                <ValuationCompCard key={idx} {...e.content} />
+                <div>
+                  <ValuationCompCard key={idx} {...e.content} />
+                </div>
               </div>
             );
           })}

@@ -254,7 +254,13 @@ const Valuation = () => {
         <div id="container" className={cx("frame-content")}>
           {data.cards.map((e, idx) => {
             let comp = e.map((e2, idx2) => {
-              return <AssumptionCard key={idx2} {...e2} />;
+              return (
+                <AssumptionCard
+                  key={idx2}
+                  {...e2}
+                  useModalParam={useModalParam}
+                />
+              );
             });
             return (
               <div key={idx} className={cx("frame-column")}>

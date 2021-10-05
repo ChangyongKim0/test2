@@ -254,7 +254,7 @@ const assumptionTextBundle = () => {
   );
 };
 
-const assumptionCardBundle = () => {
+const assumptionCardBundle = (useModalParam) => {
   let properties = {
     use_mini_map: false,
     minimap: { center: "0,0", pnu: "0" },
@@ -446,7 +446,7 @@ const assumptionCardBundle = () => {
 
   return (
     <>
-      <AssumptionCard {...properties} />
+      <AssumptionCard {...properties} useModalParam={useModalParam} />
     </>
   );
 };
@@ -1170,15 +1170,24 @@ const TestPage = () => {
         <AddModal />
         <AddModal title="밸류에이션 값 추가" />
         <p className={cx("title")}>AssumptionCard</p>
-        <AssumptionCard force_use_tooltip={true} />
-        <AssumptionCard total_info={[]} force_use_tooltip={true} />
+        <AssumptionCard
+          force_use_tooltip={true}
+          useModalParam={useModalParam}
+        />
+        <AssumptionCard
+          total_info={[]}
+          force_use_tooltip={true}
+          useModalParam={useModalParam}
+        />
         <AssumptionCard
           id={2}
           use_mini_map={true}
           total_info={[]}
           force_use_tooltip={true}
+          use_plus={false}
+          useModalParam={useModalParam}
         />
-        {assumptionCardBundle()}
+        {assumptionCardBundle(useModalParam)}
         <p className={cx("title")}>ValuationCompCard</p>
         <ValuationCompCard force_use_tooltip={true} />
         {valuationCompCardBundle()}

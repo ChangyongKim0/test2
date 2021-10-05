@@ -38,6 +38,10 @@
         border: 0.5px solid $col-brd-g7;
         z-index: 0;
     }
+    &-btn{
+        padding-top: 10px;
+        padding-bottom: 0px;
+    }
 }
 
 .input {

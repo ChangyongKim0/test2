@@ -23,14 +23,13 @@
         overflow-y: scroll;
         overflow-x:visible;
         width: 110%;
-        margin: 20px 0px;
+        margin-top: 20px;
         &::-webkit-scrollbar {
-    display: none;
-  }
-  &-each{
-        @include column(290px, 20px, 9px);
-  }
-        
+            display: none;
+        }
+        &-each {
+            @include column(290px, 20px, 9px);
+        }  
     }
     &-footer{
         width:340px;
