@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 const AssumptionCard = ({
   id,
   use_mini_map,
-  minimap,
+  mini_map,
   title,
   sub_title,
   total_info,
@@ -93,7 +93,7 @@ const AssumptionCard = ({
             <div key={idx} className={cx("frame-data-each")}>
               {use_mini_map && idx == 0 ? (
                 <div className={cx("frame-map")}>
-                  <MiniMap id={id} />
+                  <MiniMap id={id} {...mini_map} />
                 </div>
               ) : (
                 <></>
@@ -121,7 +121,11 @@ const AssumptionCard = ({
 AssumptionCard.defaultProps = {
   id: 1,
   use_mini_map: false,
-  minimap: { level: 3, pos_list: "" },
+  mini_map: {
+    level: 3,
+    pos_list:
+      "127.02473058 37.49791889 127.02435588 37.49780526 127.02440471 37.4977032 127.02441654 37.49767838 127.02403691 37.49756322 127.02409308 37.49744545 127.02414913 37.49732768 127.0242053 37.49720991 127.02422135 37.49717621 127.0243247 37.49713961 127.02462926 37.49723307 127.02481451 37.49728998 127.02500339 37.49734796 127.02492292 37.49751638 127.02484788 37.49767344 127.02477937 37.49781679 127.02473058 37.49791889",
+  },
   title: "title",
   sub_title: "sub_title",
   total_info: [

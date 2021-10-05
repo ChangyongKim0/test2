@@ -3,14 +3,12 @@
 .wrapper {
   width: 560px;
   height: calc(100vh - 60px);
-  margin: 30px;
-  margin-right: 0;
 }
 
 .modal {
   position: relative;
   @include column(560px, auto, 25px);
-  @include box(560px, calc(100vh - 60px), 15px, auto, $col-bgd-w);
+  @include box(560px, 100%, 15px, auto, $col-bgd-w);
   box-shadow: 7px 7px 5px $col-shd-b;
   pointer-events: auto;
 }
