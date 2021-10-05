@@ -4,6 +4,7 @@ import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
 
 import styles from "./BldgInfoModal.module.scss";
 import classNames from "classnames/bind";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +24,9 @@ const BldgInfoModal = ({ info, handleBldgInfo, setIsClicked }) => {
             }}
           />
           <button className={cx("box-btn")} type="submit" value="좌표">
-            개발 Valuation 검토
+            <Link to="/valuation">
+              <div className={cx("box")}>개발 Valuation 검토</div>
+            </Link>
           </button>
         </div>
       </div>

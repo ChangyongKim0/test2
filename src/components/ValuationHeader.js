@@ -48,12 +48,14 @@ const ValuationHeader = ({
   return (
     <div className={cx("wrapper")}>
       <div className={cx("frame-left")} onClick={onClick.Backward()}>
-        <BackwardIcon />
-      </div>
-      <div className={cx("title-frame")}>
+        {/* <BackwardIcon /> */}
         <div className={cx("title")}>{title}</div>
         <div className={cx("sub-title")}>{sub_title}</div>
       </div>
+      {/* <div className={cx("title-frame")}>
+        <div className={cx("title")}>{title}</div>
+        <div className={cx("sub-title")}>{sub_title}</div>
+      </div> */}
       <div className={cx("frame-right")}>
         <CtaButton
           size="small"

@@ -221,7 +221,16 @@ const data = {
     saved_name: "강남로 1, 210906-1",
   },
   cards: [
-    [sample_content_data, sample_content_data],
+    [
+      {
+        use_mini_map: true,
+        title: "필지 정보",
+        sub_title: "필지 기본 정보",
+        total_info: [],
+        use_plus: false,
+      },
+      sample_content_data,
+    ],
     [sample_content_data, sample_content_data, sample_content_data],
     [sample_content_data],
     [sample_content_data, sample_content_data],

@@ -568,7 +568,7 @@ const data = {
   },
 };
 
-const Valuation = () => {
+const ValuationComp = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
   useDragScroll("container");
@@ -607,4 +607,4 @@ const Valuation = () => {
   );
 };
 
-export default Valuation;
+export default ValuationComp;

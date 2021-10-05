@@ -1,0 +1,56 @@
+@import "../util/style.scss";
+
+.wrapper {
+    position: relative;
+  @include column(auto, auto, 0px);
+    // box-shadow: $eff-shd-1;
+    // overflow-x: hidden;
+}
+
+.border{
+    border: 1px dashed $col-brd-g7;
+}
+
+.frame { 
+    &-header{
+        @include columnWithBorder(270px, auto, 30px, $col-brd-g8);
+        > * {
+            @include column(auto, auto, 15px);
+        }
+    }
+    &-content{
+        @include columnWithBorder(270px, auto, 30px, $col-brd-g8);
+    }
+    &-content-each{
+        @include column(270px, auto, 15px);
+    }
+    &-map{
+        @include box(250px, 190px, 20px, $col-brd-g7, none);
+        border-width: 0.5px;
+        overflow: hidden;
+    }
+}
+
+.input {
+    background-color: transparent;
+    width: 70px;
+    &:focus::-webkit-input-placeholder{
+        color: $col-txt-g8;
+    }
+    text-align: right;
+    padding: 0px;
+}
+
+.title{
+    @include txt-bold;
+    @include txt-21;
+    color: $col-txt-g2;
+}
+
+.btn {
+    &-close {
+        stroke: $col-brd-g8;
+        stroke-width: 2px;
+        stroke-opacity: 1;
+    }
+}

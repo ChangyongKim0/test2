@@ -28,14 +28,18 @@
   }
 }
 
+.box {
+   @include textBox(100%, 100%, 0px, none, none);
+    @include txt-stl-2;
+    font-size: 1.25rem;
+  color: $col-txt-w;
+}
+
 .box-btn {
   position: absolute;
   @include box(488px, 60px, 0px, auto, $col-bgd-1);
-  @include txt-stl-2;
-  font-size: 1.25rem;
-  bottom: 36px;
-  color: $col-txt-w;
   box-shadow: 0px 0px 20px 20px $col-shd-w;
+    bottom: 36px;
   &:hover {
     background-color: $col-bgd-1-hover;
   }
