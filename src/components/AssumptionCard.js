@@ -136,11 +136,13 @@ AssumptionCard.defaultProps = {
     [
       {
         data: {
-          title: "title",
+          title: "[0][0]title",
           base: "base",
           base_unit: "u.",
+          base_type: "rate",
           value: "value",
           value_unit: "u.",
+          value_type: "number",
         },
         is_placeholder: {
           base: true,
@@ -164,11 +166,13 @@ AssumptionCard.defaultProps = {
       },
       {
         data: {
-          title: "title",
+          title: "[0][1]title",
           base: "base",
           base_unit: "u.",
+          base_type: "rate",
           value: "value",
           value_unit: "u.",
+          value_type: "number",
         },
         is_placeholder: {
           base: true,
@@ -194,11 +198,13 @@ AssumptionCard.defaultProps = {
     [
       {
         data: {
-          title: "title",
+          title: "[1][0]title",
           base: "base",
           base_unit: "u.",
+          base_type: "rate",
           value: "value",
           value_unit: "u.",
+          value_type: "number",
         },
         is_placeholder: {
           base: true,
@@ -222,11 +228,13 @@ AssumptionCard.defaultProps = {
       },
       {
         data: {
-          title: "title",
+          title: "[1][1]title",
           base: "base",
           base_unit: "u.",
+          base_type: "rate",
           value: "value",
           value_unit: "u.",
+          value_type: "number",
         },
         is_placeholder: {
           base: true,

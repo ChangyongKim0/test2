@@ -228,6 +228,7 @@ const data = {
         sub_title: "필지 기본 정보",
         total_info: [],
         use_plus: false,
+        value_type: "number",
       },
       sample_content_data,
     ],
