@@ -1,0 +1,200 @@
+{
+    "component_list": [
+        "<BldgInfoModal>",
+        "<BldgInfo>",
+        "<TextBldgData>",
+        "<ListBldgData>",
+        "<BlobBldgData>"
+    ],
+    "variable_list": {
+        "[no_data]<TextBldgData>": {
+            "show": false
+        },
+        "[price]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "최근 실거래가",
+                "value": ["2000억"],
+                "unit": "\u00A0원",
+                "base": "2019.03"
+            },
+            "type": "emph<emph | default | title | title_dropdown>",
+            "tooltip<ToolTip>": []
+        },
+        "[noc]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "건물 명목 NOC",
+                "value": ["27.4만"],
+                "unit": "\u00A0원"
+            },
+            "type": "emph",
+            "tooltip": ["건물 명목 NOC =", "(평당+평당 관리비)/전용률"]
+        },
+        "[land]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "토지 평당 단가",
+                "value": ["6.9억"],
+                "unit": "\u00A0원"
+            },
+            "type": "default",
+            "tooltip": ["거래가(원)/토지면적(평)"]
+        },
+        "[rent]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "평당 임대료",
+                "value": ["11.1만"],
+                "unit": "\u00A0원"
+            },
+            "type": "default",
+            "tooltip": []
+        },
+        "[opex]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "평당 관리비",
+                "value": ["4.8만"],
+                "unit": "\u00A0원"
+            },
+            "type": "default",
+            "tooltip": []
+        },
+        "[land_title]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "title": "토지"
+            },
+            "type": "title",
+            "tooltip": []
+        },
+        "[bldg]<TextBldgData>": {
+            "show": true,
+            "data": {
+                "id": 1,
+                "title": "건물1",
+                "value": "강욱 빌딩"
+            },
+            "type": "title_dropdown",
+            "tooltip": [],
+            "dropdown": [
+                {
+                    "id": 2,
+                    "title": "건물2",
+                    "value": "강욱 빌딩2",
+                    "onClick": "global 빌딩 2 데이터로 교체"
+                },
+                {
+                    "id": 3,
+                    "title": "건물3",
+                    "value": "강욱 빌딩3",
+                    "onClick": "global 빌딩 3 데이터로 교체"
+                }
+            ]
+        }
+    },
+    "<BldgInfoModal>": {
+        "default":{
+            "title": "title",
+            "sub_title": "sub_title",
+            "content<BldgInfo>": {},
+            "onClick": {
+                "Close": "필지 polygon과 동기화해서 닫기",
+                "Save": "페이지 global data 저장" 
+            }
+        },
+        "scheme": {
+            "title": "서울시 강남구 역삼동 101-1",
+            "sub_title": "서울시 강남구 강남로 1",
+            "content<BldgInfo>": {
+                "data": [
+                    [
+                        {
+                            "component_type": "grid<grid | grid_list | list | blob>",
+                            "data<list<TextBldgData>>": [
+                                "[price]",
+                                "[no_data]",
+                                "[noc]",
+                                "[no_data]",
+                                "[land]",
+                                "[no_data]",
+                                "[rent]",
+                                "[opex]"
+                            ]
+                        }
+                    ],
+                    [
+                        {
+                            "component_type": "grid",
+                            "data": [
+                                "[land_title]",
+                                "[no_data]",
+                                "[_area]",
+                                "[_type]"
+                            ]
+                        },
+                        {
+                            "component_type": "blob",
+                            "data<BlobBldgData>": [
+                                {
+                                    "title": "서초로지구 지구단위계획",
+                                    "tooltip<ToolTip>": ["클릭시 토지계획이용원으로 이동"],
+                                    "onClick": "토지계획이용원으로 링크"
+                                },
+                                {
+                                    "title": "일반상업지역",
+                                    "tooltip": ["클릭시 토지계획이용원으로 이동"],
+                                    "onClick": "토지계획이용원으로 링크"
+                                }
+                            ]
+                        },
+                        {
+                            "component_type": "list",
+                            "data<ListBldgData>": {
+                                "data": {
+                                    "title": "부속필지",
+                                    "value": [
+                                        ["서울시 강남구 역삼동 101-1", "3,537m"],
+                                        ["서울시 강남구 역삼동 101-2", "3,505m"]
+                                    ],
+                                    "onClick": "토지계획이용원으로 링크"
+                                },
+                                "dropdown_from": 2
+                            }
+                        },
+                        {
+                            "component_type": "grid",
+                            "data": [
+                                "[bldg]",
+                                "[no_data]",
+                                "[_floor_area]",
+                                "[_year]",
+                                "[no_data]",
+                                "[no_data]",
+                                "[_far]",
+                                "[_size]",
+                                "[no_data]",
+                                "[no_data]",
+                                "[_bcr]",
+                                "[_par]"
+                            ]
+                        },
+                        "[_usage_blob]"
+                    ],
+                    [
+                        "[_bldg_detail_list]"
+                    ],
+                    [
+                        "[_price_title]",
+                        "[_year_and_price]"
+                    ]
+                ]
+            },
+            "onClick": {
+                "Close": "필지 polygon과 동기화해서 닫기",
+                "Save": "페이지 global data 저장"
+            }
+        }
+    }
+}
