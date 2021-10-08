@@ -294,7 +294,9 @@ const AssumptionText = ({
   return (
     <div className={cx("wrapper")}>
       <ToolTip
-        enable={use_tooltip.title || force_use_tooltip}
+        enable={
+          tooltip.title.length > 0 || use_tooltip.title || force_use_tooltip
+        }
         data={tooltip.title}
       >
         <div className={cx("frame-left")}>
@@ -304,7 +306,9 @@ const AssumptionText = ({
         </div>
       </ToolTip>
       <ToolTip
-        enable={use_tooltip.base || force_use_tooltip}
+        enable={
+          tooltip.base.length > 0 || use_tooltip.base || force_use_tooltip
+        }
         data={tooltip.base}
       >
         <div className={cx("frame-value", blob_class.base, class_names.type)}>
@@ -324,7 +328,9 @@ const AssumptionText = ({
         </div>
       </ToolTip>
       <ToolTip
-        enable={use_tooltip.value || force_use_tooltip}
+        enable={
+          tooltip.value.length > 0 || use_tooltip.value || force_use_tooltip
+        }
         data={tooltip.value}
       >
         <div className={cx("frame-value", blob_class.value, class_names.type)}>
