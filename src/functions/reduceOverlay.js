@@ -6,7 +6,7 @@ const convertGeoData = (map, data) => {
   let path = [];
   let lats = [];
   let lngs = [];
-  let data_list = data.land_char_WFS["gml:posList"].split(" ");
+  let data_list = data.LND_SHAPE.split(" ");
   //   console.log(data_list);
   for (let i = 0; i < data_list.length; ) {
     let lat = parseFloat(data_list[i]);
@@ -27,9 +27,9 @@ const convertGeoData = (map, data) => {
   });
   handlePolygon({ type: "create", polygon: polygon });
   return {
-    id: data.pnu,
+    id: data.id,
     addr: "address needed",
-    price: data.land_price["NSDI:PBLNTF_PCLND"],
+    price: data.LNPD_PY0,
     polygon: polygon,
     center: center,
   };
