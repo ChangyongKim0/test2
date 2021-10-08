@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import "../util/reset.css";
 // import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
 // import Location from "../components/location";
@@ -15,6 +15,7 @@ import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
 import useDragScroll from "../hooks/useDragScroll";
+import wrapValuation, { formatted_data } from "../data/wrapValuation";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -25,229 +26,232 @@ const addressReducer = (state, action) => {
   return action;
 };
 
-const sample_content_data = {
-  use_mini_map: false,
-  minimap: { center: "0,0", pnu: "0" },
-  title: "자금 가정",
-  sub_title: "필요 자금 총액과 대출 이자율",
-  total_info: [
-    { value: "4,000억", unit: "원" },
-    { value: "5.5", unit: "%" },
-  ],
-  data: [
-    [
-      {
-        data: {
-          title: "PF 대출",
-          base: "75",
-          base_unit: "\u00A0%",
-          value: "3,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: false,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["사업자금 총액 대비 비율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "Tr-A",
-          base: "5.8",
-          base_unit: "\u00A0%",
-          value: "2,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["이자율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "Tr-B",
-          base: "5.2",
-          base_unit: "\u00A0%",
-          value: "1,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["이자율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-    ],
-    [
-      {
-        data: {
-          title: "자본금",
-          base: "25",
-          base_unit: "\u00A0%",
-          value: "1,000억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: true,
-          value: false,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "total",
-        use_tooltip: {
-          title: false,
-          base: true,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: ["사업자금 총액 대비 비율"],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "우선주",
-          base: "",
-          base_unit: "",
-          value: "400억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: false,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: [""],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-      {
-        data: {
-          title: "보통주",
-          base: "",
-          base_unit: "",
-          value: "600억",
-          value_unit: "\u00A0원",
-        },
-        is_placeholder: {
-          base: false,
-          value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
-        type: "default",
-        use_tooltip: {
-          title: false,
-          base: false,
-          value: false,
-        },
-        tooltip: {
-          title: ["tooltip.title[0]", "tooltip.title[1]"],
-          base: [""],
-          value: ["tooltip.value[0]", "tooltip.value[1]"],
-        },
-      },
-    ],
-  ],
-  style: "white",
-  use_plus: true,
-  handlePlus: () => {},
-  force_use_tooltip: false,
-};
-
-const data = {
-  valuation_header: {
-    title: "서울시 강남구 강남로 1",
-    sub_title: "강욱 빌딩",
-    saved_name: "강남로 1, 210906-1",
-  },
-  cards: [
-    [
-      {
-        use_mini_map: true,
-        title: "필지 정보",
-        sub_title: "필지 기본 정보",
-        total_info: [],
-        use_plus: false,
-        value_type: "number",
-      },
-      sample_content_data,
-    ],
-    [sample_content_data, sample_content_data, sample_content_data],
-    [sample_content_data],
-    [sample_content_data, sample_content_data],
-    [sample_content_data],
-  ],
-  footer: {
-    data: [
-      { title: "예상 사업 기간", value: "30", unit: "개월" },
-      { title: "매각금액 가정", value: "5,424", unit: "억 원" },
-      { title: "수익률", value: "4.34", unit: "%" },
-    ],
-  },
-};
+// const sample_content_data = {
+//   use_mini_map: false,
+//   minimap: { center: "0,0", pnu: "0" },
+//   title: "자금 가정",
+//   sub_title: "필요 자금 총액과 대출 이자율",
+//   total_info: [
+//     { value: "4,000억", unit: "원" },
+//     { value: "5.5", unit: "%" },
+//   ],
+//   data: [
+//     [
+//       {
+//         data: {
+//           title: "PF 대출",
+//           base: "75",
+//           base_unit: "\u00A0%",
+//           value: "3,000억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: true,
+//           value: false,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "total",
+//         use_tooltip: {
+//           title: false,
+//           base: true,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: ["사업자금 총액 대비 비율"],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//       {
+//         data: {
+//           title: "Tr-A",
+//           base: "5.8",
+//           base_unit: "\u00A0%",
+//           value: "2,000억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: true,
+//           value: true,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "default",
+//         use_tooltip: {
+//           title: false,
+//           base: true,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: ["이자율"],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//       {
+//         data: {
+//           title: "Tr-B",
+//           base: "5.2",
+//           base_unit: "\u00A0%",
+//           value: "1,000억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: true,
+//           value: true,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "default",
+//         use_tooltip: {
+//           title: false,
+//           base: true,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: ["이자율"],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//     ],
+//     [
+//       {
+//         data: {
+//           title: "자본금",
+//           base: "25",
+//           base_unit: "\u00A0%",
+//           value: "1,000억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: true,
+//           value: false,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "total",
+//         use_tooltip: {
+//           title: false,
+//           base: true,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: ["사업자금 총액 대비 비율"],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//       {
+//         data: {
+//           title: "우선주",
+//           base: "",
+//           base_unit: "",
+//           value: "400억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: false,
+//           value: true,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "default",
+//         use_tooltip: {
+//           title: false,
+//           base: false,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: [""],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//       {
+//         data: {
+//           title: "보통주",
+//           base: "",
+//           base_unit: "",
+//           value: "600억",
+//           value_unit: "\u00A0원",
+//         },
+//         is_placeholder: {
+//           base: false,
+//           value: true,
+//         },
+//         onEnterPress: {
+//           Base: () => {},
+//           Value: () => {},
+//         },
+//         type: "default",
+//         use_tooltip: {
+//           title: false,
+//           base: false,
+//           value: false,
+//         },
+//         tooltip: {
+//           title: ["tooltip.title[0]", "tooltip.title[1]"],
+//           base: [""],
+//           value: ["tooltip.value[0]", "tooltip.value[1]"],
+//         },
+//       },
+//     ],
+//   ],
+//   style: "white",
+//   use_plus: true,
+//   handlePlus: () => {},
+//   force_use_tooltip: false,
+// };
 
 const Valuation = () => {
   const [modal_stack, useModalParam] = useModalStack();
+
+  const wrapped_data = useMemo(
+    () => wrapValuation(formatted_data),
+    [formatted_data]
+  );
+
+  const data = {
+    valuation_header: {
+      title: "서울시 강남구 강남로 1",
+      sub_title: "강욱 빌딩",
+      saved_name: "강남로 1, 210906-1",
+    },
+    cards: [
+      [
+        {
+          use_mini_map: true,
+          title: "필지 정보",
+          sub_title: "필지 기본 정보",
+          total_info: [],
+          use_plus: false,
+          value_type: "number",
+        },
+      ],
+      [wrapped_data.archi, wrapped_data.rent],
+      [wrapped_data.use],
+      [wrapped_data.src],
+    ],
+    footer: {
+      data: [
+        { title: "예상 사업 기간", value: "30", unit: "개월" },
+        { title: "매각금액 가정", value: "5,424", unit: "억 원" },
+        { title: "수익률", value: "4.34", unit: "%" },
+      ],
+    },
+  };
 
   useDragScroll("container");
 
