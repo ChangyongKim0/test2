@@ -60,7 +60,11 @@ const AssumptionText = ({
             self.value = temp.replace(e.key, "");
             self.setSelectionRange(pos - 1, pos - 1);
           }
-        } else if (e.keyCode != 8 && (e.keyCode < 37 || e.keyCode > 40)) {
+        } else if (
+          e.keyCode != 8 &&
+          e.keyCode != 9 &&
+          (e.keyCode < 37 || e.keyCode > 40)
+        ) {
           self.value = temp.slice(0, pos - 1) + temp.slice(pos);
           self.setSelectionRange(pos - 1, pos - 1);
         }
@@ -76,7 +80,11 @@ const AssumptionText = ({
             self.value = temp.slice(0, pos - 1) + temp.slice(pos);
             self.setSelectionRange(pos - 1, pos - 1);
           }
-        } else if (e.keyCode != 8 && (e.keyCode < 37 || e.keyCode > 40)) {
+        } else if (
+          e.keyCode != 8 &&
+          e.keyCode != 9 &&
+          (e.keyCode < 37 || e.keyCode > 40)
+        ) {
           console.log("wrong key");
           self.value = temp.slice(0, pos - 1) + temp.slice(pos);
           self.setSelectionRange(pos - 1, pos - 1);
