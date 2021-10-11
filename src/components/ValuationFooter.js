@@ -27,7 +27,7 @@ const ValuationFooter = ({ data, onClickExtractExcel }) => {
               <div className={cx("title")}>{e.title}</div>
               <div className={cx("frame-value")}>
                 <div className={cx("value")}>{e.value}</div>
-                <div className={cx("unit")}>{e.unit}</div>
+                <div className={cx("unit")}>{e.value_unit}</div>
               </div>
             </div>
           );
@@ -49,7 +49,11 @@ const ValuationFooter = ({ data, onClickExtractExcel }) => {
 
 ValuationFooter.defaultProps = {
   data: [
-    { title: "data[0].title", value: "data[0].value", unit: "data[0].unit" },
+    {
+      title: "data[0].title",
+      value: "data[0].value",
+      value_unit: "data[0].unit",
+    },
     // { title: "data[1].title", value: "data[1].value", unit: "data[1].unit" },
     // { title: "data[2].title", value: "data[2].value", unit: "data[2].unit" },
   ],
