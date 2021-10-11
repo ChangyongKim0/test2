@@ -11,7 +11,11 @@ const useEnterAsTab = (id) => {
         // console.log(element_list);
         // let form = event.target.form;
         let index = Array.prototype.indexOf.call(element_list, event.target);
-        element_list[index + 1].focus();
+        if (element_list.length == index + 1) {
+          element_list[0].focus();
+        } else {
+          element_list[index + 1].focus();
+        }
         // event.preventDefault();
       }
     });
