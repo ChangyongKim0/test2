@@ -10,12 +10,18 @@ export const ValuationContext = createContext({
 
 const reduceValuationData = (state, action) => {
   let new_state = { ...state };
-  switch (action) {
+  switch (action.type) {
     case "create":
       return action.data;
     case "update":
-      const [card_id, text_id, type_id] = action.id.split(".");
-      new_state[card_id][text_id][type_id] = action.value;
+      if (action.value) {
+        const [card_id, text_id, type_id] = action.id.split(".");
+        new_state[card_id][text_id][type_id] = action.value;
+        console.log("valuation data updated.");
+        return new_state;
+      } else {
+        return state;
+      }
     default:
       return state;
   }
@@ -31,10 +37,10 @@ export const ValuationCalculatorProvider = ({ children }) => {
     reduceValuationData,
     formatted_data
   );
-  const value = useMemo(
-    () => ({ valuation_data, setValuationData }),
-    [valuation_data, setValuationData]
-  );
+  const value = useMemo(() => {
+    console.log("memo rewritten.");
+    return { valuation_data, setValuationData };
+  }, [valuation_data, setValuationData]);
   return (
     <ValuationContext.Provider value={value}>
       {children}
