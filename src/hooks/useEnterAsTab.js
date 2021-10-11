@@ -5,7 +5,7 @@ const useEnterAsTab = (id) => {
     const ele = document.getElementById(id);
     const element_list = ele.querySelectorAll("input");
     ele.addEventListener("keyup", (event) => {
-      console.log(event);
+      //   console.log(event);
       if (event.code === "Enter" && event.target.nodeName === "INPUT") {
         // console.log("enter pressed.");
         // console.log(element_list);
