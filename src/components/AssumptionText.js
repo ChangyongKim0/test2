@@ -30,7 +30,8 @@ const AssumptionText = ({
 
   const handleKeyUp = useKeyUpAssumptionFormatter(
     data.id + ".value",
-    data.id + ".base"
+    data.id + ".base",
+    [data]
   );
 
   const onBlur = (e) => {
