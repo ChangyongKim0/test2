@@ -16,6 +16,7 @@ import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
 import useDragScroll from "../hooks/useDragScroll";
 import wrapValuation, { formatted_data } from "../data/wrapValuation";
+import useEnterAsTab from "../hooks/useEnterAsTab";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -258,6 +259,8 @@ const Valuation = () => {
   };
 
   useDragScroll("container", () => {});
+
+  useEnterAsTab("container");
 
   return (
     <div className={cx("wrapper")}>
