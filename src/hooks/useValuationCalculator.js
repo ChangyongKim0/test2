@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useMemo, useReducer } from "react";
+import { formatted_data } from "../data/wrapValuation";
 
 const base_data = {};
 
@@ -8,12 +9,13 @@ export const ValuationContext = createContext({
 });
 
 const reduceValuationData = (state, action) => {
-  new_state = { ...state };
+  let new_state = { ...state };
   switch (action) {
     case "create":
-      break;
+      return action.data;
     case "update":
-      break;
+      const [card_id, text_id, type_id] = action.id.split(".");
+      new_state[card_id][text_id][type_id] = action.value;
     default:
       return state;
   }
@@ -27,7 +29,7 @@ const useValuationCalculator = () => {
 export const ValuationCalculatorProvider = ({ children }) => {
   const [valuation_data, setValuationData] = useReducer(
     reduceValuationData,
-    {}
+    formatted_data
   );
   const value = useMemo(
     () => ({ valuation_data, setValuationData }),
