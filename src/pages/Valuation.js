@@ -1,4 +1,10 @@
-import React, { useEffect, useMemo, useReducer, useState } from "react";
+import React, {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+  useState,
+} from "react";
 import "../util/reset.css";
 // import RenderAfterNavermapsLoaded from "../components/RenderAfterNavermapsLoaded";
 // import Location from "../components/location";
@@ -15,8 +21,9 @@ import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
 import useDragScroll from "../hooks/useDragScroll";
-import wrapValuation, { formatted_data } from "../data/wrapValuation";
+import wrapValuation from "../data/wrapValuation";
 import useEnterAsTab from "../hooks/useEnterAsTab";
+import useValuationCalculator from "../hooks/useValuationCalculator";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -26,195 +33,6 @@ const addressReducer = (state, action) => {
   // console.log("primary address is changed");
   return action;
 };
-
-// const sample_content_data = {
-//   use_mini_map: false,
-//   minimap: { center: "0,0", pnu: "0" },
-//   title: "자금 가정",
-//   sub_title: "필요 자금 총액과 대출 이자율",
-//   total_info: [
-//     { value: "4,000억", unit: "원" },
-//     { value: "5.5", unit: "%" },
-//   ],
-//   data: [
-//     [
-//       {
-//         data: {
-//           title: "PF 대출",
-//           base: "75",
-//           base_unit: "\u00A0%",
-//           value: "3,000억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: true,
-//           value: false,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "total",
-//         use_tooltip: {
-//           title: false,
-//           base: true,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: ["사업자금 총액 대비 비율"],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//       {
-//         data: {
-//           title: "Tr-A",
-//           base: "5.8",
-//           base_unit: "\u00A0%",
-//           value: "2,000억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: true,
-//           value: true,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "default",
-//         use_tooltip: {
-//           title: false,
-//           base: true,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: ["이자율"],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//       {
-//         data: {
-//           title: "Tr-B",
-//           base: "5.2",
-//           base_unit: "\u00A0%",
-//           value: "1,000억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: true,
-//           value: true,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "default",
-//         use_tooltip: {
-//           title: false,
-//           base: true,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: ["이자율"],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//     ],
-//     [
-//       {
-//         data: {
-//           title: "자본금",
-//           base: "25",
-//           base_unit: "\u00A0%",
-//           value: "1,000억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: true,
-//           value: false,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "total",
-//         use_tooltip: {
-//           title: false,
-//           base: true,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: ["사업자금 총액 대비 비율"],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//       {
-//         data: {
-//           title: "우선주",
-//           base: "",
-//           base_unit: "",
-//           value: "400억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: false,
-//           value: true,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "default",
-//         use_tooltip: {
-//           title: false,
-//           base: false,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: [""],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//       {
-//         data: {
-//           title: "보통주",
-//           base: "",
-//           base_unit: "",
-//           value: "600억",
-//           value_unit: "\u00A0원",
-//         },
-//         is_placeholder: {
-//           base: false,
-//           value: true,
-//         },
-//         onEnterPress: {
-//           Base: () => {},
-//           Value: () => {},
-//         },
-//         type: "default",
-//         use_tooltip: {
-//           title: false,
-//           base: false,
-//           value: false,
-//         },
-//         tooltip: {
-//           title: ["tooltip.title[0]", "tooltip.title[1]"],
-//           base: [""],
-//           value: ["tooltip.value[0]", "tooltip.value[1]"],
-//         },
-//       },
-//     ],
-//   ],
-//   style: "white",
-//   use_plus: true,
-//   handlePlus: () => {},
-//   force_use_tooltip: false,
-// };
 
 const reduceMousePressContainer = (state, action) => {
   if (action.type) {
@@ -227,6 +45,8 @@ const reduceMousePressContainer = (state, action) => {
 const Valuation = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
+  const [new_formatted_data, setValuationCalculator] = useValuationCalculator();
+
   const mini_map_data = {
     level: 3,
     pos_list:
@@ -234,8 +54,8 @@ const Valuation = () => {
   };
 
   const wrapped_data = useMemo(
-    () => wrapValuation(formatted_data, mini_map_data),
-    [formatted_data, mini_map_data]
+    () => wrapValuation(new_formatted_data, mini_map_data),
+    [new_formatted_data, mini_map_data]
   );
 
   // const [mouse_press_container, handleMousePressContainer] = useReducer(
@@ -243,20 +63,31 @@ const Valuation = () => {
   //   ""
   // );
 
-  const data = {
-    valuation_header: {
-      title: "서울시 강남구 강남로 1",
-      sub_title: "강욱 빌딩",
-      saved_name: "강남로 1, 210906-1",
-    },
-    cards: [
-      [wrapped_data.base],
-      [wrapped_data.archi, wrapped_data.rent],
-      [wrapped_data.use],
-      [wrapped_data.src, wrapped_data.other],
-    ],
-    footer: wrapped_data.footer,
+  // useLayoutEffect(() => {
+  //   setValuationCalculator({ type: "create", data: formatted_data });
+  // }, []);
+
+  const handleFocus = ({ id, type, value }) => {
+    console.log(id, type, value);
+    setValuationCalculator({ id: id, type: "updated", value: value });
   };
+
+  const data = useMemo(() => {
+    return {
+      valuation_header: {
+        title: "서울시 강남구 강남로 1",
+        sub_title: "강욱 빌딩",
+        saved_name: "강남로 1, 210906-1",
+      },
+      cards: [
+        [wrapped_data.base],
+        [wrapped_data.archi, wrapped_data.rent],
+        [wrapped_data.use],
+        [wrapped_data.src, wrapped_data.other],
+      ],
+      footer: wrapped_data.footer,
+    };
+  }, [new_formatted_data, mini_map_data]);
 
   useDragScroll("container", () => {});
 
@@ -286,6 +117,7 @@ const Valuation = () => {
                   key={idx2}
                   {...e2}
                   useModalParam={useModalParam}
+                  handleFocus={handleFocus}
                 />
               );
             });
