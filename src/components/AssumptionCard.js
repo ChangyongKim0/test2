@@ -24,6 +24,7 @@ const AssumptionCard = ({
   style,
   use_plus,
   handlePlus,
+  handleFocus,
   force_use_tooltip,
   useModalParam,
 }) => {
@@ -86,6 +87,7 @@ const AssumptionCard = ({
                 key={idx2}
                 {...e2}
                 force_use_tooltip={force_use_tooltip}
+                handleFocus={handleFocus}
               />
             );
           });
@@ -148,10 +150,6 @@ AssumptionCard.defaultProps = {
           base: true,
           value: true,
         },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
         type: "total",
         use_tooltip: {
           title: false,
@@ -177,10 +175,6 @@ AssumptionCard.defaultProps = {
         is_placeholder: {
           base: true,
           value: true,
-        },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
         },
         type: "default",
         use_tooltip: {
@@ -210,10 +204,6 @@ AssumptionCard.defaultProps = {
           base: true,
           value: true,
         },
-        onEnterPress: {
-          Base: () => {},
-          Value: () => {},
-        },
         type: "total",
         use_tooltip: {
           title: false,
@@ -240,10 +230,6 @@ AssumptionCard.defaultProps = {
           base: true,
           value: true,
         },
-        onFocusOut: {
-          Base: () => {},
-          Value: () => {},
-        },
         type: "default",
         use_tooltip: {
           title: false,
@@ -261,6 +247,7 @@ AssumptionCard.defaultProps = {
   style: "white",
   use_plus: true,
   handlePlus: () => {},
+  handleFocus: ({ id, type, value }) => console.log(id, type, value),
   force_use_tooltip: false,
 };
 
