@@ -14,7 +14,7 @@ import ValuationHeader from "../components/ValuationHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
-import useSpaceDragScroll from "../hooks/useSpaceDragScroll";
+import useDragScroll from "../hooks/useDragScroll";
 import wrapValuation, { formatted_data } from "../data/wrapValuation";
 
 const cx = classNames.bind(styles);
@@ -257,7 +257,7 @@ const Valuation = () => {
     footer: wrapped_data.footer,
   };
 
-  useSpaceDragScroll("container", () => {});
+  useDragScroll("container", () => {});
 
   return (
     <div className={cx("wrapper")}>

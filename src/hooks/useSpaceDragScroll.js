@@ -1,30 +1,15 @@
 import React, { useEffect } from "react";
 
-const useSpaceDragScroll = (id, handleMousePress = () => {}) => {
+const useSpaceDragScroll = (id, handleSpaceKeyPress = () => {}) => {
   useEffect(() => {
     const ele = document.getElementById(id);
     const ele_children = Array.from(ele.children);
     let pos = { top: 0, left: 0, x: 0, y: 0 };
     let enable = true;
 
-    const handleMouseDownHandler = (action) => {
-      switch (action) {
-        case "enable":
-          enable = true;
-          //   console.log("enabled.");
-          break;
-        case "disable":
-          enable = false;
-          //   console.log("disabled.");
-          break;
-        default:
-          break;
-      }
-    };
-
-    const mouseDownHandler = function (e) {
+    const spaceKeyDownHandler = function (e) {
       if (enable) {
-        handleMousePress({ type: true });
+        handleSpaceKeyPress({ type: true });
         pos = {
           // The current scroll
           left: ele.scrollLeft,
@@ -40,13 +25,10 @@ const useSpaceDragScroll = (id, handleMousePress = () => {}) => {
         };
 
         ele.addEventListener("mousemove", mouseMoveHandler);
-        ele.addEventListener("mouseup", mouseUpHandler);
-        ele.addEventListener("mouseleave", mouseUpHandler);
+        ele.addEventListener("keyup", spaceKeyUpHandler);
+        ele.addEventListener("mouseleave", spaceKeyUpHandler);
         // console.log(ele);
         // console.log(ele.children);
-        ele_children.map((e2) =>
-          e2.addEventListener("mouseleave", mouseUpHandler)
-        );
       }
     };
 
@@ -72,22 +54,18 @@ const useSpaceDragScroll = (id, handleMousePress = () => {}) => {
       // console.log(e.clientX);
     };
 
-    const mouseUpHandler = function () {
-      handleMousePress({ type: false });
+    const spaceKeyUpHandler = function () {
+      handleSpaceKeyPress({ type: false });
       ele.removeEventListener("mousemove", mouseMoveHandler);
-      ele.removeEventListener("mouseup", mouseUpHandler);
-      ele.removeEventListener("mouseleave", mouseUpHandler);
-      ele_children.map((e2) =>
-        e2.removeEventListener("mouseleave", mouseUpHandler)
-      );
+      ele.removeEventListener("keyup", spaceKeyUpHandler);
+      ele.removeEventListener("mouseleave", spaceKeyUpHandler);
     };
 
-    ele.addEventListener("mousedown", mouseDownHandler);
-    ele_children.map((e2) => {
-      e2.addEventListener("mouseenter", () =>
-        handleMouseDownHandler("disable")
-      );
-      e2.addEventListener("mouseleave", () => handleMouseDownHandler("enable"));
+    ele.addEventListener("keydown", (event) => {
+      console.log(event);
+      if (event.code === "Space") {
+        spaceKeyDownHandler();
+      }
     });
   }, []);
 };

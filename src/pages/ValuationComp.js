@@ -14,7 +14,7 @@ import ComparisonHeader from "../components/ComparisonHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
 import { useModalStack } from "../hooks/useModal";
-import useSpaceDragScroll from "../hooks/useSpaceDragScroll";
+import useDragScroll from "../hooks/useDragScroll";
 import ValuationCompCard from "../components/ValuationCompCard";
 import CtaButton from "../atom/CtaButton";
 
@@ -571,7 +571,7 @@ const data = {
 const ValuationComp = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
-  useSpaceDragScroll("container", () => {});
+  useDragScroll("container", () => {});
 
   return (
     <div className={cx("wrapper")}>
