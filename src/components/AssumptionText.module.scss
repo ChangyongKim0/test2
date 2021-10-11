@@ -38,14 +38,14 @@
 .frame { 
     @include row(auto, auto, 0px);
     height: 24px;
-    width: 200px;
+    width: 80px;
     padding-right: 6px;
     justify-content: flex-end;
     &-value{
         display: flex;
       flex-direction: column;
       align-items: flex-end;
-      overflow: hidden;
+    //   overflow: hidden;
       width: 90px;
     }
 }
@@ -57,7 +57,7 @@
 
 .input {
     background-color: transparent;
-    width: 70px;
+    width: 50px;
     &:focus::-webkit-input-placeholder{
         color: $col-txt-g8;
     }
@@ -67,6 +67,11 @@
 
 .text {
     text-align: right;
+    white-space: nowrap;
+}
+
+.unit { 
+    white-space: nowrap;
 }
 
 .frame-left{
@@ -77,4 +82,5 @@
 
 .title{
     text-align: left;
+    white-space: nowrap;
 }
