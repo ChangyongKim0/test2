@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 
-const useKeyUpAssumptionFormatter = (id_value, id_base) => {
+const useKeyUpAssumptionFormatter = (id_value, id_base, need_update = []) => {
   let input_value = "";
   let input_base = "";
 
   useEffect(() => {
     input_value = document.getElementById(id_value);
     input_base = document.getElementById(id_base);
-  }, []);
+    console.log("element updated.");
+  }, need_update);
 
   const handleKeyUp = (self_type, type, e) => {
     let self = "";
@@ -22,8 +23,8 @@ const useKeyUpAssumptionFormatter = (id_value, id_base) => {
     // console.log(e.target.selectionStart);
     const pos = e.target.selectionStart;
     const temp = self.value;
-    // console.log(temp);
-    // console.log(temp.split("."));
+    console.log(temp);
+    console.log(temp.split("."));
     switch (type) {
       case "number":
         if (e.key.search(/[0-9.,]/) >= 0) {
