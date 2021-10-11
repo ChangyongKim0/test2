@@ -215,13 +215,32 @@ const addressReducer = (state, action) => {
 //   force_use_tooltip: false,
 // };
 
+const reduceMousePressContainer = (state, action) => {
+  if (action.type) {
+    return "not-draggable";
+  } else {
+    return "";
+  }
+};
+
 const Valuation = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
+  const mini_map_data = {
+    level: 3,
+    pos_list:
+      "127.02473058 37.49791889 127.02435588 37.49780526 127.02440471 37.4977032 127.02441654 37.49767838 127.02403691 37.49756322 127.02409308 37.49744545 127.02414913 37.49732768 127.0242053 37.49720991 127.02422135 37.49717621 127.0243247 37.49713961 127.02462926 37.49723307 127.02481451 37.49728998 127.02500339 37.49734796 127.02492292 37.49751638 127.02484788 37.49767344 127.02477937 37.49781679 127.02473058 37.49791889",
+  };
+
   const wrapped_data = useMemo(
-    () => wrapValuation(formatted_data),
-    [formatted_data]
+    () => wrapValuation(formatted_data, mini_map_data),
+    [formatted_data, mini_map_data]
   );
+
+  // const [mouse_press_container, handleMousePressContainer] = useReducer(
+  //   reduceMousePressContainer,
+  //   ""
+  // );
 
   const data = {
     valuation_header: {
@@ -230,30 +249,15 @@ const Valuation = () => {
       saved_name: "강남로 1, 210906-1",
     },
     cards: [
-      [
-        {
-          use_mini_map: true,
-          title: "필지 정보",
-          sub_title: "필지 기본 정보",
-          total_info: [],
-          use_plus: false,
-          value_type: "number",
-        },
-      ],
+      [wrapped_data.base],
       [wrapped_data.archi, wrapped_data.rent],
       [wrapped_data.use],
-      [wrapped_data.src],
+      [wrapped_data.src, wrapped_data.other],
     ],
-    footer: {
-      data: [
-        { title: "예상 사업 기간", value: "30", unit: "개월" },
-        { title: "매각금액 가정", value: "5,424", unit: "억 원" },
-        { title: "수익률", value: "4.34", unit: "%" },
-      ],
-    },
+    footer: wrapped_data.footer,
   };
 
-  useDragScroll("container");
+  useDragScroll("container", () => {});
 
   return (
     <div className={cx("wrapper")}>
