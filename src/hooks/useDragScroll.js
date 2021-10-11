@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const useDragScroll = (id) => {
+const useDragScroll = (id, handleMousePress = () => {}) => {
   useEffect(() => {
     const ele = document.getElementById(id);
     const ele_children = Array.from(ele.children);
@@ -24,12 +24,16 @@ const useDragScroll = (id) => {
 
     const mouseDownHandler = function (e) {
       if (enable) {
+        handleMousePress({ type: true });
         pos = {
           // The current scroll
           left: ele.scrollLeft,
           top: ele.scrollTop,
-          height: ele.scrollHeight - ele.clientHeight,
-          width: ele.scrollWidth - ele.clientWidth,
+          // height: ele.scrollHeight - ele.clientHeight,
+          height: ele.clientHeight,
+          // width: ele.scrollWidth - ele.clientWidth,
+          width: ele.clientWidth,
+
           // Get the current mouse position
           x: e.clientX,
           y: e.clientY,
@@ -54,18 +58,22 @@ const useDragScroll = (id) => {
       // Scroll the element
       let scroll_top = pos.top - dy;
       let scroll_left = pos.left - dx;
-      if (scroll_top > 0 && scroll_top < pos.height) {
-        ele.scrollTop = scroll_top;
-      }
-      if (scroll_left > 0 && scroll_left < pos.width) {
-        ele.scrollLeft = scroll_left;
-      }
+      ele.scrollTop = scroll_top;
+      ele.scrollLeft = scroll_left;
+      // if (e.clientY < 40 || e.clientY > pos.height - 40) {
+      //   mouseUpHandler();
+      // }
+      // if (e.clientX < 40 || e.clientX > pos.width - 40) {
+      //   mouseUpHandler();
+      // }
 
-      console.log(pos);
-      console.log(pos.top - dy);
+      // console.log(pos);
+      // console.log(pos.top - dy);
+      // console.log(e.clientX);
     };
 
     const mouseUpHandler = function () {
+      handleMousePress({ type: false });
       ele.removeEventListener("mousemove", mouseMoveHandler);
       ele.removeEventListener("mouseup", mouseUpHandler);
       ele.removeEventListener("mouseleave", mouseUpHandler);
