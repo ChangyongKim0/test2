@@ -10,11 +10,11 @@ const cx = classNames.bind(styles);
 const AssumptionText = ({
   data,
   is_placeholder,
-  onEnterPress,
   type,
   use_tooltip,
   tooltip,
   force_use_tooltip,
+  onFocusOut,
 }) => {
   let blob_class = {};
 
@@ -31,8 +31,8 @@ const AssumptionText = ({
   // const input_value = useRef(null);
 
   useEffect(() => {
-    input_value = document.getElementById(data.title + "_value");
-    input_base = document.getElementById(data.title + "_base");
+    input_value = document.getElementById(data.id + ".value");
+    input_base = document.getElementById(data.id + ".base");
   }, []);
 
   const handleKeyUp = (self_type, type, e) => {
@@ -63,6 +63,7 @@ const AssumptionText = ({
         } else if (
           e.keyCode != 8 &&
           e.keyCode != 9 &&
+          e.keyCode != 13 &&
           (e.keyCode < 37 || e.keyCode > 40)
         ) {
           self.value = temp.slice(0, pos - 1) + temp.slice(pos);
@@ -83,6 +84,7 @@ const AssumptionText = ({
         } else if (
           e.keyCode != 8 &&
           e.keyCode != 9 &&
+          e.keyCode != 13 &&
           (e.keyCode < 37 || e.keyCode > 40)
         ) {
           console.log("wrong key");
@@ -323,7 +325,7 @@ const AssumptionText = ({
           <div className={cx("frame")}>
             {is_placeholder.base ? (
               <input
-                id={data.title + "_base"}
+                id={data.id + ".base"}
                 className={cx("input")}
                 placeholder={data.base}
                 onKeyUp={(e) => handleKeyUp("base", data.base_type, e)}
@@ -345,7 +347,7 @@ const AssumptionText = ({
           <div className={cx("frame")}>
             {is_placeholder.value ? (
               <input
-                id={data.title + "_value"}
+                id={data.id + ".value"}
                 className={cx("input")}
                 placeholder={data.value}
                 onKeyUp={(e) => handleKeyUp("value", data.value_type, e)}
@@ -363,6 +365,7 @@ const AssumptionText = ({
 
 AssumptionText.defaultProps = {
   data: {
+    id: "id",
     title: "title",
     base: "base",
     base_unit: "u.",
@@ -375,10 +378,11 @@ AssumptionText.defaultProps = {
     base: true,
     value: true,
   },
-  onEnterPress: {
+  onFocusOut: {
     Base: () => {},
     Value: () => {},
   },
+  handleFocus: () => {},
   type: "default",
   use_tooltip: {
     title: false,

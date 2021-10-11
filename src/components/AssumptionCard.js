@@ -240,7 +240,7 @@ AssumptionCard.defaultProps = {
           base: true,
           value: true,
         },
-        onEnterPress: {
+        onFocusOut: {
           Base: () => {},
           Value: () => {},
         },
