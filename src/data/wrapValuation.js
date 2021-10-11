@@ -122,6 +122,16 @@ export let formatted_data = {
     },
   },
   archi: {
+    floor_area: {
+      id: "archi.floor_area",
+      title: "총 연면적",
+      base: "",
+      value: "8,988",
+      base_type: "",
+      value_type: "number_detail",
+      base_unit: "",
+      value_unit: "\u00A0평",
+    },
     bcr: {
       id: "archi.bcr",
       title: "건폐율",
@@ -346,8 +356,8 @@ export let formatted_data = {
       base_unit: "\u00A0%",
       value_unit: "\u00A0원",
     },
-    const_fee: {
-      id: "use.const_fee",
+    const_tax: {
+      id: "use.const_tax",
       title: "건설기간보유세",
       base: "12억",
       value: "24억",
@@ -916,8 +926,8 @@ const getSrcData = (formatted_data) => {
             ...x.pref_share,
           },
           is_placeholder: {
-            base: false,
-            value: true,
+            base: true,
+            value: false,
           },
           onEnterPress: {
             Base: () => {},
@@ -932,7 +942,7 @@ const getSrcData = (formatted_data) => {
           },
           is_placeholder: {
             base: false,
-            value: true,
+            value: false,
           },
           onEnterPress: {
             Base: () => {},
@@ -1059,7 +1069,7 @@ const getUseData = (formatted_data) => {
         },
         {
           data: {
-            ...x.const_fee,
+            ...x.const_tax,
           },
           is_placeholder: {
             base: true,
@@ -1195,7 +1205,7 @@ const getUseData = (formatted_data) => {
             ...x.pf_interest,
           },
           is_placeholder: {
-            base: true,
+            base: false,
             value: false,
           },
           onEnterPress: {
@@ -1224,7 +1234,7 @@ const getUseData = (formatted_data) => {
           type: "default",
           tooltip: {
             title: [],
-            base: ["대출 금액 대비"],
+            base: ["PF 이자 대비"],
             value: [],
           },
         },
@@ -1306,7 +1316,7 @@ const getRentData = (formatted_data) => {
       [
         {
           data: {
-            ...x.hf_rent,
+            ...x.hf_noi,
           },
           is_placeholder: {
             base: false,
@@ -1317,6 +1327,25 @@ const getRentData = (formatted_data) => {
             Value: () => {},
           },
           type: "total",
+          tooltip: {
+            title: [],
+            base: [],
+            value: [],
+          },
+        },
+        {
+          data: {
+            ...x.hf_rent,
+          },
+          is_placeholder: {
+            base: false,
+            value: true,
+          },
+          onEnterPress: {
+            Base: () => {},
+            Value: () => {},
+          },
+          type: "default",
           tooltip: {
             title: [],
             base: [],
@@ -1342,30 +1371,11 @@ const getRentData = (formatted_data) => {
             value: [],
           },
         },
-        {
-          data: {
-            ...x.hf_noi,
-          },
-          is_placeholder: {
-            base: false,
-            value: false,
-          },
-          onEnterPress: {
-            Base: () => {},
-            Value: () => {},
-          },
-          type: "default",
-          tooltip: {
-            title: [],
-            base: [],
-            value: [],
-          },
-        },
       ],
       [
         {
           data: {
-            ...x.lf_rent,
+            ...x.lf_noi,
           },
           is_placeholder: {
             base: false,
@@ -1384,11 +1394,11 @@ const getRentData = (formatted_data) => {
         },
         {
           data: {
-            ...x.lf_opex,
+            ...x.lf_rent,
           },
           is_placeholder: {
-            base: true,
-            value: false,
+            base: false,
+            value: true,
           },
           onEnterPress: {
             Base: () => {},
@@ -1403,11 +1413,11 @@ const getRentData = (formatted_data) => {
         },
         {
           data: {
-            ...x.lf_noi,
+            ...x.lf_opex,
           },
           is_placeholder: {
-            base: false,
-            value: false,
+            base: true,
+            value: true,
           },
           onEnterPress: {
             Base: () => {},
@@ -1434,7 +1444,7 @@ const getArchiData = (formatted_data) => {
     id: "archi",
     title: "건물 가정",
     sub_title: "신축 건물 설계 가정(총 연면적)",
-    total_info: [{ value: x.far.value, unit: x.far.value_unit }],
+    total_info: [{ value: x.floor_area.value, unit: x.floor_area.value_unit }],
     data: [
       [
         {
