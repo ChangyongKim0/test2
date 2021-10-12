@@ -30,7 +30,7 @@
         @include columnWithBorder(auto, auto, 8px, $col-brd-g8);
     }
     &-data-each{
-        @include column(290px, auto, 4px);
+        @include column(290px, auto, 2px);
     }
     &-map{
         width: 290px;
