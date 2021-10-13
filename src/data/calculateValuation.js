@@ -1,27 +1,40 @@
+import React from "react";
 import naked_data from "./naked_data.js";
+import { cloneDeep } from "lodash";
 
-const calculateValuation = (naked_data, id) => {
-  const base = naked_data.base;
-  const archi = naked_data.archi;
-  const rent = naked_data.rent;
-  const use = naked_data.use;
-  const src = naked_data.src;
-  const other = naked_data.other;
-  const result = naked_data.result;
+const calculateValuation = (naked_data_old, id) => {
+  let naked_data = cloneDeep(naked_data_old);
+  let base = naked_data.base;
+  let archi = naked_data.archi;
+  let rent = naked_data.rent;
+  let use = naked_data.use;
+  let src = naked_data.src;
+  let other = naked_data.other;
+  let result = naked_data.result;
 
+  console.log("help", id);
   switch (id) {
     case "src.pref_share.value":
       src.common_share.value = src.equity.value - src.pref_share.value;
+      break;
     case "src.common_share.value":
       src.pref_share.value = src.equity.value - src.common_share.value;
+      break;
     case "src.tr_a.value":
       src.tr_b.value = src.pf.value - src.tr_a.value;
+      break;
     case "src.tr_b.value":
       src.tr_a.value = src.pf.value - src.tr_b.value;
+      break;
     case "src.pf.base":
       src.equity.base = 1.0 - src.pf.base;
+      break;
     case "src.equity.base":
       src.pf.base = 1.0 - src.equity.base;
+      console.log(src.pf.base);
+      break;
+    default:
+      break;
   }
 
   // 건축 가정
@@ -61,11 +74,10 @@ const calculateValuation = (naked_data, id) => {
 
   // tic, src_total 초기화
   use.stable_reserve.value = -1;
-  let stepped_value = 0;
+  let stepped_value = 10000000000;
   console.log(stepped_value);
 
   while (use.stable_reserve.value < 0) {
-    stepped_value += 10000000000;
     console.log(stepped_value);
 
     // // tic, src_total 업데이트
@@ -120,6 +132,10 @@ const calculateValuation = (naked_data, id) => {
       use.fin_total.value;
     use.stable_reserve.value = use.other_total.value - use.ti_rent_fee.value;
     console.log(use.stable_reserve.value);
+    stepped_value +=
+      Math.max(1, Math.floor((-1 * use.stable_reserve.value) / 10000000000)) *
+      10000000000;
+    console.log(src.pf.base);
   }
 
   // use.buy_fee.base = use.buy_fee.value / use.tic.value;
@@ -133,8 +149,6 @@ const calculateValuation = (naked_data, id) => {
   result.return.value = result.sell_price.value - use.tic.value;
   result.roe.value = result.return.value / src.equity.value;
   result.irr.value = result.roe.value / (other.period_total.value / 12);
-
-  console.log(base);
 
   return {
     base: base,
