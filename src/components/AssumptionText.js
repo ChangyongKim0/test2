@@ -36,6 +36,7 @@ const AssumptionText = ({
 
   const onBlur = (e) => {
     handleFocus({ id: e.target.id, type: "out", value: e.target.value });
+    e.target.value = "";
   };
 
   return (
