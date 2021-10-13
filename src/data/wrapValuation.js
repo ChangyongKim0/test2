@@ -170,7 +170,7 @@ export let formatted_data = {
       base_type: "string",
       value_type: "floor_range",
       base_unit: "",
-      value_unit: "\u00A0평",
+      value_unit: "",
     },
     hf_area: {
       id: "archi.hf_area",
@@ -196,7 +196,7 @@ export let formatted_data = {
       id: "archi.low_floor",
       title: "저층부",
       base: "상업",
-      value: "B1-2",
+      value: "B1-2F",
       base_type: "string",
       value_type: "floor_range",
       base_unit: "",
@@ -907,8 +907,8 @@ const getSrcData = (formatted_data) => {
             ...x.equity,
           },
           is_placeholder: {
-            base: true,
-            value: false,
+            base: false,
+            value: true,
           },
           onEnterPress: {
             Base: () => {},
@@ -942,7 +942,7 @@ const getSrcData = (formatted_data) => {
           },
           is_placeholder: {
             base: false,
-            value: false,
+            value: true,
           },
           onEnterPress: {
             Base: () => {},
@@ -1265,7 +1265,7 @@ const getUseData = (formatted_data) => {
           },
           is_placeholder: {
             base: true,
-            value: true,
+            value: false,
           },
           onEnterPress: {
             Base: () => {},
