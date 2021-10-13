@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useMemo, useReducer } from "react";
-import { formatted_data } from "../data/wrapValuation";
+import calculateValuation from "../data/calculateValuation";
+import naked_data from "../data/naked_data";
+import { unformatData } from "../data/unformatValuation";
+import { cloneDeep } from "lodash";
 
 const base_data = {};
 
@@ -9,14 +12,22 @@ export const ValuationContext = createContext({
 });
 
 const reduceValuationData = (state, action) => {
-  let new_state = { ...state };
+  let new_state = cloneDeep(state);
+  console.log(new_state);
+  console.log(action);
   switch (action.type) {
     case "create":
-      return action.data;
+      return calculateValuation(action.data, action.id);
     case "update":
       if (action.value) {
-        const [card_id, text_id, type_id] = action.id.split(".");
-        new_state[card_id][text_id][type_id] = action.value;
+        if (action.id.includes(".")) {
+          const [card_id, text_id, type_id] = action.id.split(".");
+          new_state[card_id][text_id][type_id] = unformatData(
+            action.value,
+            new_state[card_id][text_id][type_id + "_type"]
+          );
+        }
+        new_state = calculateValuation(new_state, action.id);
         console.log("valuation data updated.");
         return new_state;
       } else {
@@ -35,7 +46,7 @@ const useValuationCalculator = () => {
 export const ValuationCalculatorProvider = ({ children }) => {
   const [valuation_data, setValuationData] = useReducer(
     reduceValuationData,
-    formatted_data
+    calculateValuation(naked_data, "")
   );
   const value = useMemo(() => {
     console.log("memo rewritten.");
