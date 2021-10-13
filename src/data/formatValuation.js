@@ -5,15 +5,19 @@ const formatValuation = (calculated_data) => {
   let new_calculated_data = { ...calculated_data };
   // console.log(Object.keys(calculated_data));
   Object.keys(calculated_data).map((card) => {
-    console.log(card);
+    console.log("card_name: " + card);
     Object.keys(new_calculated_data[card]).map((text) => {
-      console.log(text);
+      console.log("text_name: " + text);
       console.log(
+        "change data",
         new_calculated_data[card][text].base,
+        "of type",
         new_calculated_data[card][text].base_type
       );
       console.log(
+        "change data",
         new_calculated_data[card][text].value,
+        "of type",
         new_calculated_data[card][text].value_type
       );
       new_calculated_data[card][text].base = formatData(
@@ -24,33 +28,36 @@ const formatValuation = (calculated_data) => {
         new_calculated_data[card][text].value,
         new_calculated_data[card][text].value_type
       );
-      console.log(new_calculated_data[card][text].base);
-      console.log(new_calculated_data[card][text].value);
+      console.log("changed data is:", new_calculated_data[card][text].base);
+      console.log("changed data is:", new_calculated_data[card][text].value);
     });
   });
   return new_calculated_data;
 };
 
 const formatData = (data, type) => {
+  if (data == "") {
+    return data;
+  }
   switch (type) {
     case "string":
       return data;
     case "number":
       return _formatThousandSeperator(
-        _formatDecimalPoint(_formatTenThousandShrinker(data))
+        _formatDecimalPoint(_formatTenThousandShrinker(data), 2)
       );
     case "number_detail":
-      return _formatThousandSeperator(data);
+      return _formatThousandSeperator(_formatDecimalPoint(data, 0));
     case "number_list":
       return data.map((e, idx) => formatData(e, "number")).join(" / ");
     case "rate":
-      return _formatThousandSeperator(data * 100);
+      return _formatThousandSeperator(_formatDecimalPoint(data * 100));
     case "rate_over":
-      return _formatThousandSeperator(data * 100);
+      return _formatThousandSeperator(_formatDecimalPoint(data * 100));
     case "rate_list":
       return data.map((e, idx) => formatData(e, "rate")).join(" / ");
     case "floor_range":
-      data
+      return data
         .map((e) => {
           if (e <= 0) {
             return "B" + (1 - e).toString();
@@ -69,8 +76,8 @@ const _formatThousandSeperator = (data) => {
 };
 
 const _formatTenThousandShrinker = (number) => {
-  const integer_part = parseInt(number).toString();
-  switch (parseInt(integer_part.length / 4).toString()) {
+  const integer_part = parseInt(number).toString().replace(/-/g, "");
+  switch (parseInt((integer_part.length - 1) / 4).toString()) {
     case "0":
       return number.toString();
     case "1":
@@ -86,7 +93,7 @@ const _formatTenThousandShrinker = (number) => {
   }
 };
 
-const _formatDecimalPoint = (data, position = 1) => {
+const _formatDecimalPointOld = (data, position = 1) => {
   let regex = /./g;
   switch (position.toString) {
     case "0":
@@ -101,6 +108,15 @@ const _formatDecimalPoint = (data, position = 1) => {
       regex = /-/;
   }
   return data.toString().replace(regex, "");
+};
+
+const _formatDecimalPoint = (data, position = 1) => {
+  const num_data = data.toString().match(/[-0-9.]+/g)[0];
+  const replacor = String(
+    Math.round(Math.pow(10, position) * Number(num_data)) /
+      Math.pow(10, position)
+  );
+  return data.toString().replace(/[-0-9.]+/g, replacor);
 };
 
 // (string|rate"|rate list|rate_over|number"|number_detail|_type: ""|floor_range|number list)

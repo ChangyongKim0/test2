@@ -32,14 +32,16 @@ const calculateValuation = (naked_data, id) => {
   // 건축 가정
   archi.hf_area.base = archi.far.value / archi.high_floor.value[1];
   archi.lf_area.base = archi.hf_area.base;
-  archi.hf_parea.base = archi.hf_area.value * archi.par.value;
-  archi.lf_parea.base = archi.hf_parea.value;
+  archi.hf_parea.base = archi.hf_area.base * archi.par.base;
+  archi.lf_parea.base = archi.hf_parea.base;
   archi.hf_area.value =
     archi.hf_area.base *
     (archi.high_floor.value[1] - archi.high_floor.value[0] + 1);
   archi.lf_area.value =
     archi.lf_area.base *
     (archi.low_floor.value[1] - archi.low_floor.value[0] + 1);
+  archi.hf_parea.value = archi.hf_area.value * archi.par.base;
+  archi.lf_parea.value = archi.lf_area.value * archi.par.base;
   archi.floor_area.value = archi.hf_area.value + archi.lf_area.value;
 
   // 임대 가정

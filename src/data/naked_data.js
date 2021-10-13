@@ -421,7 +421,7 @@ const naked_data = {
       title: "금융비용 계",
       base: "",
       value: 35000000000,
-      base_type: "number",
+      base_type: "",
       value_type: "number",
       base_unit: "",
       value_unit: "\u00A0원",
