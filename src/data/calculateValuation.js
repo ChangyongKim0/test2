@@ -1,3 +1,5 @@
+import naked_data from "./naked_data.js";
+
 const calculateValuation = (naked_data, id) => {
   const base = naked_data.base;
   const archi = naked_data.archi;
@@ -142,5 +144,12 @@ const calculateValuation = (naked_data, id) => {
     result: result,
   };
 };
+
+// console.log("f");
+// console.log(calculateValuation(naked_data, ""));
+
+// while (true) {
+//   const a = 1;
+// }
 
 export default calculateValuation;
