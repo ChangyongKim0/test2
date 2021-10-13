@@ -160,7 +160,7 @@ const naked_data = {
       base_type: "rate",
       value_type: "number_detail",
       base_unit: "\u00A0%",
-      value_unit: "\u00A0원",
+      value_unit: "\u00A0[area]",
     },
     high_floor: {
       id: "archi.high_floor",
@@ -170,7 +170,7 @@ const naked_data = {
       base_type: "string",
       value_type: "floor_range",
       base_unit: "",
-      value_unit: "\u00A0[area]",
+      value_unit: "",
     },
     hf_area: {
       id: "archi.hf_area",
@@ -624,5 +624,7 @@ const naked_data = {
     },
   },
 };
+
+// console.log(JSON.stringify(naked_data))
 
 export default naked_data;
