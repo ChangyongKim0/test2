@@ -53,13 +53,16 @@
 .blob {
     border-radius: 5px;
     background-color: $col-bgd-g95;
+    &:focus-within{
+        background-color: $col-bgd-3;
+    }
 }
 
 .input {
     background-color: transparent;
     width: 50px;
     &:focus::-webkit-input-placeholder{
-        color: $col-txt-g8;
+        color: $col-bgd-4;
     }
     text-align: right;
     padding: 0px;
