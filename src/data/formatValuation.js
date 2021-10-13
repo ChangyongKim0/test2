@@ -1,43 +1,88 @@
+import React from "react";
 import naked_data from "./naked_data.js";
-import calculateValuation from "./calculateValuation.js";
+import deepCopy from "../hooks/useDeepCopy.js";
+import { cloneDeep } from "lodash";
 
-const formatValuation = (calculated_data) => {
-  let new_calculated_data = { ...calculated_data };
-  // console.log(Object.keys(calculated_data));
-  Object.keys(calculated_data).map((card) => {
-    console.log("card_name: " + card);
+const err_text = "오류발생";
+
+const formatValuation = (calculated_data, unit_type = "py") => {
+  let new_calculated_data = cloneDeep(calculated_data);
+  Object.keys(new_calculated_data).map((card) => {
+    // console.log("card_name: " + card);
     Object.keys(new_calculated_data[card]).map((text) => {
-      console.log("text_name: " + text);
-      console.log(
-        "change data",
-        new_calculated_data[card][text].base,
-        "of type",
-        new_calculated_data[card][text].base_type
+      // console.log("text_name: " + text);
+      // console.log(
+      //   "change data",
+      //   new_calculated_data[card][text].base,
+      //   "of type",
+      //   new_calculated_data[card][text].base_type
+      // );
+      // console.log(
+      //   "change data",
+      //   new_calculated_data[card][text].value,
+      //   "of type",
+      //   new_calculated_data[card][text].value_type
+      // );
+      new_calculated_data[card][text].title = formatUnit(
+        new_calculated_data[card][text].title,
+        unit_type
       );
-      console.log(
-        "change data",
-        new_calculated_data[card][text].value,
-        "of type",
-        new_calculated_data[card][text].value_type
+      try {
+        new_calculated_data[card][text].base = formatData(
+          new_calculated_data[card][text].base,
+          new_calculated_data[card][text].base_type
+        );
+      } catch {
+        new_calculated_data[card][text].base = err_text;
+      }
+      new_calculated_data[card][text].base_unit = formatUnit(
+        new_calculated_data[card][text].base_unit,
+        unit_type
       );
-      new_calculated_data[card][text].base = formatData(
-        new_calculated_data[card][text].base,
-        new_calculated_data[card][text].base_type
+      try {
+        new_calculated_data[card][text].value = formatData(
+          new_calculated_data[card][text].value,
+          new_calculated_data[card][text].value_type
+        );
+      } catch {
+        new_calculated_data[card][text].base = err_text;
+      }
+      new_calculated_data[card][text].value_unit = formatUnit(
+        new_calculated_data[card][text].value_unit,
+        unit_type
       );
-      new_calculated_data[card][text].value = formatData(
-        new_calculated_data[card][text].value,
-        new_calculated_data[card][text].value_type
-      );
-      console.log("changed data is:", new_calculated_data[card][text].base);
-      console.log("changed data is:", new_calculated_data[card][text].value);
+      // console.log("changed data is:", new_calculated_data[card][text].base);
+      // console.log("changed data is:", new_calculated_data[card][text].value);
     });
   });
+  console.log(calculated_data);
+  console.log(new_calculated_data);
   return new_calculated_data;
 };
 
-const formatData = (data, type) => {
+const formatUnit = (unit, unit_type) => {
+  switch (unit_type) {
+    case "py":
+      return unit.replace(/\[area\]/g, "평").replace(/\[parea\]/g, "전용평");
+    case "sqm":
+      return unit.replace(/\[area\]/g, "㎡").replace(/\[parea\]/g, "전용㎡");
+    default:
+      return unit;
+  }
+};
+
+const formatData = (data_old, type, unit, unit_type) => {
+  let data = data_old;
   if (data == "") {
     return data;
+  }
+  if (
+    (type.includes("number") || type.includes("rate")) &&
+    !type.includes("list")
+  ) {
+    if (!isFinite(data) || isNaN(data)) {
+      return err_text;
+    }
   }
   switch (type) {
     case "string":
@@ -121,12 +166,14 @@ const _formatDecimalPoint = (data, position = 1) => {
 
 // (string|rate"|rate list|rate_over|number"|number_detail|_type: ""|floor_range|number list)
 
-console.log("f");
-const cal_data = calculateValuation(naked_data, "");
-const for_data = formatValuation(cal_data);
-console.log(cal_data);
-console.log(for_data);
+// console.log("f");
+// const cal_data = calculateValuation(naked_data, "");
+// const for_data = formatValuation(cal_data);
+// console.log(cal_data);
+// console.log(for_data);
 
-while (true) {
-  const a = 1;
-}
+// while (true) {
+//   const a = 1;
+// }
+
+export default formatValuation;
