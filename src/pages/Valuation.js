@@ -24,6 +24,7 @@ import useDragScroll from "../hooks/useDragScroll";
 import wrapValuation from "../data/wrapValuation";
 import useEnterAsTab from "../hooks/useEnterAsTab";
 import useValuationCalculator from "../hooks/useValuationCalculator";
+import formatValuation from "../data/formatValuation";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -45,7 +46,7 @@ const reduceMousePressContainer = (state, action) => {
 const Valuation = () => {
   const [modal_stack, useModalParam] = useModalStack();
 
-  const [new_formatted_data, setValuationCalculator] = useValuationCalculator();
+  const [naked_data, setValuationCalculator] = useValuationCalculator();
 
   const mini_map_data = {
     level: 3,
@@ -55,8 +56,9 @@ const Valuation = () => {
 
   const wrapped_data = useMemo(() => {
     console.log("data wrapped.");
-    return wrapValuation(new_formatted_data, mini_map_data);
-  }, [new_formatted_data, mini_map_data]);
+    console.log(naked_data);
+    return wrapValuation(formatValuation(naked_data), mini_map_data);
+  }, [naked_data, mini_map_data]);
 
   // const [mouse_press_container, handleMousePressContainer] = useReducer(
   //   reduceMousePressContainer,
@@ -87,7 +89,7 @@ const Valuation = () => {
       ],
       footer: wrapped_data.footer,
     };
-  }, [new_formatted_data, mini_map_data]);
+  }, [naked_data, mini_map_data]);
 
   useDragScroll("container", () => {});
 
