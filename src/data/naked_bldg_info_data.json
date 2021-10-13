@@ -1,0 +1,118 @@
+{
+    "price": {
+        "component_type": "text<text|list|blob>",
+        "show": true,
+        "data": {
+            "title": "최근 실거래가",
+            "value": "2000억",
+            "value_unit": "\u00A0원",
+            "base": "2019.03",
+            "base_unit": "",
+            "base_type": "string",
+            "value_type": "number<number | number_detail | string | rate | rate_over | floor_range>"
+        },
+        "type": "emph<emph | default | title>",
+        "tooltip": []
+    },
+    "noc": {
+        "component_type": "text",
+        "show": true,
+        "data": {
+            "title": "건물 명목 NOC",
+            "value": "27.4만",
+            "value_unit": "\u00A0원"
+        },
+        "type": "emph",
+        "tooltip": ["건물 명목 NOC =", "(평당+평당 관리비)/전용률"]
+    },
+    "land_price_per_area": {
+        "component_type": "text",
+        "show": true,
+        "data": {
+            "title": "토지 평당 단가",
+            "value": "6.9억",
+            "value_unit": "\u00A0원"
+        },
+        "type": "default",
+        "tooltip": ["거래가(원)/토지면적(평)"]
+    },
+    "rent": {
+        "component_type": "text",
+        "show": true,
+        "data": {
+            "title": "평당 임대료",
+            "value": "11.1만",
+            "value_unit": "\u00A0원"
+        },
+        "type": "default",
+        "tooltip": []
+    },
+    "opex": {
+        "component_type": "text",
+        "show": true,
+        "data": {
+            "title": "평당 관리비",
+            "value": "4.8만",
+            "value_unit": "\u00A0원"
+        },
+        "type": "default",
+        "tooltip": []
+    },
+    "land_title": {
+        "component_type": "text",
+        "show": true,
+        "data": {
+            "title": "토지"
+        },
+        "type": "title",
+        "tooltip": []
+    },
+    "usage_list": {
+        "component_type": "blob",
+        "data": [
+            {
+                "title": "서초로지구 지구단위계획",
+                "tooltip": ["클릭시 토지계획이용원으로 이동"],
+                "onClick": "토지계획이용원으로 링크"
+            },
+            {
+                "title": "일반상업지역",
+                "tooltip": ["클릭시 토지계획이용원으로 이동"],
+                "onClick": "토지계획이용원으로 링크"
+            }
+        ]
+    },
+    "attachment_land": {
+        "component_type": "list",
+        "data": {
+            "title": "부속필지",
+            "value": [
+                [  
+                    {
+                        "value": "서울시 강남구 역삼동 101-1",
+                        "value_unit": "",
+                        "value_type": "string"
+                    },
+                    {
+                        "value": "3,537",
+                        "value_unit": "\u00A0평",
+                        "value_type": "number_detail"
+                    }
+                ],
+                [  
+                    {
+                        "value": "서울시 강남구 역삼동 101-1",
+                        "value_unit": "",
+                        "value_type": "string"
+                    },
+                    {
+                        "value": "3,537",
+                        "value_unit": "\u00A0평",
+                        "value_type": "number_detail"
+                    }
+                ]
+            ]
+        },
+        "dropdown_from": 2
+    }
+}
