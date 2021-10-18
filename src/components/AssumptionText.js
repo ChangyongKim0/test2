@@ -17,6 +17,10 @@ const AssumptionText = ({
   force_use_tooltip,
   handleFocus,
 }) => {
+  tooltip.title = tooltip.title || [];
+  tooltip.base = tooltip.base || [];
+  tooltip.value = tooltip.value || [];
+
   let blob_class = {};
   Object.keys(is_placeholder).map((e) =>
     is_placeholder[e] ? (blob_class[e] = "blob") : (blob_class[e] = "")
