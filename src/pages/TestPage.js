@@ -32,6 +32,8 @@ import AddModal from "../components/AddModal";
 import AssumptionCard from "../components/AssumptionCard";
 import ValuationCompCard from "../components/ValuationCompCard";
 import LandDataCompCard from "../components/LandDataCompCard";
+import BldgInfoText from "../components/BldgInfoText";
+import BldgInfoBlob from "../components/BldgInfoBlob";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -1131,6 +1133,38 @@ const TestPage = () => {
         <ToolTip data={["샘플로 작성된", "툴팁입니다."]}>
           <div className={cx("event")}>HOVER_EVENT</div>
         </ToolTip>
+        <p className={cx("title")}>BldgInfoText</p>
+        <BldgInfoText />
+        <BldgInfoText
+          data={{
+            title: "최근 실거래가",
+            value: 200000000000,
+            value_unit: " 원",
+            base: "2019.03",
+            base_unit: "",
+            base_type: "string",
+            value_type: "number",
+          }}
+          style="default"
+          tooltip={[]}
+        />
+        <BldgInfoText
+          data={{
+            title: "최근 실거래가",
+            value: 200000000000,
+            value_unit: " 원",
+            base: "2019.03",
+            base_unit: "",
+            base_type: "string",
+            value_type: "number",
+          }}
+          style="emph"
+          tooltip={[]}
+        />
+        <div className={cx("background-white")}>
+          <p className={cx("title")}>BldgInfoBlob</p>
+          <BldgInfoBlob />
+        </div>
         <p className={cx("title")}>BldgInfo</p>
         <BldgInfo />
         <p className={cx("title")}>BldgInfoModal</p>

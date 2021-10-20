@@ -1,6 +1,6 @@
 const naked_data = {
   price: {
-    component_type: "text<text | list | blob>",
+    component_type: "text",
     show: true,
     data: {
       title: "최근 실거래가",
@@ -9,10 +9,9 @@ const naked_data = {
       base: "2019.03",
       base_unit: "",
       base_type: "string",
-      value_type:
-        "number<number | number_detail | string | rate | rate_over | floor_range>",
+      value_type: "number",
     },
-    type: "emph<emph | default | title>",
+    style: "emph",
     tooltip: [],
   },
   noc: {
@@ -24,7 +23,7 @@ const naked_data = {
       value_unit: " 원",
       value_type: "number",
     },
-    type: "emph",
+    style: "emph",
     tooltip: ["건물 명목 NOC =", "(평당+평당 관리비)/전용률"],
   },
   land_price_per_area: {
@@ -36,7 +35,7 @@ const naked_data = {
       value_unit: " 원",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
     tooltip: ["거래가(원)/토지면적(평)"],
   },
   rent: {
@@ -48,7 +47,7 @@ const naked_data = {
       value_unit: " 원",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
     tooltip: ["전체 월 임대료/전용면적(평)"],
   },
   opex: {
@@ -60,7 +59,7 @@ const naked_data = {
       value_unit: " 원",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
     tooltip: ["전체 월 관리료/전용면적(평)"],
   },
   land_title: {
@@ -69,7 +68,7 @@ const naked_data = {
     data: {
       title: "토지",
     },
-    type: "title",
+    style: "title",
     tooltip: [],
   },
   land_size: {
@@ -81,7 +80,7 @@ const naked_data = {
       value_unit: " 평",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
   },
   land_usage: {
     component_type: "text",
@@ -92,7 +91,7 @@ const naked_data = {
       value_unit: "",
       value_type: "string",
     },
-    type: "default",
+    style: "default",
   },
   usage_list: {
     component_type: "blob",
@@ -150,7 +149,7 @@ const naked_data = {
       base: "강욱 빌딩",
       base_type: "string",
     },
-    type: "title",
+    style: "title",
     tooltip: [],
   },
   bldg_size: {
@@ -162,7 +161,7 @@ const naked_data = {
       value_unit: " 평",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
   },
   bldg_year: {
     component_type: "text",
@@ -173,7 +172,7 @@ const naked_data = {
       value_unit: "년",
       value_type: "number",
     },
-    type: "default",
+    style: "default",
   },
   bldg_floor_area_ratio: {
     component_type: "text",
@@ -184,7 +183,7 @@ const naked_data = {
       value_unit: " %",
       value_type: "rate_over",
     },
-    type: "default",
+    style: "default",
   },
   bldg_floor: {
     component_type: "text",
@@ -195,7 +194,7 @@ const naked_data = {
       value_unit: "",
       value_type: "floor_range",
     },
-    type: "default",
+    style: "default",
   },
   bldg_coverage_ratio: {
     component_type: "text",
@@ -206,7 +205,7 @@ const naked_data = {
       value_unit: " %",
       value_type: "rate",
     },
-    type: "default",
+    style: "default",
   },
   bldg_exclusive_rate: {
     component_type: "text",
@@ -217,7 +216,7 @@ const naked_data = {
       value_unit: " %",
       value_type: "rate",
     },
-    type: "default",
+    style: "default",
   },
   bldg_usage_list: {
     component_type: "blob",
@@ -285,7 +284,7 @@ const naked_data = {
     data: {
       title: "개발 가능 한계",
     },
-    type: "title",
+    style: "title",
     tooltip: [
       "서초로지구 지구단위계획에 의하였으며,",
       "일반상업지역에 적용되는 개발한계임",
@@ -300,7 +299,7 @@ const naked_data = {
       value_unit: " %",
       value_type: "rate_over",
     },
-    type: "default",
+    style: "default",
   },
   dev_coverage_ratio: {
     component_type: "text",
@@ -311,7 +310,7 @@ const naked_data = {
       value_unit: " %",
       value_type: "rate",
     },
-    type: "default",
+    style: "default",
   },
   dev_height: {
     component_type: "text",
@@ -322,7 +321,7 @@ const naked_data = {
       value_unit: " m",
       value_type: "number_detail",
     },
-    type: "default",
+    style: "default",
   },
   dev_usage_list: {
     component_type: "blob",
@@ -345,7 +344,7 @@ const naked_data = {
     data: {
       title: "공시지가",
     },
-    type: "title",
+    style: "title",
   },
   official_price_year: {
     component_type: "list",
@@ -415,7 +414,7 @@ const naked_data = {
     data: {
       title: "유사 매물",
     },
-    type: "title",
+    style: "title",
   },
   siml_land_address: {
     component_type: "list",

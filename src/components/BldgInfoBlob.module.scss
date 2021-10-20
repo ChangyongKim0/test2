@@ -1,0 +1,20 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include row(auto, auto, 10px);
+  align-items: flex-start;
+}
+
+.frame { 
+    &-blob{
+        padding: 9px 18px;
+        background-color: $col-bgd-g95;
+        border-radius: 30px;
+    }
+}
+
+.text {
+    @include txt-regular;
+    @include txt-12;
+    color: $col-txt-g2;
+}

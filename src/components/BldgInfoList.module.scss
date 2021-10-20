@@ -1,0 +1,69 @@
+@import "../util/style.scss";
+
+.wrapper {
+  @include column(auto, auto, 6px);
+  align-items: flex-start;
+}
+
+.frame { 
+    &-title{
+        @include row(auto, auto, 0px);
+    }
+    &-value{
+        @include row(auto, auto, 0px);
+    }
+    &-base{
+        @include row(auto, auto, 0px);
+    }
+}
+
+.title{
+    &-default {
+        > * {
+            @include txt-bold;
+            @include txt-11;
+            color: $col-txt-g6;
+        }
+    }
+    &-emph {
+        > * {
+            @include txt-bold;
+            @include txt-14;
+            color: $col-txt-g25;
+        }
+    }
+}
+
+.value {
+    &-default {
+        > * {
+            @include txt-bold;
+            @include txt-17;
+            color: $col-txt-g25;
+        }
+    }
+    &-emph {
+        > * {
+            @include txt-bold;
+            @include txt-28;
+            color: $col-txt-2;
+        }
+    }
+}
+
+.base {
+    &-default {
+        > * {
+            @include txt-light;
+            @include txt-11;
+            color: $col-txt-g6;
+        }
+    }
+    &-emph {
+        > * {
+            @include txt-light;
+            @include txt-14;
+            color: $col-txt-g6;
+        }
+    }
+}
