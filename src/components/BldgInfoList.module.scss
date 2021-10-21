@@ -1,18 +1,19 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include column(auto, auto, 6px);
+  @include column(auto, auto, 11px);
   align-items: flex-start;
 }
 
 .frame { 
-    &-title{
-        @include row(auto, auto, 0px);
+    &-column{
+        @include column(auto, auto, 11px);
+        align-items: flex-start;
+    }
+    &-row{
+        @include row(auto, auto, 20px);
     }
     &-value{
-        @include row(auto, auto, 0px);
-    }
-    &-base{
         @include row(auto, auto, 0px);
     }
 }
@@ -28,8 +29,8 @@
     &-emph {
         > * {
             @include txt-bold;
-            @include txt-14;
-            color: $col-txt-g25;
+            @include txt-11;
+            color: $col-txt-g6;
         }
     }
 }
@@ -38,32 +39,32 @@
     &-default {
         > * {
             @include txt-bold;
-            @include txt-17;
-            color: $col-txt-g25;
+            @include txt-14;
+            color: $col-txt-g5;
         }
     }
     &-emph {
         > * {
             @include txt-bold;
-            @include txt-28;
-            color: $col-txt-2;
+            @include txt-14;
+            color: $col-txt-g3;
         }
     }
 }
 
-.base {
+.unit {
     &-default {
         > * {
-            @include txt-light;
-            @include txt-11;
-            color: $col-txt-g6;
+            @include txt-bold;
+            @include txt-14;
+            color: $col-txt-g5;
         }
     }
     &-emph {
         > * {
-            @include txt-light;
+            @include txt-bold;
             @include txt-14;
-            color: $col-txt-g6;
+            color: $col-txt-g3;
         }
     }
 }

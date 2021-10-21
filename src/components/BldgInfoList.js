@@ -1,71 +1,87 @@
-import React from "react";
+import React, { useState } from "react";
 // { useEffect }
 
 import styles from "./BldgInfoList.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
-import useFormatter from "../hooks/useFormatter";
+import useFormatter, { formatData, formatUnit } from "../hooks/useFormatter";
+import useToggleState from "../hooks/useToggle";
 
 const cx = classNames.bind(styles);
 
-const BldgInfoList = ({ show, data, tooltip, style }) => {
-  const formatted_value = useFormatter({
-    value: data.value,
-    value_type: data.value_type,
-    unit: data.value_unit,
-    unit_type: data.value_unit_type,
-  });
-  const formatted_base = useFormatter({
-    value: data.base,
-    value_type: data.base_type,
-    unit: data.base_unit,
-    unit_type: data.base_unit_type,
-  });
+const BldgInfoList = ({ show, data, style, dropdown_from }) => {
+  const [dropped_down, setDroppedDown] = useToggleState({ toggle: false });
+
+  const formatted_value_list = data.value.map((e) =>
+    e.map((e2) => {
+      return {
+        value: formatData(e2.value, e2.value_type),
+        unit: formatUnit(e2.value_unit, e2.unit_type),
+      };
+    })
+  );
 
   if (!show) {
     return <></>;
   } else {
     return (
       <div className={cx("wrapper")}>
-        <ToolTip enable={tooltip.length > 0} data={tooltip}>
-          <div className={cx("frame-title", "title-" + style)}>
-            <div className={cx("text-" + style)}>
-              {style == "detail" ? "\u00A0\u00A0" : ""}
-              {data.title}
-            </div>
-          </div>
-        </ToolTip>
-        <div className={cx("frame-value", "value-" + style)}>
-          <div className={cx("text-" + style)}>{formatted_value.value}</div>
-          <div className={cx("unit-" + style)}>{formatted_value.unit}</div>
+        <div className={cx("frame-title", "title-" + style)}>
+          <div className={cx("title-" + style)}>{data.title}</div>
         </div>
-        {data.base ? (
-          <div className={cx("frame-base", "base-" + style)}>
-            <div className={cx("text-" + style)}>{formatted_base.value}</div>
-            <div className={cx("unit-" + style)}>{formatted_base.unit}</div>
-          </div>
-        ) : (
-          <></>
-        )}
+        <div className={cx("frame-column", "column-" + style)}>
+          {formatted_value_list.map((e, idx) => {
+            const component = e.map((e2, idx2) => (
+              <div key={idx2} className={cx("frame-value", "value-" + style)}>
+                <div className={cx("value-" + style)}>{e2.value}</div>
+                <div className={cx("unit-" + style)}>{e2.unit}</div>
+              </div>
+            ));
+            return idx < dropdown_from || dropped_down.toggle ? (
+              <div key={idx} className={cx("frame-row", "row-" + style)}>
+                {component}
+              </div>
+            ) : (
+              <></>
+            );
+          })}
+        </div>
+        <div onClick={() => setDroppedDown("toggle")}>눌러봐!</div>
       </div>
     );
   }
 };
 
 BldgInfoList.defaultProps = {
+  component_type: "list",
   show: true,
   data: {
-    title: "title",
-    value: "value",
-    value_unit: "u.",
-    value_type: "string",
-    value_unit_type: "py",
-    base: "base",
-    base_unit: "u.",
-    base_type: "string",
-    base_unit_type: "py",
+    title: "공시지가",
+    value: [
+      [
+        {
+          value: 121500000,
+          value_unit: "\u00A0원/평",
+          value_type: "number",
+        },
+      ],
+      [
+        {
+          value: 113200000,
+          value_unit: "\u00A0원/평",
+          value_type: "number",
+        },
+      ],
+      [
+        {
+          value: 92300000,
+          value_unit: "\u00A0원/평",
+          value_type: "number",
+        },
+      ],
+    ],
   },
-  tooltip: ["tooltip[0]", "tooltip[1]"],
+  dropdown_from: 2,
   style: "default",
 };
 
