@@ -1,51 +1,77 @@
 @import "../util/style.scss";
 
 .wrapper {
-  width: 560px;
+  width: 450px;
   height: calc(100vh - 60px);
 }
 
 .modal {
   position: relative;
-  @include column(560px, auto, 25px);
-  @include box(560px, 100%, 15px, auto, $col-bgd-w);
+  @include column(400px, auto, 0px);
+  @include box(450px, 100%, 15px, auto, $col-bgd-w);
   box-shadow: 7px 7px 5px $col-shd-b;
   pointer-events: auto;
+  overflow-x: nowrap;
+  padding: 25px;
 }
 
 .btn-close {
-  position: absolute;
   width: 16px;
   height: 16px;
   top: 19px;
   right: 17px;
   stroke: $col-txt-g1;
-  &:hover {
-    stroke: $col-bgd-1-hover;
-  }
-  &:active {
-    stroke: $col-bgd-1-pressed;
-  }
 }
 
 .box {
-   @include textBox(100%, 100%, 0px, none, none);
-    @include txt-stl-2;
-    font-size: 1.25rem;
+  @include textBox(100%, 48px, 0px, none, none);
+  @include txt-bold;
+  @include txt-19;
   color: $col-txt-w;
 }
 
-.box-btn {
-  position: absolute;
-  @include box(488px, 60px, 0px, auto, $col-bgd-1);
-  box-shadow: 0px 0px 20px 20px $col-shd-w;
-    bottom: 36px;
-  &:hover {
-    background-color: $col-bgd-1-hover;
+.frame {
+  &-title {
+    @include row(10%, auto, 0px);
+    align-items: flex-start;
+    border-bottom: solid 1px $col-brd-g8;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
   }
-  &:active {
-    background-color: $col-bgd-1-pressed;
+  &-left {
+    @include row(auto, auto, 0px);
   }
+  &-center {
+    @include column(auto, auto, 10px);
+    width: 80%;
+  }
+  &-right {
+    @include row(auto, auto, 0px);
+    justify-content: flex-end;
+  }
+  &-content {
+    @include box(470px, auto, 0px, auto, none);
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &-btn {
+  @include box(400px, 48px, 0px, auto, $col-bgd-2);
+  // box-shadow: 0px 0px 20px 20px $col-shd-w;
+  }
+}
+
+.title {
+  @include txt-bold;
+  @include txt-19;
+  color: $col-txt-g2;
+}
+
+.sub-title {
+  @include txt-light;
+  @include txt-11;
+  color: $col-txt-g6;
 }
 
 .close {
