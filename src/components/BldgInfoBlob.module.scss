@@ -3,6 +3,7 @@
 .wrapper {
   @include row(auto, auto, 10px);
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .frame { 
