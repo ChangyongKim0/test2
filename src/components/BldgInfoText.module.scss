@@ -32,6 +32,13 @@
             color: $col-txt-g25;
         }
     }
+    &-title {
+        > * {
+            @include txt-bold;
+            @include txt-19;
+            color: $col-txt-g1;
+        }
+    }
 }
 
 .value {
@@ -49,6 +56,13 @@
             color: $col-txt-2;
         }
     }
+    &-title {
+        > * {
+            @include txt-regular;
+            @include txt-12;
+            color: $col-txt-g6;
+        }
+    }
 }
 
 .base {
@@ -63,6 +77,13 @@
         > * {
             @include txt-light;
             @include txt-14;
+            color: $col-txt-g6;
+        }
+    }
+    &-title {
+        > * {
+            @include txt-regular;
+            @include txt-12;
             color: $col-txt-g6;
         }
     }
