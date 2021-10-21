@@ -9,7 +9,7 @@ import useToggleState from "../hooks/useToggle";
 
 const cx = classNames.bind(styles);
 
-const BldgInfoList = ({ show, data, style, dropdown_from }) => {
+const BldgInfoList = ({ show, data, style, dropdown_from, force_dropdown }) => {
   const [dropped_down, setDroppedDown] = useToggleState({ toggle: false });
 
   const formatted_value_list = data.value.map((e) =>
@@ -37,7 +37,9 @@ const BldgInfoList = ({ show, data, style, dropdown_from }) => {
                 <div className={cx("unit-" + style)}>{e2.unit}</div>
               </div>
             ));
-            return idx < dropdown_from || dropped_down.toggle ? (
+            return idx < dropdown_from ||
+              dropdown_from == -1 ||
+              force_dropdown ? (
               <div key={idx} className={cx("frame-row", "row-" + style)}>
                 {component}
               </div>
@@ -46,7 +48,6 @@ const BldgInfoList = ({ show, data, style, dropdown_from }) => {
             );
           })}
         </div>
-        <div onClick={() => setDroppedDown("toggle")}>눌러봐!</div>
       </div>
     );
   }
@@ -82,6 +83,7 @@ BldgInfoList.defaultProps = {
     ],
   },
   dropdown_from: 2,
+  force_dropdown: false,
   style: "default",
 };
 
