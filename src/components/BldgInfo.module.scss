@@ -1,104 +1,37 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include columnWithBorder(488px, auto, 50px, $col-brd-g1);
-  margin-top: 36px;
-  margin-bottom: (36px + 60px);
+  @include columnWithBorder(400px, auto, 36px, $col-brd-g8);
+  margin-bottom: 200; 
   overflow-y: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
-  * {
-    @include txt-stl-2();
-    text-align: left;
-    color: $col-txt-g3;
+}
+
+.frame {
+  &-section {
+    @include column(auto, auto, 18px);
   }
-}
-
-.block {
-  padding-left: 11px;
-  padding-right: 11px;
-}
-
-.primary {
-  @include column(auto, auto, 23px);
-  align-items: flex-start;
-}
-
-.with-info {
-  @include row(auto, auto, 5px);
-}
-
-.info-frame {
-  display: flex;
-  position: relative;
-  white-space: nowrap;
-}
-
-.info {
-  color: $col-txt-g1;
-  &:hover {
-    color: $col-txt-g2;
+  &-div1 {
+    @include row(400px, auto, 0px);
+    > * {
+      overflow: nowrap;
+    }
+    align-items: flex-start;
   }
-}
-
-.info-window {
-  position: absolute;
-  bottom: 19px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.secondary,
-.construction {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-auto-flow: dense;
-  row-gap: 23px;
-}
-
-.bldg-info {
-  display: grid;
-  grid-template-columns: 50% 25% 25%;
-  grid-auto-flow: dense;
-  row-gap: 23px;
-}
-
-.construction > :first-child {
-  grid-column: auto / span 2;
-}
-
-.addr1 {
-  margin-top: 20px;
-  font-size: 1.25rem;
-  line-height: 1.25rem;
-  font-weight: 300;
-}
-
-.addr2 {
-  margin-top: 10px;
-  font-weight: 300;
-}
-
-.keys {
-  font-weight: 700;
-}
-
-.vals {
-  margin-top: 10px;
-  font-size: 1.25rem;
-  line-height: 1.25rem;
-  font-weight: 300;
-}
-
-.emph {
-  font-size: 2rem;
-  line-height: 2rem;
-  font-weight: 600;
-  color: $col-txt-1;
-}
-
-.subtitle {
-  font-size: 1.25rem;
-  font-weight: 600;
+  &-div2 {
+    @include row(200px, auto, 0px);
+    > * {
+      overflow: nowrap;
+    }
+    align-items: flex-start;
+  }
+  &-div4 {
+    @include row(100px, auto, 0px);
+    > * {
+      overflow: nowrap;
+    }
+    align-items: flex-start;
+  }
 }
