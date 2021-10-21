@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React from "react";
+import React, { useEffect } from "react";
 import useAutocomplete from "@material-ui/lab/useAutocomplete";
 
 import styles from "./UseAutoComplete.module.scss";
@@ -40,7 +40,7 @@ const cx = classNames.bind(styles);
 export default function UseAutocomplete() {
   const {
     getRootProps,
-    // getInputLabelProps,
+    getInputLabelProps,
     getInputProps,
     getListboxProps,
     getOptionProps,
@@ -50,6 +50,15 @@ export default function UseAutocomplete() {
     options: top100Films,
     getOptionLabel: (option) => option.title,
   });
+
+  // useEffect(() => {
+  //   console.log(getRootProps());
+  //   console.log(getInputLabelProps());
+  //   console.log(getInputProps());
+  //   console.log(getListboxProps());
+  //   // console.log(getOptionProps());
+  //   console.log(groupedOptions);
+  // }, []);
 
   return (
     <div className={cx("wrapper")}>
