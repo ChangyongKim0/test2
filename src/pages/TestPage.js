@@ -1164,9 +1164,9 @@ const TestPage = () => {
         <div className={cx("background-white")}>
           <p className={cx("title")}>BldgInfoBlob</p>
           <BldgInfoBlob />
+          <p className={cx("title")}>BldgInfo</p>
+          <BldgInfo />
         </div>
-        <p className={cx("title")}>BldgInfo</p>
-        <BldgInfo />
         <p className={cx("title")}>BldgInfoModal</p>
         <BldgInfoModal />
         <p className={cx("title")}>BookMarkModal</p>
