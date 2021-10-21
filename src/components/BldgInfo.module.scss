@@ -10,25 +10,25 @@
 }
 
 .frame {
-  &-section {
-    @include column(auto, auto, 18px);
+  &-column {
+    @include column(100%, auto, 18px);
   }
   &-div1 {
-    @include row(400px, auto, 0px);
+    @include row(100%, auto, 0px);
     > * {
       overflow: nowrap;
     }
     align-items: flex-start;
   }
   &-div2 {
-    @include row(200px, auto, 0px);
+    @include row(50%, auto, 0px);
     > * {
       overflow: nowrap;
     }
     align-items: flex-start;
   }
   &-div4 {
-    @include row(100px, auto, 0px);
+    @include row(25%, auto, 0px);
     > * {
       overflow: nowrap;
     }

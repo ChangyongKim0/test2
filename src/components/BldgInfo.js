@@ -49,7 +49,7 @@ const BldgInfo = ({
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("frame-section")}>
+      <div className={cx("frame-column")}>
         <div className={cx("frame-div2")}>
           <BldgInfoText {...price} />
           <BldgInfoText {...noc} />
@@ -61,40 +61,40 @@ const BldgInfo = ({
           <BldgInfoText {...opex} />
         </div>
       </div>
-      <div className={cx("frame-section")}>
-        <div className={cx("frame-div4")}>
+      <div className={cx("frame-column")}>
+        <div className={cx("frame-div2")}>
           <BldgInfoText {...land_title} />
-          <div></div>
-          <BldgInfoText {...land_size} />
-          <BldgInfoText {...land_usage} />
+          <div className={cx("frame-div2")}>
+            <BldgInfoText {...land_size} />
+            <BldgInfoText {...land_usage} />
+          </div>
         </div>
         <div className={cx("frame-div1")}>
           <BldgInfoBlob {...usage_list} />
         </div>
-        <div className={cx("frame-div4")}>
+        <div className={cx("frame-div2")}>
           <BldgInfoText {...bldg_title} />
-          <div></div>
-          <BldgInfoText {...bldg_size} />
-          <BldgInfoText {...bldg_year} />
-        </div>
-        <div className={cx("frame-div4")}>
-          <div></div>
-          <div></div>
-          <BldgInfoText {...bldg_floor_area_ratio} />
-          <BldgInfoText {...bldg_floor} />
-        </div>
-        <div className={cx("frame-div4")}>
-          <div></div>
-          <div></div>
-          <BldgInfoText {...bldg_coverage_ratio} />
-          <BldgInfoText {...bldg_exclusive_rate} />
+          <div className={cx("frame-column")}>
+            <div className={cx("frame-div2")}>
+              <BldgInfoText {...bldg_size} />
+              <BldgInfoText {...bldg_year} />
+            </div>
+            <div className={cx("frame-div2")}>
+              <BldgInfoText {...bldg_floor_area_ratio} />
+              <BldgInfoText {...bldg_floor} />
+            </div>
+            <div className={cx("frame-div2")}>
+              <BldgInfoText {...bldg_coverage_ratio} />
+              <BldgInfoText {...bldg_exclusive_rate} />
+            </div>
+          </div>
         </div>
         <div className={cx("frame-div1")}>
           <BldgInfoBlob {...bldg_usage_list} />
         </div>
       </div>
-      <div className={cx("frame-section")}></div>
-      <div className={cx("frame-section")}>
+      <div className={cx("frame-column")}></div>
+      <div className={cx("frame-column")}>
         <div className={cx("frame-div1")}>
           <BldgInfoText {...official_price_title} />
         </div>
@@ -204,12 +204,12 @@ BldgInfo.defaultProps = {
     data: [
       {
         title: "서초로지구 지구단위계획",
-        tooltip: ["클릭시 토지계획이용원으로 이동"],
+        tooltip: ["토지e음으로 이동하기"],
         onClick: "토지계획이용원으로 링크",
       },
       {
         title: "일반상업지역",
-        tooltip: ["클릭시 토지계획이용원으로 이동"],
+        tooltip: ["토지e음으로 이동하기"],
         onClick: "토지계획이용원으로 링크",
       },
     ],
@@ -329,15 +329,15 @@ BldgInfo.defaultProps = {
     data: [
       {
         title: "업무시설",
-        tooltip: [],
+        tooltip: ["토지e음으로 이동하기"],
       },
       {
         title: "1종근린생활시설",
-        tooltip: [],
+        tooltip: ["토지e음으로 이동하기"],
       },
       {
         title: "교육연구",
-        tooltip: [],
+        tooltip: ["토지e음으로 이동하기"],
       },
     ],
   },
