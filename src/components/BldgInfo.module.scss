@@ -1,20 +1,16 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include columnWithBorder(400px, auto, 36px, $col-brd-g8);
-  margin-bottom: 200; 
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @include columnWithBorder(400px, auto, 48px, $col-brd-g8);
+  padding-bottom: 50px; 
 }
 
 .frame {
   &-column {
-    @include column(100%, auto, 18px);
+    @include column(100%, auto, 24px);
   }
   &-div1 {
-    @include row(100%, auto, 0px);
+    @include column(100%, auto, 0px);
     > * {
       overflow: nowrap;
     }
@@ -34,4 +30,18 @@
     }
     align-items: flex-start;
   }
+}
+
+.toggle {
+  fill: $col-brd-g5;
+  
+}
+
+.toggleBox {
+  @include box(100%, auto, 0px, none, none);
+  cursor: pointer;
+}
+
+.dropped-down {
+  transform: rotate(0.5turn);
 }
