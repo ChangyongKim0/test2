@@ -29,10 +29,7 @@ const BldgInfoText = ({ show, data, tooltip, style }) => {
       <div className={cx("wrapper")}>
         <ToolTip enable={tooltip.length > 0} data={tooltip}>
           <div className={cx("frame-title", "title-" + style)}>
-            <div className={cx("text-" + style)}>
-              {style == "detail" ? "\u00A0\u00A0" : ""}
-              {data.title}
-            </div>
+            <div className={cx("text-" + style)}>{data.title}</div>
           </div>
         </ToolTip>
         <div className={cx("frame-value", "value-" + style)}>
