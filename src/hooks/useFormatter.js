@@ -11,7 +11,7 @@ const useFormatter = ({ value, value_type, unit, unit_type }) => {
   return output;
 };
 
-const formatUnit = (unit, unit_type) => {
+export const formatUnit = (unit, unit_type) => {
   switch (unit_type) {
     case "py":
       return unit.replace(/\[area\]/g, "평").replace(/\[parea\]/g, "전용평");
@@ -22,7 +22,7 @@ const formatUnit = (unit, unit_type) => {
   }
 };
 
-const formatData = (data_old, type, unit, unit_type) => {
+export const formatData = (data_old, type, unit, unit_type) => {
   let data = data_old;
   if (data == "") {
     return data;
