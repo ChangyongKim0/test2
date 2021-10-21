@@ -5,6 +5,9 @@ import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import BldgInfoBlob from "./BldgInfoBlob";
 import BldgInfoText from "./BldgInfoText";
+import BldgInfoList from "./BldgInfoList";
+import useToggleState from "../hooks/useToggle";
+import { ReactComponent as ToggleSvg } from "../atom/ToggleSvg.svg";
 
 const cx = classNames.bind(styles);
 
@@ -41,6 +44,11 @@ const BldgInfo = ({
   siml_land_price,
 }) => {
   let [show_info, setShowInfo] = useState(false);
+  const [dropped_down, setDroppedDown] = useToggleState({
+    attachment_land: false,
+    bldg_detail: false,
+    official_price: false,
+  });
 
   useEffect(() => {
     // console.log(keys);
@@ -72,6 +80,29 @@ const BldgInfo = ({
         <div className={cx("frame-div1")}>
           <BldgInfoBlob {...usage_list} />
         </div>
+        {usage_list.dropdown_from > 0 ? <ToggleSvg /> : <></>}
+        <div className={cx("frame-div1")}>
+          <BldgInfoList
+            {...attachment_land}
+            force_dropdown={dropped_down.attachment_land}
+          />
+          {attachment_land.dropdown_from > 0 &&
+          attachment_land.data.value.length > attachment_land.dropdown_from ? (
+            <div
+              className={cx("toggleBox")}
+              onClick={() => setDroppedDown("attachment_land")}
+            >
+              <ToggleSvg
+                className={cx(
+                  "toggle",
+                  dropped_down.attachment_land ? "dropped-down" : ""
+                )}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
         <div className={cx("frame-div2")}>
           <BldgInfoText {...bldg_title} />
           <div className={cx("frame-column")}>
@@ -93,12 +124,62 @@ const BldgInfo = ({
           <BldgInfoBlob {...bldg_usage_list} />
         </div>
       </div>
-      <div className={cx("frame-column")}></div>
+      <div className={cx("frame-column")}>
+        <div className={cx("frame-div1")}>
+          <BldgInfoList
+            {...bldg_detail}
+            force_dropdown={dropped_down.bldg_detail}
+          />
+          {bldg_detail.dropdown_from > 0 &&
+          bldg_detail.data.value.length > bldg_detail.dropdown_from ? (
+            <div
+              className={cx("toggleBox")}
+              onClick={() => setDroppedDown("bldg_detail")}
+            >
+              <ToggleSvg
+                className={cx(
+                  "toggle",
+                  dropped_down.bldg_detail ? "dropped-down" : ""
+                )}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+      </div>
       <div className={cx("frame-column")}>
         <div className={cx("frame-div1")}>
           <BldgInfoText {...official_price_title} />
         </div>
-        <div className={cx("frame-div2")}></div>
+        <div className={cx("frame-div1")}>
+          <div className={cx("frame-div2")}>
+            <BldgInfoList
+              {...official_price_year}
+              force_dropdown={dropped_down.official_price}
+            />
+            <BldgInfoList
+              {...official_price}
+              force_dropdown={dropped_down.official_price}
+            />
+          </div>
+          {official_price.dropdown_from > 0 &&
+          official_price.data.value.length > official_price.dropdown_from ? (
+            <div
+              className={cx("toggleBox")}
+              onClick={() => setDroppedDown("official_price")}
+            >
+              <ToggleSvg
+                className={cx(
+                  "toggle",
+                  dropped_down.official_price ? "dropped-down" : ""
+                )}
+              />
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -213,6 +294,7 @@ BldgInfo.defaultProps = {
         onClick: "토지계획이용원으로 링크",
       },
     ],
+    dropdown_from: -1,
   },
   attachment_land: {
     component_type: "list",
@@ -336,12 +418,24 @@ BldgInfo.defaultProps = {
         tooltip: ["토지e음으로 이동하기"],
       },
       {
+        title: "교육연구샘플",
+        tooltip: ["토지e음으로 이동하기"],
+      },
+      {
+        title: "교육연구샘플",
+        tooltip: ["토지e음으로 이동하기"],
+      },
+      {
+        title: "교육연구글이꽤긴경우에대한샘플",
+        tooltip: ["토지e음으로 이동하기"],
+      },
+      {
         title: "교육연구",
         tooltip: ["토지e음으로 이동하기"],
       },
     ],
   },
-  bldg_datail: {
+  bldg_detail: {
     component_type: "list",
     data: {
       title: "건물 상세",
@@ -359,6 +453,23 @@ BldgInfo.defaultProps = {
           },
           {
             value: "78",
+            value_unit: "평",
+            value_type: "number_detail",
+          },
+        ],
+        [
+          {
+            value: 3,
+            value_unit: "F",
+            value_type: "number_detail",
+          },
+          {
+            value: "1종근린생활시설, 교육연구",
+            value_unit: "",
+            value_type: "string",
+          },
+          {
+            value: 56,
             value_unit: "평",
             value_type: "number_detail",
           },
@@ -479,6 +590,27 @@ BldgInfo.defaultProps = {
             value_type: "string",
           },
         ],
+        [
+          {
+            value: "2019.01",
+            value_unit: "",
+            value_type: "string",
+          },
+        ],
+        [
+          {
+            value: "2019.01",
+            value_unit: "",
+            value_type: "string",
+          },
+        ],
+        [
+          {
+            value: "2019.01",
+            value_unit: "",
+            value_type: "string",
+          },
+        ],
       ],
     },
     dropdown_from: 3,
@@ -499,6 +631,27 @@ BldgInfo.defaultProps = {
         [
           {
             value: 113200000,
+            value_unit: "\u00A0원/평",
+            value_type: "number",
+          },
+        ],
+        [
+          {
+            value: 92300000,
+            value_unit: "\u00A0원/평",
+            value_type: "number",
+          },
+        ],
+        [
+          {
+            value: 92300000,
+            value_unit: "\u00A0원/평",
+            value_type: "number",
+          },
+        ],
+        [
+          {
+            value: 92300000,
             value_unit: "\u00A0원/평",
             value_type: "number",
           },
