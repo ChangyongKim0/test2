@@ -34,6 +34,7 @@ import ValuationCompCard from "../components/ValuationCompCard";
 import LandDataCompCard from "../components/LandDataCompCard";
 import BldgInfoText from "../components/BldgInfoText";
 import BldgInfoBlob from "../components/BldgInfoBlob";
+import BldgInfoList from "../components/BldgInfoList";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -1161,6 +1162,8 @@ const TestPage = () => {
           style="emph"
           tooltip={[]}
         />
+        <p className={cx("title")}>BldgInfoList</p>
+        <BldgInfoList />
         <div className={cx("background-white")}>
           <p className={cx("title")}>BldgInfoBlob</p>
           <BldgInfoBlob />
