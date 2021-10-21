@@ -1,14 +1,21 @@
 @import "../util/style.scss";
 
 .wrapper {
-  @include box(200px, 40px, 2px, $col-brd-g8, $col-bgd-w);
+  position: relative;
+  @include textBox(300px, 40px, 2px, $col-brd-g8, $col-bgd-w);
+}
+
+.frame-search {
   @include row(auto, auto, 0px);
-  @include txt-stl-2();
-  padding: 8px 16px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0px 16px;
 }
 
 .text-field {
   width: calc(100% - 20px);
+  @include txt-regular;
+  @include txt-17;
   &::placeholder {
     color: $col-txt-g8;
   }
@@ -16,4 +23,102 @@
 
 .icon {
   width: 20px;
+}
+
+.drop-down {
+  @include column(auto, auto, 0px);
+  position: absolute;
+  width: 100%;
+  background-color: $col-bgd-w;
+  color: $col-txt-g2;
+  z-index: 1;
+  left: -1px;
+  top: 38px;
+  overflow: auto;
+  max-height: 530px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    &-thumb {
+      height: 7%;
+      background-color: $col-bgd-g8;
+      border-radius: 10px;
+    };
+    &-track {
+      background-color: $col-bgd-g9;
+    };
+  };
+  > :hover {
+    background-color: $col-bgd-3;
+    cursor: pointer;
+  }
+  > :active {
+    background-color: $col-bgd-3;
+  }
+}
+
+.frame-list {
+  @include column(100%, none, 6px);
+  width: calc(100% - 32px);
+  padding: 8px 16px;
+  border-bottom: solid 1px $col-brd-g9;
+  > * {
+    text-align: left;
+  }
+}
+
+.focused {
+  background-color: $col-bgd-3;
+  cursor: pointer;
+}
+
+.title {
+  @include txt-medium;
+  @include txt-14;
+  * {
+  @include txt-medium;
+  @include txt-14;
+  }
+}
+
+.sub-title {
+  @include txt-regular;
+  @include txt-11;
+  color: $col-txt-g3;
+  * {
+  @include txt-regular;
+  @include txt-11;
+  color: $col-txt-g3;
+  }
+}
+
+.frame-value {
+  @include row(auto, auto, 0px);
+  justify-content: space-between;
+}
+
+.text {
+  @include txt-regular;
+  @include txt-9;
+  color: $col-txt-g5;
+  * {
+  @include txt-regular;
+  @include txt-9;
+  color: $col-txt-g5;
+  }
+  &-bold {
+    @include txt-medium;
+    @include txt-9;
+    color: $col-txt-g2;
+    * {
+    @include txt-medium;
+    @include txt-9;
+    color: $col-txt-g2;
+    }
+  }
+  &-emph {
+    color: $col-txt-2;
+  }
 }
