@@ -4,13 +4,15 @@ import React, { useEffect, useState, useReducer } from "react";
 import styles from "./AddressSearcher.module.scss";
 import classNames from "classnames/bind";
 import UseAutocomplete from "./UseAutoComplete";
+import useBldgInfoData from "../hooks/useBldgInfoData";
+import { cloneDeep } from "lodash";
 
 const cx = classNames.bind(styles);
 
 let input_search = "";
 
 const reduceSearchResults = (state, action) => {
-  let new_state = { ...state };
+  let new_state = cloneDeep(state);
   switch (action.type) {
     case "focus_down":
       if (state.focus < state.data.length - 1) {
@@ -29,6 +31,10 @@ const reduceSearchResults = (state, action) => {
     case "update":
       new_state.data = action.data;
       new_state.focus = 0;
+      return new_state;
+    case "click":
+      console.log(state);
+      action.callback(state);
       return new_state;
     default:
       return state;
@@ -63,6 +69,8 @@ const AddressSearcher = () => {
     reduceSearchResults,
     { data: [], focus: 0 }
   );
+
+  const [bldg_info_data, handleBldgInfoData] = useBldgInfoData();
 
   let places = new window.kakao.maps.services.Places();
 
@@ -103,7 +111,26 @@ const AddressSearcher = () => {
         if (e.key == "ArrowDown") {
           handleSearchResults({ type: "focus_down" });
         }
-      } else if (e.code != "ArrowLeft" && e.code != "ArrowRight") {
+      } else if (e.code == "Enter") {
+        handleSearchResults({
+          type: "click",
+          callback: (state) => {
+            console.log(state);
+            if (state.data.length > 0) {
+              handleBldgInfoData({
+                type: "move_update",
+                lat: parseFloat(state.data[state.focus].y),
+                lng: parseFloat(state.data[state.focus].x),
+              });
+            }
+          },
+        });
+        handleSearchResults({ type: "update", data: [] });
+      } else if (
+        e.code != "Enter" &&
+        e.code != "ArrowLeft" &&
+        e.code != "ArrowRight"
+      ) {
         places.keywordSearch(input_search.value, callback);
       }
     });
@@ -114,7 +141,14 @@ const AddressSearcher = () => {
   };
 
   return (
-    <div className={cx("wrapper")}>
+    <div
+      tabIndex="0"
+      className={cx("wrapper")}
+      // onBlur={(e) => {
+      //   console.log(e);
+      //   handleSearchResults({ type: "update", data: [] });
+      // }}
+    >
       <div className={cx("frame-search")}>
         <input
           id="input_search"
@@ -123,9 +157,6 @@ const AddressSearcher = () => {
           placeholder="주소 입력"
           onFocus={() => {
             forceSearch();
-          }}
-          onBlur={() => {
-            handleSearchResults({ type: "update", data: [] });
           }}
         ></input>
         {/* <UseAutocomplete /> */}
@@ -142,6 +173,14 @@ const AddressSearcher = () => {
                 "frame-list",
                 search_results.focus == idx ? "focused" : ""
               )}
+              onClick={() => {
+                handleBldgInfoData({
+                  type: "move_update",
+                  lat: parseFloat(e.y),
+                  lng: parseFloat(e.x),
+                });
+                handleSearchResults({ type: "update", data: [] });
+              }}
             >
               <div className={cx("title")}>
                 {emphasizeText(e.address_name, input_search.value)}
