@@ -22,7 +22,7 @@
   top: 30px;
   list-style: none;
   overflow: auto;
-  // max-height: 200px;
+  max-height: 200px;
   border: 1px solid rgba(0, 0, 0, 0.25);
   & li[Mui-focused="true"] {
     background-color: #4a8df6;
