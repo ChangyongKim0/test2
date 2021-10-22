@@ -11,6 +11,8 @@ import {
   handlePolygon,
 } from "../functions/reduceOverlay";
 
+import useBldgInfoData from "../hooks/useBldgInfoData";
+
 import InfoBubble from "./InfoBubble";
 import styles from "./BackgroundMap.module.scss";
 import classNames from "classnames/bind";
@@ -53,6 +55,7 @@ const BackgroundMap = ({
   });
 
   const [need_update_overlay, setNeedUpdateOverlay] = useState(false);
+  const [bldg_info_data, handleBldgInfoData] = useBldgInfoData();
 
   const handleKakaoListener = ({ type, id, object, mouse_event, handler }) => {
     switch (type) {
@@ -88,7 +91,10 @@ const BackgroundMap = ({
     let container = document.getElementById("map"); //지도를 담을 영역의 DOM 레퍼런스
     let options = {
       // //지도를 생성할 때 필요한 기본 옵션
-      center: new window.kakao.maps.LatLng(37.497928, 127.027583), //지도의 중심좌표.
+      center: new window.kakao.maps.LatLng(
+        bldg_info_data.lat,
+        bldg_info_data.lng
+      ), //지도의 중심좌표.
       level: 2, //지도의 레벨(확대, 축소 정도)
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
@@ -104,6 +110,13 @@ const BackgroundMap = ({
     pushAddress(getMapState(), handleAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    console.log("move data updated.");
+    map.setCenter(
+      new window.kakao.maps.LatLng(bldg_info_data.lat, bldg_info_data.lng)
+    );
+  }, [bldg_info_data.move_toggle]);
 
   useEffect(() => {
     let bounds = map.getBounds();
