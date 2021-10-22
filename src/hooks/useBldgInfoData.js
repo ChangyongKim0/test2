@@ -1,62 +1,58 @@
 import React, { createContext, useContext, useMemo, useReducer } from "react";
 import calculateValuation from "../data/calculateValuation";
 import naked_data from "../data/naked_data";
-import { unformatData } from "../data/unformatValuation";
 import { cloneDeep } from "lodash";
 
 const base_data = {};
 
-export const ValuationContext = createContext({
-  valuation_data: {},
-  setValuationData: () => {},
+export const BldgInfoContext = createContext({
+  bldg_info_data: {},
+  handleBldgInfoData: () => {},
 });
 
-const reduceValuationData = (state, action) => {
+const reduceBldgInfoData = (state, action) => {
   let new_state = cloneDeep(state);
   console.log(new_state);
   console.log(action);
   switch (action.type) {
-    case "create":
-      return calculateValuation(action.data, action.id);
+    case "move_update":
+      new_state.move_toggle = !state.move_toggle;
+      new_state.pnu = action.pnu;
+      new_state.lat = action.lat;
+      new_state.lng = action.lng;
+      new_state.data = action.data;
+      return new_state;
     case "update":
-      if (action.value) {
-        if (action.id.includes(".")) {
-          const [card_id, text_id, type_id] = action.id.split(".");
-          new_state[card_id][text_id][type_id] = unformatData(
-            action.value,
-            new_state[card_id][text_id][type_id + "_type"]
-          );
-        }
-        new_state = calculateValuation(new_state, action.id);
-        console.log("valuation data updated.");
-        return new_state;
-      } else {
-        return state;
-      }
+      new_state.pnu = action.pnu;
+      new_state.data = action.data;
+      return new_state;
     default:
       return state;
   }
 };
 
-const useValuationCalculator = () => {
-  const { valuation_data, setValuationData } = useContext(ValuationContext);
-  return [valuation_data, setValuationData];
+const useBldgInfoData = () => {
+  const { bldg_info_data, handleBldgInfoData } = useContext(BldgInfoContext);
+  return [bldg_info_data, handleBldgInfoData];
 };
 
-export const ValuationCalculatorProvider = ({ children }) => {
-  const [valuation_data, setValuationData] = useReducer(
-    reduceValuationData,
-    calculateValuation(naked_data, "")
-  );
+export const BldgInfoDataProvider = ({ children }) => {
+  const [bldg_info_data, handleBldgInfoData] = useReducer(reduceBldgInfoData, {
+    move_toggle: true,
+    pnu: "1168010100108080005",
+    lat: 37.497928,
+    lng: 127.027583,
+    data: {},
+  });
   const value = useMemo(() => {
     console.log("memo rewritten.");
-    return { valuation_data, setValuationData };
-  }, [valuation_data, setValuationData]);
+    return { bldg_info_data, handleBldgInfoData };
+  }, [bldg_info_data, handleBldgInfoData]);
   return (
-    <ValuationContext.Provider value={value}>
+    <BldgInfoContext.Provider value={value}>
       {children}
-    </ValuationContext.Provider>
+    </BldgInfoContext.Provider>
   );
 };
 
-export default useValuationCalculator;
+export default useBldgInfoData;
