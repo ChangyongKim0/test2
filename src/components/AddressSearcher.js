@@ -32,9 +32,15 @@ const reduceSearchResults = (state, action) => {
       new_state.data = action.data;
       new_state.focus = 0;
       return new_state;
-    case "click":
-      console.log(state);
+    case "force_activate":
+      // console.log(state);
       action.callback(state);
+      return new_state;
+    case "activate":
+      // console.log(state);
+      if (state.data.length == 0) {
+        action.callback(state);
+      }
       return new_state;
     default:
       return state;
@@ -97,7 +103,7 @@ const AddressSearcher = () => {
   useEffect(() => {
     input_search = document.getElementById("input_search");
     input_search.addEventListener("keydown", (e) => {
-      if (e.key == "ArrowUp") {
+      if (e.key == "ArrowUp" || e.key == "ArrowDown") {
         e.preventDefault();
       }
     });
@@ -110,12 +116,16 @@ const AddressSearcher = () => {
       } else if (e.code == "ArrowDown") {
         if (e.key == "ArrowDown") {
           handleSearchResults({ type: "focus_down" });
+          handleSearchResults({
+            type: "activate",
+            callback: () => forceSearch(),
+          });
         }
       } else if (e.code == "Enter") {
         handleSearchResults({
-          type: "click",
+          type: "force_activate",
           callback: (state) => {
-            console.log(state);
+            // console.log(state);
             if (state.data.length > 0) {
               handleBldgInfoData({
                 type: "move_update",
@@ -131,10 +141,38 @@ const AddressSearcher = () => {
         e.code != "ArrowLeft" &&
         e.code != "ArrowRight"
       ) {
-        places.keywordSearch(input_search.value, callback);
+        forceSearch();
       }
     });
   }, []);
+
+  useEffect(() => {
+    const focus = search_results.focus;
+    const length = search_results.data.length;
+    let ele_drop_down = document.getElementById("input_search_drop_down");
+    if (focus < length) {
+      let offset_top = document.getElementById(
+        "input_search_" + search_results.focus
+      ).offsetTop;
+      let offset_bottom = 0;
+      if (focus == length - 1) {
+        offset_bottom = ele_drop_down.scrollHeight;
+      } else {
+        offset_bottom = document.getElementById(
+          "input_search_" + (search_results.focus + 1)
+        ).offsetTop;
+      }
+      // console.log(document.getElementById("input_search_drop_down").scrollTop);
+      if (
+        offset_bottom >=
+        ele_drop_down.clientHeight + ele_drop_down.scrollTop
+      ) {
+        ele_drop_down.scrollTop = offset_bottom - ele_drop_down.clientHeight;
+      } else if (offset_top <= ele_drop_down.scrollTop) {
+        ele_drop_down.scrollTop = offset_top;
+      }
+    }
+  }, [search_results.focus]);
 
   const forceSearch = () => {
     places.keywordSearch(input_search.value, callback);
@@ -144,10 +182,10 @@ const AddressSearcher = () => {
     <div
       tabIndex="0"
       className={cx("wrapper")}
-      // onBlur={(e) => {
-      //   console.log(e);
-      //   handleSearchResults({ type: "update", data: [] });
-      // }}
+      onBlur={(e) => {
+        console.log(e);
+        handleSearchResults({ type: "update", data: [] });
+      }}
     >
       <div className={cx("frame-search")}>
         <input
@@ -163,7 +201,7 @@ const AddressSearcher = () => {
         <div className={cx("icon")}>O.</div>
       </div>
       {search_results.data.length > 0 ? (
-        <div className={cx("drop-down")}>
+        <div id="input_search_drop_down" className={cx("drop-down")}>
           {search_results.data.map((e, idx) => (
             <div
               key={idx}
@@ -173,13 +211,12 @@ const AddressSearcher = () => {
                 "frame-list",
                 search_results.focus == idx ? "focused" : ""
               )}
-              onClick={() => {
+              onMouseDown={() => {
                 handleBldgInfoData({
                   type: "move_update",
                   lat: parseFloat(e.y),
                   lng: parseFloat(e.x),
                 });
-                handleSearchResults({ type: "update", data: [] });
               }}
             >
               <div className={cx("title")}>
