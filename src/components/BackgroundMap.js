@@ -95,7 +95,7 @@ const BackgroundMap = ({
         bldg_info_data.lat,
         bldg_info_data.lng
       ), //지도의 중심좌표.
-      level: 2, //지도의 레벨(확대, 축소 정도)
+      level: bldg_info_data.level, //지도의 레벨(확대, 축소 정도)
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
     var zoomControl = new window.kakao.maps.ZoomControl();
