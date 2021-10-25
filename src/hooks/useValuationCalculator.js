@@ -13,8 +13,8 @@ export const ValuationContext = createContext({
 
 const reduceValuationData = (state, action) => {
   let new_state = cloneDeep(state);
-  console.log(new_state);
-  console.log(action);
+  // console.log(new_state);
+  // console.log(action);
   switch (action.type) {
     case "create":
       return calculateValuation(action.data, action.id);
@@ -28,7 +28,7 @@ const reduceValuationData = (state, action) => {
           );
         }
         new_state = calculateValuation(new_state, action.id);
-        console.log("valuation data updated.");
+        // console.log("valuation data updated.");
         return new_state;
       } else {
         return state;
@@ -49,7 +49,7 @@ export const ValuationCalculatorProvider = ({ children }) => {
     calculateValuation(naked_data, "")
   );
   const value = useMemo(() => {
-    console.log("memo rewritten.");
+    // console.log("memo rewritten.");
     return { valuation_data, setValuationData };
   }, [valuation_data, setValuationData]);
   return (
