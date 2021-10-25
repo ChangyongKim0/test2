@@ -12,7 +12,7 @@ const calculateValuation = (naked_data_old, id) => {
   let other = naked_data.other;
   let result = naked_data.result;
 
-  console.log("help", id);
+  // console.log("help", id);
   switch (id) {
     case "src.pref_share.value":
       src.common_share.value = src.equity.value - src.pref_share.value;
@@ -31,7 +31,7 @@ const calculateValuation = (naked_data_old, id) => {
       break;
     case "src.equity.base":
       src.pf.base = 1.0 - src.equity.base;
-      console.log(src.pf.base);
+      // console.log(src.pf.base);
       break;
     default:
       break;
@@ -75,10 +75,10 @@ const calculateValuation = (naked_data_old, id) => {
   // tic, src_total 초기화
   use.stable_reserve.value = -1;
   let stepped_value = 10000000000;
-  console.log(stepped_value);
+  // console.log(stepped_value);
 
   while (use.stable_reserve.value < 0) {
-    console.log(stepped_value);
+    // console.log(stepped_value);
 
     // // tic, src_total 업데이트
     use.tic.value = stepped_value;
@@ -131,11 +131,11 @@ const calculateValuation = (naked_data_old, id) => {
       use.const_total.value -
       use.fin_total.value;
     use.stable_reserve.value = use.other_total.value - use.ti_rent_fee.value;
-    console.log(use.stable_reserve.value);
+    // console.log(use.stable_reserve.value);
     stepped_value +=
       Math.max(1, Math.floor((-1 * use.stable_reserve.value) / 10000000000)) *
       10000000000;
-    console.log(src.pf.base);
+    // console.log(src.pf.base);
   }
 
   // use.buy_fee.base = use.buy_fee.value / use.tic.value;
