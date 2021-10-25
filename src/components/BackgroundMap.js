@@ -16,6 +16,7 @@ import useBldgInfoData from "../hooks/useBldgInfoData";
 import InfoBubble from "./InfoBubble";
 import styles from "./BackgroundMap.module.scss";
 import classNames from "classnames/bind";
+import { setCookie } from "../hooks/useCookieData";
 
 const cx = classNames.bind(styles);
 
@@ -353,8 +354,22 @@ const BackgroundMap = ({
   //     id: -1,
   //   });
 
+  const handleMapUpdate = () => {
+    const map_state = getMapState();
+    handleBldgInfoData({
+      type: "location_update",
+      lat: map_state.lat,
+      lng: map_state.lng,
+      level: map_state.level,
+    });
+  };
+
   return (
-    <div className={cx("wrapper")}>
+    <div
+      className={cx("wrapper")}
+      onMouseUp={handleMapUpdate}
+      onWheel={handleMapUpdate}
+    >
       <div id="map" className={cx("map")}></div>
       {overlay.data_pushed.map((each) => {
         return (
