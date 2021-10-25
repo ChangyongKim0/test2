@@ -12,19 +12,19 @@ export const CookieDataContext = createContext({
   handleCookieData: () => {},
 });
 
-const setCookie = (name, value, exp) => {
+export const setCookie = (name, value, exp) => {
   let date = new Date();
   date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
   document.cookie =
     name + "=" + value + ";expires=" + date.toUTCString() + ";path=/";
 };
 
-const getCookie = (name) => {
+export const getCookie = (name) => {
   let value = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
   return value ? value[2] : null;
 };
 
-const deleteCookie = (name) => {
+export const deleteCookie = (name) => {
   document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
 };
 
