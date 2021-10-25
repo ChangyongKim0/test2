@@ -8,7 +8,7 @@ import {
 } from "react";
 
 export const CookieDataContext = createContext({
-  cookie_data: {},
+  cookie_data: { data: {} },
   handleCookieData: () => {},
 });
 
@@ -31,11 +31,14 @@ const deleteCookie = (name) => {
 const createCookie = (exp) => {
   let date = new Date();
   let exp_date = new Date();
-  date.setTime(date.getTime());
-  exp_date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+  const time = date.getTime();
+  date.setTime(time);
+  exp_date.setTime(time + exp * 24 * 60 * 60 * 1000);
   document.cookie =
     "id=" +
     date.toUTCString() +
+    " " +
+    time +
     ";expires=" +
     exp_date.toUTCString() +
     ";path=/";
@@ -43,7 +46,6 @@ const createCookie = (exp) => {
 
 const reduceCookieData = (state, action) => {
   let new_state = { ...state };
-  let cookie_data = {};
   switch (action.type) {
     case "create":
       const id = getCookie("id");
@@ -55,8 +57,6 @@ const reduceCookieData = (state, action) => {
         console.log("cookie already set: ID=" + id);
         new_state.id = id;
       }
-      cookie_data = axios.put("/api/cookie", { id: new_state.id });
-      new_state.data = cookie_data.data;
       return new_state;
     case "set_cookie":
       setCookie(action.name, action.value, action.exp);
@@ -85,21 +85,23 @@ const reduceCookieData = (state, action) => {
       console.log("successfully deleted cookie: NAME=" + action.name + ".");
       new_state[action.name] = null;
       return new_state;
-    case "set":
+    case "patch":
       axios.patch("/api/cookie", {
         id: new_state.id,
         data: action.data,
         setting: action.setting,
       });
-      console.log("successfully set cookie_data");
+      console.log("successfully patched cookie_data", new_state.id);
       Object.keys(action.data || {}).map((key) => {
         new_state.data[key] = action.data[key];
       });
       return new_state;
-    case "get":
-      cookie_data = axios.put("/api/cookie", { id: new_state.id });
-      console.log("successfully get cookie_data");
-      new_state = cookie_data;
+    case "update":
+      Object.keys(action.data).map((key) => {
+        new_state.data[key] = action.data[key];
+      });
+      new_state.data_updated = true;
+      console.log("successfully updated cookie_data", new_state.id);
       return new_state;
     case "default":
   }
@@ -110,20 +112,78 @@ const useCookieData = () => {
   return [cookie_data, handleCookieData];
 };
 
+const _getIPAndLocation = (data) => {
+  let date = new Date();
+  date.setTime(date.getTime());
+  return {
+    date: date.toUTCString(),
+    ip: data.ip,
+    ip_version: data.version,
+    city: data.city,
+    region: data.region,
+    country: data.country,
+    country_name: data.country_name,
+    continent_code: data.continent_code,
+    longitude: data.longitude,
+    latitude: data.latitude,
+    asn: data.asn,
+    org: data.org,
+  };
+};
+
 export const CookieDataProvider = ({ children }) => {
-  const [cookie_data, handleCookieData] = useReducer(reduceCookieData, {});
+  const [cookie_data, handleCookieData] = useReducer(reduceCookieData, {
+    data: {},
+    data_updated: false,
+  });
   const value = useMemo(() => {
     console.log("cookie memo rewritten.");
     return { cookie_data, handleCookieData };
   }, [cookie_data, handleCookieData]);
 
   useEffect(() => {
+    // handleCookieData({ type: "delete_cookie", name: "id" });
     handleCookieData({ type: "create" });
-    axios.get("https://ipapi.co/json/").then((data) => {
-      console.log("ip address is", data);
-      handleCookieData({ type: "set", setting: { history: data.data } });
+    axios.put("/api/cookie", { id: getCookie("id") }).then((request) => {
+      console.log("cookie id", cookie_data);
+      handleCookieData({
+        type: "update",
+        data: request.data.data,
+      });
+    });
+    axios.get("https://ipapi.co/json/").then((request) => {
+      handleCookieData({
+        type: "patch",
+        setting: { history: _getIPAndLocation(request.data) },
+      });
     });
   }, []);
+  // "ip": "2001:2d8:e995:59b6::ef0:80ac",
+  //     "version": "IPv6",
+  //     "city": "Yeongdeungpo-gu",
+  //     "region": "Seoul",
+  //     "region_code": "11",
+  //     "country": "KR",
+  //     "country_name": "South Korea",
+  //     "country_code": "KR",
+  //     "country_code_iso3": "KOR",
+  //     "country_capital": "Seoul",
+  //     "country_tld": ".kr",
+  //     "continent_code": "AS",
+  //     "in_eu": false,
+  //     "postal": "07247",
+  //     "latitude": 37.5198,
+  //     "longitude": 126.9113,
+  //     "timezone": "Asia/Seoul",
+  //     "utc_offset": "+0900",
+  //     "country_calling_code": "+82",
+  //     "currency": "KRW",
+  //     "currency_name": "Won",
+  //     "languages": "ko-KR,en",
+  //     "country_area": 98480,
+  //     "country_population": 51635256,
+  //     "asn": "AS9644",
+  //     "org": "SK Telecom"
 
   return (
     <CookieDataContext.Provider value={value}>
