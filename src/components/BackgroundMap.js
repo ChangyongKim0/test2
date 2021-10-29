@@ -163,8 +163,8 @@ const BackgroundMap = ({
         clickable: false,
       });
       info_bubbles[each.id] = customOverlay;
-      each.polygon.setMap(map);
-      info_bubbles[each.id].setMap(map);
+      setTimeout(() => each.polygon.setMap(map), 100);
+      setTimeout(() => info_bubbles[each.id].setMap(map), 100);
     });
   }, [overlay.data_pushed]);
 
