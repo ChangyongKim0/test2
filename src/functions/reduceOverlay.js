@@ -26,13 +26,24 @@ const convertGeoData = (map, data) => {
     fillOpacity: 0.001,
   });
   handlePolygon({ type: "create", polygon: polygon });
-  return {
+  let result_data = {
     id: data.id,
-    addr: "address needed",
-    price: data.LNPD_PY0,
+    price: -1,
+    price_per_area: -1,
+    tr_date: "",
     polygon: polygon,
     center: center,
   };
+  if (data.transaction_list && data.transaction_list.length != 0) {
+    const sorted_data = data.transaction_list.sort(
+      (a, b) => parseInt(a.id) - parseInt(b.id)
+    );
+    result_data.price = parseInt(sorted_data[0].NRG_DL_AM.replace(",", ""));
+    result_data.price_per_area =
+      parseInt(sorted_data[0].NRG_DL_AM) / parseFloat(sorted_data[0].NRG_AR);
+    result_data.tr_date = sorted_data[0].id;
+  }
+  return result_data;
 };
 
 const getPosCenter = (pos_list) => {
@@ -198,51 +209,17 @@ const getOverlayData = async (map) => {
   var max_lat = bounds.getNorthEast().getLat();
   var max_lng = bounds.getNorthEast().getLng();
   console.log("request new overlay data.");
-  let response = [];
-  const min_lat_code = Math.floor(min_lat * 400);
-  const min_lng_code = Math.floor(min_lng * 400);
-  const max_lat_code = Math.floor(max_lat * 400);
-  const max_lng_code = Math.floor(max_lng * 400);
-
-  // console.log(data_list);
+  const map_data = await axios.put("/api/mapInfo", {
+    min_lat: min_lat,
+    min_lng: min_lng,
+    max_lat: max_lat,
+    max_lng: max_lng,
+  });
+  console.log(map_data);
   let new_data = [];
-  let lat_code, lng_code;
-  for (
-    lng_code = min_lng_code * 1 - 1;
-    lng_code <= max_lng_code * 1;
-    lng_code++
-  ) {
-    for (
-      lat_code = min_lat_code * 1 - 1;
-      lat_code <= max_lat_code * 1;
-      lat_code++
-    ) {
-      try {
-        response = await axios.get(
-          "https://raw.githubusercontent.com/ChangyongKim0/background_algorithms/master/data/land_data/dist/" +
-            lng_code +
-            "/" +
-            lat_code +
-            ".json"
-        );
-      } catch (err) {
-        if (err.response && err.response.status === 404) {
-          console.log("exist non-data area.");
-          response = { data: [] };
-        } else {
-          console.log("unexpected error occured");
-          response = { data: [] };
-        }
-      }
-      let data_list = response.data;
-      for (let i = 0; i < data_list.length; i++) {
-        let data = convertGeoData(map, data_list[i]);
-        new_data.push(data);
-      }
-    }
-  }
-
-  // console.log(new_data);
+  map_data.data.map((e) => {
+    new_data.push(convertGeoData(map, e));
+  });
   console.log("get new overlay data.");
   return new_data;
 };
