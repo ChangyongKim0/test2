@@ -19,8 +19,8 @@ export const BldgInfoContext = createContext({
 
 const reduceBldgInfoData = (state, action) => {
   let new_state = cloneDeep(state);
-  console.log(new_state);
-  console.log(action);
+  // console.log(new_state);
+  // console.log(action);
   switch (action.type) {
     case "move_update":
       new_state.move_toggle = !state.move_toggle;
@@ -106,7 +106,7 @@ export const BldgInfoDataProvider = ({ children }) => {
   //   }
   // }, [cookie_data.data_updated]);
   const value = useMemo(() => {
-    console.log("memo rewritten.");
+    // console.log("memo rewritten.");
     return { bldg_info_data, handleBldgInfoData };
   }, [bldg_info_data, handleBldgInfoData]);
   return (

@@ -19,7 +19,7 @@ const convertGeoData = (map, data) => {
   let center_value = _center(lats, lngs);
   let center = new window.kakao.maps.LatLng(center_value.y, center_value.x);
   let polygon = new window.kakao.maps.Polygon({
-    map: map, // 다각형을 표시할 지도 객체
+    // map: map, // 다각형을 표시할 지도 객체
     path: path,
     strokeWeight: 0,
     fillColor: "#fff",
@@ -33,14 +33,18 @@ const convertGeoData = (map, data) => {
     tr_date: "",
     polygon: polygon,
     center: center,
+    latlng: data.latlng,
   };
   if (data.transaction_list && data.transaction_list.length != 0) {
     const sorted_data = data.transaction_list.sort(
-      (a, b) => parseInt(a.id) - parseInt(b.id)
+      (a, b) => parseInt(b.id) - parseInt(a.id)
     );
-    result_data.price = parseInt(sorted_data[0].NRG_DL_AM.replace(",", ""));
-    result_data.price_per_area =
-      parseInt(sorted_data[0].NRG_DL_AM) / parseFloat(sorted_data[0].NRG_AR);
+    result_data.price =
+      parseInt(sorted_data[0].NRG_DL_AM.replace(/,/g, "")) * 10000;
+    result_data.price_per_area = Math.round(
+      (parseInt(sorted_data[0].NRG_DL_AM.replace(/,/g, "")) * 10000) /
+        parseFloat(sorted_data[0].NRG_AR)
+    );
     result_data.tr_date = sorted_data[0].id;
   }
   return result_data;
@@ -74,11 +78,11 @@ const convertPosList = (map, pos_list) => {
     i += 2;
   }
   let polygon = new window.kakao.maps.Polygon({
-    map: map, // 다각형을 표시할 지도 객체
+    // map: map, // 다각형을 표시할 지도 객체
     path: path,
     strokeWeight: 0,
     fillColor: "#fff",
-    fillOpacity: 0.001,
+    fillOpacity: 0.1,
   });
   handlePolygon({ type: "create", polygon: polygon });
   return polygon;
@@ -97,9 +101,11 @@ const reduceOverlay = (state, action) => {
       map: state.map,
       getMapState: state.getMapState,
       show: false,
+      code_list: [],
       data: [],
       data_pushed: [],
       need_to_remove: false,
+      data_to_remove: [],
       data_removed: [],
       is_clicked: false,
       clicked_data: { id: -1, polygon: -1 },
@@ -110,9 +116,11 @@ const reduceOverlay = (state, action) => {
       map: options.map,
       getMapState: options.getMapState,
       show: options.show,
+      code_list: options.code_list,
       data: options.data,
       data_pushed: options.data_pushed,
       need_to_remove: options.need_to_remove,
+      data_to_remove: options.data_to_remove,
       data_removed: options.data_removed,
       is_clicked: options.is_clicked,
       clicked_data: options.clicked_data,
@@ -132,16 +140,21 @@ const reduceOverlay = (state, action) => {
       console.log(new_state);
       return new_state;
     case "update":
-      let new_data_pushed = [];
-      let new_data = state.data;
-      if (state.data.length === 0) {
-        new_data_pushed = action.data;
-        new_data = action.data;
-      }
+      const code_list = action.data.code_list;
+      const new_data_pushed = action.data.data.filter(
+        (e) => !state.code_list.includes(e.latlng)
+      );
+      const new_data = action.data.data;
+      const data_to_remove = state.data.filter(
+        (e) => !action.data.code_list.includes(e.latlng)
+      );
       new_state = returnOverlay({
         show: true,
+        code_list: code_list,
         data: new_data,
         data_pushed: new_data_pushed,
+        data_to_remove: data_to_remove,
+        need_to_remove: true,
         is_clicked: state.is_clicked,
         clicked_data: state.clicked_data,
         clicked_data_before: state.clicked_data_before,
@@ -159,6 +172,7 @@ const reduceOverlay = (state, action) => {
       }
       new_state = returnOverlay({
         show: true,
+        code_list: state.code_list,
         data: state.data,
         is_clicked: is_clicked_new,
         clicked_data: new_clicked_data,
@@ -168,31 +182,34 @@ const reduceOverlay = (state, action) => {
       console.log("clicked an overlay:");
       console.log(new_state);
       return new_state;
-    case "remove start":
-      if (state.show === false) {
+    case "remove all":
+      if (state.show == false) {
         return state;
       } else {
         new_state = returnOverlay({
-          show: true,
-          data: state.data,
+          show: false,
           is_clicked: state.is_clicked,
           clicked_data: state.clicked_data,
           clicked_data_before: state.clicked_data_before,
           map_base_state: state.getMapState(),
           need_to_remove: true,
-          data_removed: state.data,
+          data_to_remove: state.data,
         });
-        console.log("remove overlays start:");
+        console.log("remove all overlays:");
         console.log(new_state);
         return new_state;
       }
     case "remove end":
-      if (state.show === false) {
+      if (state.show == false && state.data_to_remove.length == 0) {
         return state;
       } else {
         new_state = returnOverlay({
+          show: state.show,
+          code_list: state.code_list,
           map_base_state: state.map_base_state,
-          data_removed: state.data_removed,
+          data: state.data,
+          data_to_remove: [],
+          data_removed: state.data_to_remove,
         });
         console.log("removed overlays:");
         console.log(new_state);
@@ -217,11 +234,11 @@ const getOverlayData = async (map) => {
   });
   console.log(map_data);
   let new_data = [];
-  map_data.data.map((e) => {
+  map_data.data.data.map((e) => {
     new_data.push(convertGeoData(map, e));
   });
   console.log("get new overlay data.");
-  return new_data;
+  return { code_list: map_data.data.code_list, data: new_data };
 };
 
 const handlePolygon = (action) => {

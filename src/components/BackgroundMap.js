@@ -17,12 +17,14 @@ import InfoBubble from "./InfoBubble";
 import styles from "./BackgroundMap.module.scss";
 import classNames from "classnames/bind";
 import { setCookie } from "../hooks/useCookieData";
+import { formatData } from "../hooks/useFormatter";
 
 const cx = classNames.bind(styles);
 
 let map;
 let event_handlers_for_kakao = {};
 let info_bubbles = {};
+let polygons = {};
 
 const getMapState = () => {
   let level = map.getLevel();
@@ -107,7 +109,7 @@ const BackgroundMap = ({
       handleOverlay({ type: "update", data: data });
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
-    window.kakao.maps.event.addListener(map, "center_changed", onCenterChanged);
+    window.kakao.maps.event.addListener(map, "bounds_changed", onCenterChanged);
     pushAddress(getMapState(), handleAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -124,15 +126,20 @@ const BackgroundMap = ({
     var min_lat = bounds.getSouthWest().getLat();
     var min_lng = bounds.getSouthWest().getLng();
     var max_lat = bounds.getNorthEast().getLat();
-    var max_lng = bounds.getSouthWest().getLng();
+    var max_lng = bounds.getNorthEast().getLng();
+    console.log("bounds: ", max_lat - min_lat, max_lng - min_lng);
     if (
       need_update_overlay &&
       (checkFarMove(overlay, getMapState(), 0.002, 0.004) ||
-        overlay.show === false)
+        overlay.show == false)
     ) {
-      getOverlayData(map).then((data) => {
-        handleOverlay({ type: "update", data: data });
-      });
+      setTimeout(
+        () =>
+          getOverlayData(map).then((data) => {
+            handleOverlay({ type: "update", data: data });
+          }),
+        50
+      );
     } else {
       setNeedUpdateOverlay(false);
     }
@@ -143,30 +150,37 @@ const BackgroundMap = ({
     // console.log("center changed.");
     let level = map.getLevel();
     pushAddress(getMapState(), handleAddress);
-    if (level <= 2) {
+    if (level <= 3) {
       setNeedUpdateOverlay(true);
     } else {
-      handleOverlay({ type: "remove start" });
+      console.log("remove all overlays");
+      handleOverlay({ type: "remove all" });
+      setNeedUpdateOverlay(false);
     }
   };
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
     overlay.data_pushed.map((each) => {
-      const content = document.getElementById(each.id);
-      const position = each.center;
-      const customOverlay = new window.kakao.maps.CustomOverlay({
-        position: position,
-        content: content,
-        xAnchor: 0.5,
-        yAnchor: 1.0,
-        clickable: false,
-      });
-      info_bubbles[each.id] = customOverlay;
-      each.polygon.setMap(map);
-      info_bubbles[each.id].setMap(map);
+      if (each.price != -1) {
+        const content = document.getElementById(each.id);
+        const position = each.center;
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+          position: position,
+          content: content,
+          xAnchor: 0.5,
+          yAnchor: 1.0,
+          clickable: false,
+        });
+        info_bubbles[each.id] = customOverlay;
+        // info_bubbles[each.id].setMap(map);
+        setTimeout(() => info_bubbles[each.id].setMap(map), 0);
+      }
+      polygons[each.id] = each.polygon;
+      polygons[each.id].setMap(map);
+      // polygons[each.id].setMap(null);
+
       // setTimeout(() => each.polygon.setMap(map), 0);
-      // setTimeout(() => info_bubbles[each.id].setMap(map), 0);
     });
   }, [overlay.data_pushed]);
 
@@ -176,25 +190,27 @@ const BackgroundMap = ({
       handleKakaoListener({
         type: "create",
         id: each.id,
-        object: each.polygon,
+        object: polygons[each.id],
         mouse_event: "mouseover",
-        handler: () => handlePolygon({ type: "opaque", polygon: each.polygon }),
+        handler: () =>
+          handlePolygon({ type: "opaque", polygon: polygons[each.id] }),
       });
       handleKakaoListener({
         type: "create",
         id: each.id,
-        object: each.polygon,
+        object: polygons[each.id],
         mouse_event: "mouseout",
-        handler: () => handlePolygon({ type: "hide", polygon: each.polygon }),
+        handler: () =>
+          handlePolygon({ type: "hide", polygon: polygons[each.id] }),
       });
       handleKakaoListener({
         type: "create",
         id: each.id,
-        object: each.polygon,
+        object: polygons[each.id],
         mouse_event: "click",
         handler: () => {
           handleOverlay({ type: "click", clicked_data: each });
-          handlePolygon({ type: "show", polygon: each.polygon });
+          handlePolygon({ type: "show", polygon: polygons[each.id] });
         },
       });
     });
@@ -215,34 +231,45 @@ const BackgroundMap = ({
   }, [is_clicked]);
 
   useEffect(() => {
-    console.log("time to remove?");
+    // console.log("time to remove?");
     if (overlay.need_to_remove) {
       // console.log(overlay);
-      console.log("time to remove");
+      // console.log("time to remove");
       // eslint-disable-next-line array-callback-return
-      overlay.data_removed.map((each) => {
+      overlay.data_to_remove.map((each) => {
         handleKakaoListener({
           type: "remove",
           id: each.id,
-          object: each.polygon,
+          object: polygons[each.id],
           mouse_event: "mouseover",
         });
         handleKakaoListener({
           type: "remove",
           id: each.id,
-          object: each.polygon,
+          object: polygons[each.id],
           mouse_event: "mouseout",
         });
         handleKakaoListener({
           type: "remove",
           id: each.id,
-          object: each.polygon,
+          object: polygons[each.id],
           mouse_event: "click",
         });
-        each.polygon.setMap(null);
-        info_bubbles[each.id].setMap(null);
-        delete info_bubbles[each.id];
+        polygons[each.id].setMap(null);
+        // console.log(polygons);
+        // console.log(each.id, polygons[each.id]);
+        // delete polygons[each.id];
+        if (each.price != -1) {
+          info_bubbles[each.id].setMap(null);
+          // delete info_bubbles[each.id];
+        }
       });
+      console.log(
+        "DATA LENGHT: info_bubbles: " +
+          Object.keys(info_bubbles).length +
+          "; polygons: " +
+          Object.keys(polygons).length
+      );
       handleOverlay({ type: "remove end" });
     }
     // console.log(info_bubbles);
@@ -373,21 +400,24 @@ const BackgroundMap = ({
       onWheel={handleMapUpdate}
     >
       <div id="map" className={cx("map")}></div>
-      {overlay.data_pushed.map((each) => {
-        return (
+      {overlay.data_pushed.map((each) =>
+        each.price == -1 ? (
+          <></>
+        ) : (
           <InfoBubble
             key={each.id}
             id={each.id}
             handler={handlePolygon}
             data={{
-              price: "2,000억",
-              date: "'20. 03",
-              price_per_py: "250,000원/평",
+              price: formatData(each.price, "number"),
+              date:
+                "'" + each.tr_date.slice(2, 4) + "." + each.tr_date.slice(4, 6),
+              price_per_py: formatData(each.price_per_area, "number") + "원/평",
               polygon: each.polygon,
             }}
           />
-        );
-      })}
+        )
+      )}
     </div>
   );
 };
