@@ -12,14 +12,18 @@ const cx = classNames.bind(styles);
 const BldgInfoList = ({ show, data, style, dropdown_from, force_dropdown }) => {
   const [dropped_down, setDroppedDown] = useToggleState({ toggle: false });
 
-  const formatted_value_list = data.value.map((e) =>
-    e.map((e2) => {
-      return {
-        value: formatData(e2.value, e2.value_type),
-        unit: formatUnit(e2.value_unit, e2.unit_type),
-      };
-    })
-  );
+  const formatted_value_list = data.value
+    .map((e, idx) =>
+      idx < dropdown_from || dropdown_from == -1 || force_dropdown
+        ? e.map((e2) => {
+            return {
+              value: formatData(e2.value, e2.value_type),
+              unit: formatUnit(e2.value_unit, e2.unit_type),
+            };
+          })
+        : -1
+    )
+    .filter((e) => e != -1);
 
   if (!show) {
     return <></>;
@@ -37,14 +41,10 @@ const BldgInfoList = ({ show, data, style, dropdown_from, force_dropdown }) => {
                 <div className={cx("unit-" + style)}>{e2.unit}</div>
               </div>
             ));
-            return idx < dropdown_from ||
-              dropdown_from == -1 ||
-              force_dropdown ? (
+            return (
               <div key={idx} className={cx("frame-row", "row-" + style)}>
                 {component}
               </div>
-            ) : (
-              <></>
             );
           })}
         </div>

@@ -1,4 +1,4 @@
-const err_text = "오류발생";
+const default_err_text = "오류발생";
 
 const useFormatter = ({ value, value_type, unit, unit_type }) => {
   let output = {};
@@ -22,7 +22,13 @@ export const formatUnit = (unit, unit_type) => {
   }
 };
 
-export const formatData = (data_old, type, unit, unit_type) => {
+export const formatData = (
+  data_old,
+  type,
+  unit,
+  unit_type,
+  err_text = default_err_text
+) => {
   let data = data_old;
   if (data == "") {
     return data;

@@ -253,6 +253,7 @@ const handlePolygon = (action) => {
       action.polygon.setOptions({ fillOpacity: 0.1 });
       break;
     case "show":
+      // action.callback();
       action.polygon.setOptions({ fillOpacity: 0.5 });
       break;
     default:

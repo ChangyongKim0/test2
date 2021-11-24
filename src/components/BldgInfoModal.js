@@ -5,6 +5,7 @@ import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
 import styles from "./BldgInfoModal.module.scss";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
+import useBldgInfoData from "../hooks/useBldgInfoData";
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,11 @@ const BldgInfoModal = ({
   handleBldgInfo,
   setIsClicked,
 }) => {
+  const [bldg_info_data, _] = useBldgInfoData();
+  useEffect(() => {
+    console.log(bldg_info_data);
+  }, [bldg_info_data]);
+
   if (info.active === false) {
     return <></>;
   } else {
@@ -24,8 +30,16 @@ const BldgInfoModal = ({
           <div className={cx("frame-title")}>
             <div className={cx("frame-left")}>save</div>
             <div className={cx("frame-center")}>
-              <div className={cx("title")}>{title}</div>
-              <div className={cx("sub-title")}>{sub_title}</div>
+              <div className={cx("title")}>
+                {bldg_info_data.data.addr || "주소 없음"}
+              </div>
+              <div className={cx("sub-title")}>
+                {bldg_info_data.data.bldg_exists
+                  ? bldg_info_data.data.bldg.bldg_info_list[
+                      bldg_info_data.data.bldg_idx
+                    ].road_addr
+                  : "도로명 주소 없음"}
+              </div>
             </div>
             <div className={cx("frame-right")}>
               <CloseSvg
