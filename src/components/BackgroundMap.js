@@ -10,6 +10,7 @@ import {
   getOverlayData,
   handlePolygon,
 } from "../functions/reduceOverlay";
+import axios from "axios";
 
 import useBldgInfoData from "../hooks/useBldgInfoData";
 
@@ -210,7 +211,10 @@ const BackgroundMap = ({
         mouse_event: "click",
         handler: () => {
           handleOverlay({ type: "click", clicked_data: each });
-          handlePolygon({ type: "show", polygon: polygons[each.id] });
+          handlePolygon({
+            type: "show",
+            polygon: polygons[each.id],
+          });
         },
       });
     });
@@ -278,9 +282,24 @@ const BackgroundMap = ({
 
   useEffect(() => {
     if (overlay.clicked_data.id !== -1) {
-      // console.log(overlay.clicked_data.id);
+      console.log("polygon clicked: " + overlay.clicked_data.id);
       let new_id = overlay.clicked_data.id;
       let new_polygon = overlay.clicked_data.polygon;
+      setTimeout(() => {
+        axios
+          .put("/api/bldgInfo", {
+            id: overlay.clicked_data.id,
+            latlng: overlay.clicked_data.latlng,
+          })
+          .then((res) => {
+            console.log(res);
+            handleBldgInfoData({
+              type: "update",
+              pnu: overlay.clicked_data.id,
+              data: res.data,
+            });
+          });
+      }, 0);
       handlePolygon({ type: "show", polygon: new_polygon });
       handleKakaoListener({
         type: "remove",
@@ -400,10 +419,9 @@ const BackgroundMap = ({
       onWheel={handleMapUpdate}
     >
       <div id="map" className={cx("map")}></div>
-      {overlay.data_pushed.map((each) =>
-        each.price == -1 ? (
-          <></>
-        ) : (
+      {overlay.data_pushed
+        .filter((e) => e.price != -1)
+        .map((each) => (
           <InfoBubble
             key={each.id}
             id={each.id}
@@ -416,8 +434,7 @@ const BackgroundMap = ({
               polygon: each.polygon,
             }}
           />
-        )
-      )}
+        ))}
     </div>
   );
 };
