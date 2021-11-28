@@ -28,22 +28,22 @@ const ValuationHeader = ({
   const [open_BMM, setOpenBMM, registerBMM, modal_update] =
     useModal(useModalParam);
 
-  useEffect(() => {
-    registerBMM(
-      <Overlay open={true} setOpen={setOpenBMM} use_backdrop={true}>
-        <BookMarkModal
-          onClick={{
-            Close: () => {
-              setOpenBMM(false);
-            },
-          }}
-          useModalParam={useModalParam}
-        />
-      </Overlay>
-    );
-    console.log("registered BMM.");
-    console.log(open_BMM);
-  }, [modal_update]);
+  registerBMM(
+    <Overlay open={true} setOpen={setOpenBMM} use_backdrop={true}>
+      <BookMarkModal
+        onClick={{
+          Close: () => {
+            setOpenBMM(false);
+          },
+        }}
+        useModalParam={useModalParam}
+      />
+    </Overlay>
+  );
+  console.log("registered BMM.");
+  console.log(open_BMM);
+
+  useEffect(() => {}, [modal_update]);
 
   return (
     <div className={cx("wrapper")}>

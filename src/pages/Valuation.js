@@ -19,7 +19,7 @@ import Header from "../components/Header";
 import ValuationHeader from "../components/ValuationHeader";
 import ValuationFooter from "../components/ValuationFooter";
 import AssumptionCard from "../components/AssumptionCard";
-import { useModalStack } from "../hooks/useModal";
+import { createModalStack } from "../hooks/useModal";
 import useDragScroll from "../hooks/useDragScroll";
 import wrapValuation from "../data/wrapValuation";
 import useEnterAsTab from "../hooks/useEnterAsTab";
@@ -43,8 +43,10 @@ const reduceMousePressContainer = (state, action) => {
   }
 };
 
+const luseModalStack = createModalStack();
+
 const Valuation = () => {
-  const [modal_stack, useModalParam] = useModalStack();
+  const [modal_stack, useModalParam] = luseModalStack();
 
   const [naked_data, setValuationCalculator] = useValuationCalculator();
 

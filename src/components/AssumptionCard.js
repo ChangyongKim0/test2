@@ -31,23 +31,23 @@ const AssumptionCard = ({
   const [open_AM, setOpenAM, registerAM, modal_update] =
     useModal(useModalParam);
 
-  useEffect(() => {
-    registerAM(
-      <Overlay open={true} setOpen={setOpenAM} use_backdrop={true}>
-        <AddModal
-          title="밸류에이션 값 추가"
-          onClick={{
-            Add: () => {},
-            Close: () => {
-              setOpenAM(false);
-            },
-          }}
-        />
-      </Overlay>
-    );
-    console.log("registered BMM.");
-    console.log(open_AM);
-  }, [modal_update]);
+  registerAM(
+    <Overlay open={true} setOpen={setOpenAM} use_backdrop={true}>
+      <AddModal
+        title="밸류에이션 값 추가"
+        onClick={{
+          Add: () => {},
+          Close: () => {
+            setOpenAM(false);
+          },
+        }}
+      />
+    </Overlay>
+  );
+  // console.log("registered BMM.");
+  // console.log(open_AM);
+
+  useEffect(() => {}, [modal_update]);
 
   return (
     <div className={cx("wrapper", style)}>
