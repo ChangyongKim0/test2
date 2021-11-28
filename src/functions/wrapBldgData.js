@@ -444,7 +444,7 @@ const getIndivBldgData = (bd_title, bd_info) => {
       data: {
         title: "준공년도",
         value: bd_info.const_year,
-        value_unit: "년",
+        value_unit: bd_info.const_year == "-" ? "" : "년",
         value_type: "string",
       },
       style: "default",
@@ -454,7 +454,7 @@ const getIndivBldgData = (bd_title, bd_info) => {
       show: true,
       data: {
         title: "용적률",
-        value: 4.59,
+        value: bd_info.far,
         value_unit: "\u00A0%",
         value_type: "rate_over",
       },
@@ -465,7 +465,7 @@ const getIndivBldgData = (bd_title, bd_info) => {
       show: true,
       data: {
         title: "건물 규모",
-        value: [-5, 20],
+        value: bd_info.size,
         value_unit: "",
         value_type: "floor_range",
       },
@@ -476,7 +476,7 @@ const getIndivBldgData = (bd_title, bd_info) => {
       show: true,
       data: {
         title: "건폐율",
-        value: 0.47,
+        value: bd_info.bcr,
         value_unit: "\u00A0%",
         value_type: "rate",
       },
@@ -487,98 +487,39 @@ const getIndivBldgData = (bd_title, bd_info) => {
       show: true,
       data: {
         title: "전용률",
-        value: 0.47,
-        value_unit: "\u00A0%",
+        value: bd_info.par,
+        value_unit: bd_info.par == "-" ? "" : "\u00A0%",
         value_type: "rate",
       },
       style: "default",
     },
     bldg_usage_list: {
       component_type: "blob",
-      data: [
-        {
-          title: "업무시설",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-        {
-          title: "1종근린생활시설",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-        {
-          title: "교육연구샘플",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-        {
-          title: "교육연구샘플",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-        {
-          title: "교육연구글이꽤긴경우에대한샘플",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-        {
-          title: "교육연구",
-          tooltip: ["토지e음으로 이동하기"],
-        },
-      ],
+      data: bd_info.usage_list.map((e) => {
+        return { title: e, tooltip: ["토지e음으로 이동하기"] };
+      }),
     },
     bldg_detail: {
       component_type: "list",
       data: {
         title: "건물 상세",
-        value: [
-          [
-            {
-              value: 4,
-              value_unit: "F",
-              value_type: "number_detail",
-            },
-            {
-              value: "업무시설, 1종근린생활시설",
-              value_unit: "",
-              value_type: "string",
-            },
-            {
-              value: "78",
-              value_unit: "평",
-              value_type: "number_detail",
-            },
-          ],
-          [
-            {
-              value: 3,
-              value_unit: "F",
-              value_type: "number_detail",
-            },
-            {
-              value: "1종근린생활시설, 교육연구",
-              value_unit: "",
-              value_type: "string",
-            },
-            {
-              value: 56,
-              value_unit: "평",
-              value_type: "number_detail",
-            },
-          ],
-          [
-            {
-              value: 3,
-              value_unit: "F",
-              value_type: "number_detail",
-            },
-            {
-              value: "1종근린생활시설, 교육연구",
-              value_unit: "",
-              value_type: "string",
-            },
-            {
-              value: 56,
-              value_unit: "평",
-              value_type: "number_detail",
-            },
-          ],
-        ],
+        value: bd_info.detail.map((e) => [
+          {
+            value: e.floor,
+            value_unit: typeof e.floor == typeof 1 ? "F" : "",
+            value_type: "floor",
+          },
+          {
+            value: e.usage,
+            value_unit: "",
+            value_type: "string",
+          },
+          {
+            value: e.area,
+            value_unit: "[area]",
+            value_type: "number_detail",
+          },
+        ]),
       },
       dropdown_from: 2,
     },
