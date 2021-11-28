@@ -30,7 +30,7 @@ export const formatData = (
   err_text = default_err_text
 ) => {
   let data = data_old;
-  if (data == "") {
+  if (data === "") {
     return data;
   }
   if (
@@ -68,6 +68,14 @@ export const formatData = (
           }
         })
         .join("-");
+    case "floor":
+      if (typeof data == typeof 1 || data == 0) {
+        if (data < 1) {
+          return "B" + (1 - data);
+        }
+      } else {
+        return data;
+      }
     default:
       return data;
   }
