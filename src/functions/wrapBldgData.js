@@ -220,50 +220,7 @@ const wrapBldgData = (bldg_data) => {
       show: true,
       data: {
         title: "기준년도",
-        value: [
-          [
-            {
-              value: "2021.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-          [
-            {
-              value: "2020.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-          [
-            {
-              value: "2019.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-          [
-            {
-              value: "2019.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-          [
-            {
-              value: "2019.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-          [
-            {
-              value: "2019.01",
-              value_unit: "",
-              value_type: "string",
-            },
-          ],
-        ],
+        value: [[]],
       },
       dropdown_from: 3,
     },
@@ -272,50 +229,7 @@ const wrapBldgData = (bldg_data) => {
       show: true,
       data: {
         title: "공시지가",
-        value: [
-          [
-            {
-              value: 121500000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-          [
-            {
-              value: 113200000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-          [
-            {
-              value: 92300000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-          [
-            {
-              value: 92300000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-          [
-            {
-              value: 92300000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-          [
-            {
-              value: 92300000,
-              value_unit: "\u00A0원/평",
-              value_type: "number",
-            },
-          ],
-        ],
+        value: [[]],
       },
       dropdown_from: 3,
     },
@@ -401,21 +315,118 @@ const wrapBldgData = (bldg_data) => {
   };
 
   let indiv_bldg_data = {};
+  let indiv_land_data = {};
+  if (ld && ld.area) {
+    indiv_land_data = getIndivLandData(ld);
+  }
   if (bldg_data.bldg_exists) {
     const bd_title = bldg_data.bldg.bldg_title_list[idx];
     const bd_info = bldg_data.bldg.bldg_info_list[idx];
-    indiv_bldg_data = getIndivBldgData(bd_title, bd_info);
+    indiv_bldg_data = getIndivBldgData(
+      bd_title,
+      bd_info,
+      bldg_data.bldg.attach_pnu_list
+    );
   }
+  // console.log(indiv_land_data);
   return {
     ...default_data,
+    ...indiv_land_data,
     ...indiv_bldg_data,
     bldg_exists: bldg_data.bldg_exists,
     transaction_exists: bldg_data.transaction_exists,
   };
 };
 
-const getIndivBldgData = (bd_title, bd_info) => {
+const getIndivLandData = (ld) => {
   return {
+    land_size: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "면적",
+        value: ld.area,
+        value_unit: "\u00A0[area]",
+        value_type: "number_detail",
+      },
+      style: "default",
+    },
+    land_usage: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "이용상황",
+        value: ld.usage,
+        value_unit: "",
+        value_type: "string",
+      },
+      style: "default",
+    },
+    usage_list: {
+      component_type: "blob",
+      data: ld.usage_list.map((e) => {
+        return {
+          title: e,
+          tooltip: ["토지e음으로 이동하기"],
+          onClick: "토지계획이용원으로 링크",
+        };
+      }),
+      dropdown_from: -1,
+    },
+    official_price_year: {
+      component_type: "list",
+      show: true,
+      data: {
+        title: "기준년도",
+        value: ld.base_ymd_list.map((e) => [
+          {
+            value: e,
+            value_unit: "",
+            value_type: "string",
+          },
+        ]),
+      },
+      dropdown_from: 3,
+    },
+    official_price: {
+      component_type: "list",
+      show: true,
+      data: {
+        title: "공시지가",
+        value: ld.price_list.map((e) => [
+          {
+            value: e,
+            value_unit: "\u00A0원/[/area]",
+            value_type: "number",
+          },
+        ]),
+      },
+      dropdown_from: 3,
+    },
+  };
+};
+
+const getIndivBldgData = (bd_title, bd_info, attach) => {
+  return {
+    attachment_land: {
+      component_type: "list",
+      data: {
+        title: "부속 필지",
+        value: attach.map((e) => [
+          {
+            value: e.addr,
+            value_unit: "",
+            value_type: "string",
+          },
+          // {
+          //   value: 3537,
+          //   value_unit: "\u00A0평",
+          //   value_type: "number_detail",
+          // },
+        ]),
+      },
+      dropdown_from: 2,
+    },
     bldg_title: {
       component_type: "text",
       show: true,
