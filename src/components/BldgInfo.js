@@ -20,7 +20,7 @@ const BldgInfo = () => {
     bldg_detail: false,
     official_price: false,
   });
-  const [bldg_info_data, setBldgInfoData] = useBldgInfoData();
+  const [bldg_info_data, _] = useBldgInfoData();
   const [wrapped_data, setWrappedData] = useState(
     wrapBldgData({
       land: {},
@@ -57,34 +57,38 @@ const BldgInfo = () => {
           </div>
         </div>
         <div className={cx("frame-div1")}>
-          <BldgInfoBlob {...wrapped_data.usage_list} />
+          <BldgInfoBlob {...wrapped_data.usage_list} pnu={bldg_info_data.pnu} />
         </div>
         {wrapped_data.usage_list.dropdown_from > 0 ? <ToggleSvg /> : <></>}
-        <div className={cx("frame-div1")}>
-          <BldgInfoList
-            {...wrapped_data.attachment_land}
-            force_dropdown={dropped_down.attachment_land}
-          />
-          {wrapped_data.attachment_land.dropdown_from > 0 &&
-          wrapped_data.attachment_land.data.value.length >
-            wrapped_data.attachment_land.dropdown_from ? (
-            <div
-              className={cx("toggleBox")}
-              onClick={() => setDroppedDown("attachment_land")}
-            >
-              <ToggleSvg
-                className={cx(
-                  "toggle",
-                  dropped_down.attachment_land ? "dropped-down" : ""
-                )}
-              />
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
         {wrapped_data.bldg_exists ? (
           <>
+            {wrapped_data.attachment_land.data.value.length == 0 ? (
+              <></>
+            ) : (
+              <div className={cx("frame-div1")}>
+                <BldgInfoList
+                  {...wrapped_data.attachment_land}
+                  force_dropdown={dropped_down.attachment_land}
+                />
+                {wrapped_data.attachment_land.dropdown_from > 0 &&
+                wrapped_data.attachment_land.data.value.length >
+                  wrapped_data.attachment_land.dropdown_from ? (
+                  <div
+                    className={cx("toggleBox")}
+                    onClick={() => setDroppedDown("attachment_land")}
+                  >
+                    <ToggleSvg
+                      className={cx(
+                        "toggle",
+                        dropped_down.attachment_land ? "dropped-down" : ""
+                      )}
+                    />
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            )}
             <div className={cx("frame-div2")}>
               <BldgInfoText {...wrapped_data.bldg_title} />
               <div className={cx("frame-column")}>
@@ -102,13 +106,16 @@ const BldgInfo = () => {
                 </div>
               </div>
             </div>
+            <div className={cx("frame-div1")}>
+              <BldgInfoBlob
+                {...wrapped_data.bldg_usage_list}
+                pnu={bldg_info_data.pnu}
+              />
+            </div>
           </>
         ) : (
           <></>
         )}
-        <div className={cx("frame-div1")}>
-          <BldgInfoBlob {...wrapped_data.bldg_usage_list} />
-        </div>
       </div>
       {wrapped_data.bldg_exists ? (
         <div className={cx("frame-column")}>
