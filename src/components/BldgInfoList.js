@@ -6,19 +6,26 @@ import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import useFormatter, { formatData, formatUnit } from "../hooks/useFormatter";
 import useToggleState from "../hooks/useToggle";
+import useUnitType from "../hooks/useUnitType";
 
 const cx = classNames.bind(styles);
 
 const BldgInfoList = ({ show, data, style, dropdown_from, force_dropdown }) => {
   const [dropped_down, setDroppedDown] = useToggleState({ toggle: false });
+  const [unit_type, _] = useUnitType();
 
   const formatted_value_list = data.value
     .map((e, idx) =>
       idx < dropdown_from || dropdown_from == -1 || force_dropdown
         ? e.map((e2) => {
             return {
-              value: formatData(e2.value, e2.value_type),
-              unit: formatUnit(e2.value_unit, e2.unit_type),
+              value: formatData(
+                e2.value,
+                e2.value_type,
+                e2.value_unit,
+                unit_type
+              ),
+              unit: formatUnit(e2.value_unit, unit_type),
             };
           })
         : -1

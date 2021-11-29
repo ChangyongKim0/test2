@@ -24,6 +24,7 @@ import useDragScroll from "../hooks/useDragScroll";
 import wrapValuation from "../data/wrapValuation";
 import useEnterAsTab from "../hooks/useEnterAsTab";
 import useValuationCalculator from "../hooks/useValuationCalculator";
+import useUnitType from "../hooks/useUnitType";
 import formatValuation from "../data/formatValuation";
 
 const cx = classNames.bind(styles);
@@ -47,6 +48,7 @@ const luseModalStack = createModalStack();
 
 const Valuation = () => {
   const [modal_stack, useModalParam] = luseModalStack();
+  const [unit_type, _] = useUnitType();
 
   const [naked_data, setValuationCalculator] = useValuationCalculator();
 
@@ -59,7 +61,7 @@ const Valuation = () => {
   const wrapped_data = useMemo(() => {
     console.log("data wrapped.");
     console.log(naked_data);
-    return wrapValuation(formatValuation(naked_data), mini_map_data);
+    return wrapValuation(formatValuation(naked_data, unit_type), mini_map_data);
   }, [naked_data, mini_map_data]);
 
   // const [mouse_press_container, handleMousePressContainer] = useReducer(

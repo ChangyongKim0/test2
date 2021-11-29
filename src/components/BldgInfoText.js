@@ -5,21 +5,23 @@ import styles from "./BldgInfoText.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import useFormatter from "../hooks/useFormatter";
+import useUnitType from "../hooks/useUnitType";
 
 const cx = classNames.bind(styles);
 
 const BldgInfoText = ({ show, data, tooltip, style }) => {
+  const [unit_type, _] = useUnitType();
   const formatted_value = useFormatter({
     value: data.value,
     value_type: data.value_type,
     unit: data.value_unit,
-    unit_type: data.value_unit_type,
+    unit_type: unit_type,
   });
   const formatted_base = useFormatter({
     value: data.base,
     value_type: data.base_type,
     unit: data.base_unit,
-    unit_type: data.base_unit_type,
+    unit_type: unit_type,
   });
 
   if (!show) {
