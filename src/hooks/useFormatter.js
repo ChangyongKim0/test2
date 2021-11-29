@@ -3,7 +3,7 @@ const default_err_text = "오류발생";
 const useFormatter = ({ value, value_type, unit, unit_type }) => {
   let output = {};
   if (value) {
-    output.value = formatData(value, value_type);
+    output.value = formatData(value, value_type, unit, unit_type);
   }
   if (unit) {
     output.unit = formatUnit(unit, unit_type);
@@ -14,9 +14,17 @@ const useFormatter = ({ value, value_type, unit, unit_type }) => {
 export const formatUnit = (unit, unit_type) => {
   switch (unit_type) {
     case "py":
-      return unit.replace(/\[area\]/g, "평").replace(/\[parea\]/g, "전용평");
+      return unit
+        .replace(/\[area\]/g, "평")
+        .replace(/\[\/area\]/g, "/평")
+        .replace(/\[parea\]/g, "전용평")
+        .replace(/\[\/parea\]/g, "/전용평");
     case "sqm":
-      return unit.replace(/\[area\]/g, "㎡").replace(/\[parea\]/g, "전용㎡");
+      return unit
+        .replace(/\[area\]/g, "㎡")
+        .replace(/\[\/area\]/g, "/㎡")
+        .replace(/\[parea\]/g, "전용㎡")
+        .replace(/\[\/parea\]/g, "/전용㎡");
     default:
       return unit;
   }
@@ -26,10 +34,10 @@ export const formatData = (
   data_old,
   type,
   unit,
-  unit_type,
+  unit_type = "none",
   err_text = default_err_text
 ) => {
-  let data = data_old;
+  let data = _adaptUnitType(data_old, unit, unit_type);
   if (data === "") {
     return data;
   }
@@ -73,6 +81,23 @@ export const formatData = (
         if (data < 1) {
           return "B" + (1 - data);
         }
+      } else {
+        return data;
+      }
+    default:
+      return data;
+  }
+};
+
+const _adaptUnitType = (data, unit, unit_type) => {
+  switch (unit_type) {
+    case "sqm":
+      return data;
+    case "py":
+      if (unit.includes("[area]") || unit.includes("[parea]")) {
+        return data * 0.3025;
+      } else if (unit.includes("[/area]") || unit.includes("[/parea]")) {
+        return data / 0.3025;
       } else {
         return data;
       }
