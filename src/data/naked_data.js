@@ -38,7 +38,7 @@ const naked_data = {
       base_type: "",
       value_type: "number",
       base_unit: "",
-      value_unit: "\u00A0원/[area]",
+      value_unit: "\u00A0원[/area]",
     },
     floor_price_per_area: {
       id: "base.floor_price_per_area",
@@ -48,7 +48,7 @@ const naked_data = {
       base_type: "",
       value_type: "number",
       base_unit: "",
-      value_unit: "\u00A0원/[area]",
+      value_unit: "\u00A0원[/area]",
     },
     noc: {
       id: "base.noc",
@@ -68,7 +68,7 @@ const naked_data = {
       base_type: "",
       value_type: "number_list",
       base_unit: "",
-      value_unit: "\u00A0원/[area]",
+      value_unit: "\u00A0원[/area]",
     },
     floor_area: {
       id: "base.floor_area",
@@ -242,7 +242,7 @@ const naked_data = {
       base_type: "",
       value_type: "number",
       base_unit: "",
-      value_unit: "\u00A0원/[parea]",
+      value_unit: "\u00A0원[/parea]",
     },
     hf_opex: {
       id: "rent.hf_opex",
@@ -256,13 +256,13 @@ const naked_data = {
     },
     hf_noi: {
       id: "rent.hf_noi",
-      title: "NOC, 월NOI/[area]",
+      title: "NOC, 월NOI[/area]",
       base: 337000,
       value: 162000,
       base_type: "number",
       value_type: "number",
       base_unit: "\u00A0원",
-      value_unit: "\u00A0원/[area]",
+      value_unit: "\u00A0원[/area]",
     },
     lf_rent: {
       id: "rent.lf_rent",
@@ -272,7 +272,7 @@ const naked_data = {
       base_type: "",
       value_type: "number",
       base_unit: "",
-      value_unit: "\u00A0원/[parea]",
+      value_unit: "\u00A0원[/parea]",
     },
     lf_opex: {
       id: "rent.lf_opex",
@@ -286,13 +286,13 @@ const naked_data = {
     },
     lf_noi: {
       id: "rent.lf_noi",
-      title: "NOC, 월NOI/[area]",
+      title: "NOC, 월NOI[/area]",
       base: 283000,
       value: 120000,
       base_type: "number",
       value_type: "number",
       base_unit: "\u00A0원",
-      value_unit: "\u00A0원/[area]",
+      value_unit: "\u00A0원[/area]",
     },
   },
   use: {
@@ -323,7 +323,7 @@ const naked_data = {
       value: 310000000000,
       base_type: "number",
       value_type: "number",
-      base_unit: "\u00A0원/[area]",
+      base_unit: "\u00A0원[/area]",
       value_unit: "\u00A0원",
     },
     buy_support: {
@@ -403,7 +403,7 @@ const naked_data = {
       value: 64400000000,
       base_type: "number",
       value_type: "number",
-      base_unit: "\u00A0원/[area]",
+      base_unit: "\u00A0원[/area]",
       value_unit: "\u00A0원",
     },
     indr_const_price: {
@@ -413,7 +413,7 @@ const naked_data = {
       value: 8470000000,
       base_type: "number",
       value_type: "number",
-      base_unit: "\u00A0원/[area]",
+      base_unit: "\u00A0원[/area]",
       value_unit: "\u00A0원",
     },
     fin_total: {
@@ -463,7 +463,7 @@ const naked_data = {
       value: 5680000000,
       base_type: "number",
       value_type: "number",
-      base_unit: "\u00A0원/[parea]",
+      base_unit: "\u00A0원[/parea]",
       value_unit: "\u00A0원",
     },
     stable_reserve: {
