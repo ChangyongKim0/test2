@@ -18,7 +18,8 @@ import InfoBubble from "./InfoBubble";
 import styles from "./BackgroundMap.module.scss";
 import classNames from "classnames/bind";
 import { setCookie } from "../hooks/useCookieData";
-import { formatData } from "../hooks/useFormatter";
+import { formatData, formatUnit } from "../hooks/useFormatter";
+import useUnitType from "../hooks/useUnitType";
 
 const cx = classNames.bind(styles);
 
@@ -412,6 +413,8 @@ const BackgroundMap = ({
     });
   };
 
+  const [unit_type, _] = useUnitType();
+
   return (
     <div
       className={cx("wrapper")}
@@ -430,7 +433,13 @@ const BackgroundMap = ({
               price: formatData(each.price, "number"),
               date:
                 "'" + each.tr_date.slice(2, 4) + "." + each.tr_date.slice(4, 6),
-              price_per_py: formatData(each.price_per_area, "number") + "원/평",
+              price_per_py:
+                formatData(
+                  each.price_per_area,
+                  "number",
+                  "원[/area]",
+                  unit_type
+                ) + formatUnit("원[/area]", unit_type),
               polygon: each.polygon,
             }}
           />
