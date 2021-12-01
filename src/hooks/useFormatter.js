@@ -33,13 +33,13 @@ export const formatUnit = (unit, unit_type) => {
 export const formatData = (
   data_old,
   type,
-  unit,
+  unit = "",
   unit_type = "none",
   err_text = default_err_text
 ) => {
   let data = _adaptUnitType(data_old, unit, unit_type);
-  if (data === "") {
-    return data;
+  if (data_old === "" || data_old === "-") {
+    return data_old;
   }
   if (
     (type.includes("number") || type.includes("rate")) &&
