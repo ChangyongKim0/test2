@@ -316,6 +316,10 @@ const wrapBldgData = (bldg_data) => {
 
   let indiv_bldg_data = {};
   let indiv_land_data = {};
+  let indiv_tr_data = {};
+  if (tr && tr.price) {
+    indiv_tr_data = getIndivTrData(tr);
+  }
   if (ld && ld.area) {
     indiv_land_data = getIndivLandData(ld);
   }
@@ -331,10 +335,79 @@ const wrapBldgData = (bldg_data) => {
   // console.log(indiv_land_data);
   return {
     ...default_data,
+    ...indiv_tr_data,
     ...indiv_land_data,
     ...indiv_bldg_data,
     bldg_exists: bldg_data.bldg_exists,
     transaction_exists: bldg_data.transaction_exists,
+  };
+};
+
+const getIndivTrData = (tr) => {
+  return {
+    price: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "최근 실거래가",
+        value: tr.price,
+        value_unit: "\u00A0원",
+        base: tr.date,
+        base_unit: "",
+        base_type: "string",
+        value_type: "number",
+      },
+      style: "emph",
+      tooltip: [],
+    },
+    noc: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "건물 명목 NOC",
+        value: "-",
+        value_unit: "\u00A0원",
+        value_type: "number",
+      },
+      style: "emph",
+      tooltip: ["건물 명목 NOC =", "(평당+평당 관리비)/전용률"],
+    },
+    land_price_per_area: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "토지 단가",
+        value: tr.price_per_area,
+        value_unit: "\u00A0원[/area]",
+        value_type: "number",
+      },
+      style: "default",
+      tooltip: ["거래가(원)/토지면적(평)"],
+    },
+    rent: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "임대료",
+        value: "-",
+        value_unit: "\u00A0원[/area]",
+        value_type: "number",
+      },
+      style: "default",
+      tooltip: ["전체 월 임대료/전용면적(평)"],
+    },
+    opex: {
+      component_type: "text",
+      show: true,
+      data: {
+        title: "관리비",
+        value: "-",
+        value_unit: "\u00A0원[/area]",
+        value_type: "number",
+      },
+      style: "default",
+      tooltip: ["전체 월 관리료/전용면적(평)"],
+    },
   };
 };
 
