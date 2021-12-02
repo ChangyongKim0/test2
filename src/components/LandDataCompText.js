@@ -13,13 +13,20 @@ const LandDataCompText = ({
   tooltip,
   style,
   force_use_tooltip,
+  type,
 }) => {
   return (
     <div className={cx("wrapper")}>
       <ToolTip enable={force_use_tooltip || use_tooltip} data={tooltip}>
         <div className={cx("frame")}>
-          <div className={cx("text")}>{data.value}</div>
-          <div className={cx("unit")}>{data.unit}</div>
+          {type == "title" ? (
+            <div className={cx("title")}>{data.title}</div>
+          ) : (
+            <>
+              <div className={cx("text")}>{data.value}</div>
+              <div className={cx("unit")}>{data.unit}</div>
+            </>
+          )}
         </div>
       </ToolTip>
     </div>
