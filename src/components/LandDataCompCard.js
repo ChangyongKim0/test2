@@ -20,10 +20,11 @@ const LandDataCompCard = ({
   mini_map,
   handleClick,
   force_use_tooltip,
+  type,
 }) => {
   return (
-    <div className={cx("wrapper")}>
-      <div className={cx("frame-header")}>
+    <div className={cx("wrapper", "wrapper-" + type)}>
+      <div className={cx("frame-header", "type-" + type)}>
         <div>
           <CloseSvg className={cx("btn-close")} />
           <h3 className={cx("title")}>{title}</h3>
@@ -45,18 +46,24 @@ const LandDataCompCard = ({
             return (
               <LandDataCompText
                 key={idx2}
+                type={type}
                 {...e2}
                 force_use_tooltip={force_use_tooltip}
               />
             );
           });
           return (
-            <div key={idx} className={cx("frame-content-each")}>
+            <div
+              key={idx}
+              className={cx("frame-content-each", "frame-content-each-" + type)}
+            >
               {comp}
             </div>
           );
         })}
-        <AddButton />
+        <div className={cx("frame-content-each", "frame-content-each-" + type)}>
+          <AddButton />
+        </div>
       </div>
     </div>
   );
@@ -120,6 +127,7 @@ LandDataCompCard.defaultProps = {
   },
   handleClick: () => {},
   force_use_tooltip: false,
+  type: "default",
 };
 
 export default LandDataCompCard;
