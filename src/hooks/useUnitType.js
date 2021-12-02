@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo, useState } from "react";
 
 export const UnitTypeContext = createContext({
-  unit_type: { data: {} },
+  unit_type: "",
   setUnitType: () => {},
 });
 
