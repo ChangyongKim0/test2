@@ -50,7 +50,13 @@ const AddModal = ({ title, onClick }) => {
         <button className={cx("btn-close")} onClick={onClick.Close}>
           닫기
         </button>
-        <button className={cx("btn-add")} onClick={onClick.Add}>
+        <button
+          className={cx("btn-add")}
+          onClick={() => {
+            onClick.Add();
+            onClick.Close();
+          }}
+        >
           추가
         </button>
       </div>
