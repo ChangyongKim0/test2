@@ -31,4 +31,10 @@
       max-height: 100%;
     }
   }
+  &-change-unit {
+    z-index: 1;
+    position: absolute;
+    right: 11px;
+    top: 9px;
+  }
 }
