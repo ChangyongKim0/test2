@@ -2,9 +2,19 @@
 
 .wrapper {
     position: relative;
-  @include column(auto, auto, 0px);
+  @include column(100%, auto, 0px);
     // box-shadow: $eff-shd-1;
     // overflow-x: hidden;
+    &-title {
+        width: 100px;
+    }
+    &-default {
+        width: 270px;
+    }
+}
+
+.type-title {
+    visibility: hidden;
 }
 
 .border{
@@ -13,19 +23,22 @@
 
 .frame { 
     &-header{
-        @include columnWithBorder(270px, auto, 30px, $col-brd-g8);
+        @include columnWithBorder(100%, auto, 30px, $col-brd-g8);
         > * {
             @include column(auto, auto, 15px);
         }
     }
-    &-content{
-        @include columnWithBorder(270px, auto, 30px, $col-brd-g8);
+    &-content {
+        @include columnWithBorder(100%, auto, 40px, $col-brd-g8);
     }
-    &-content-each{
-        @include column(270px, auto, 15px);
+    &-content-each {
+        @include column(auto, auto, 25px);
+    }
+    &-content-each-title {
+        align-items: flex-end;
     }
     &-map{
-        @include box(250px, 190px, 20px, $col-brd-g7, none);
+        @include box(calc(100% - 20px), 190px, 20px, $col-brd-g7, none);
         border-width: 0.5px;
         overflow: hidden;
     }
