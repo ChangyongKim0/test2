@@ -9,6 +9,7 @@ import CtaButton from "../atom/CtaButton";
 import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
 import BookMarkModal from "./BookMarkModal";
+import ChangeUnitButton from "./ChangeUnitButton";
 
 const cx = classNames.bind(styles);
 
@@ -57,6 +58,7 @@ const ValuationHeader = ({
         <div className={cx("sub-title")}>{sub_title}</div>
       </div> */}
       <div className={cx("frame-right")}>
+        <ChangeUnitButton />
         <CtaButton
           size="small"
           background="transparent"
