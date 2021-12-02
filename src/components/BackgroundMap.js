@@ -20,6 +20,7 @@ import classNames from "classnames/bind";
 import { setCookie } from "../hooks/useCookieData";
 import { formatData, formatUnit } from "../hooks/useFormatter";
 import useUnitType from "../hooks/useUnitType";
+import useToggleState from "../hooks/useToggle";
 
 const cx = classNames.bind(styles);
 
@@ -112,6 +113,9 @@ const BackgroundMap = ({
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
     window.kakao.maps.event.addListener(map, "bounds_changed", onCenterChanged);
+    window.kakao.maps.event.addListener(map, "idle", () =>
+      setTimeout(() => setUnitUpdate("update"), 1000)
+    );
     pushAddress(getMapState(), handleAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -414,6 +418,37 @@ const BackgroundMap = ({
   };
 
   const [unit_type, _] = useUnitType();
+  const [unit_update, setUnitUpdate] = useToggleState({ update: true });
+
+  const reloadInfoBubble = (unit_type) => {
+    // console.log(content);
+    Array.from(document.getElementsByClassName("info-bubble-unit-field")).map(
+      (e) => {
+        let price_per_area = parseFloat(
+          e.innerHTML.replace(/,/g, "").replace(/[^0-9.]/g, "")
+        );
+        if (e.innerHTML.includes("만")) {
+          price_per_area *= 10000;
+        } else if (e.innerHTML.includes("억")) {
+          price_per_area *= 100000000;
+        } else if (e.innerHTML.includes("조")) {
+          price_per_area *= 1000000000000;
+        }
+        const previous_unit = e.innerHTML.replace(/.*\//g, "");
+        if (previous_unit == "평" && unit_type == "sqm") {
+          e.innerHTML =
+            formatData(price_per_area * 0.3025, "number") +
+            formatUnit("원[/area]", unit_type);
+        } else if (previous_unit == "㎡" && unit_type == "py") {
+          e.innerHTML =
+            formatData(price_per_area / 0.3025, "number") +
+            formatUnit("원[/area]", unit_type);
+        }
+      }
+    );
+  };
+
+  useEffect(() => reloadInfoBubble(unit_type), [unit_update, unit_type]);
 
   return (
     <div
