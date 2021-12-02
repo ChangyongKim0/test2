@@ -8,15 +8,13 @@ import CtaButton from "../atom/CtaButton";
 import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
 import BookMarkModal from "./BookMarkModal";
+import ChangeUnitButton from "./ChangeUnitButton";
 
 const cx = classNames.bind(styles);
 
 const ComparisonHeader = ({ type, onClick }) => {
   //   console.log(nav_emph_list);
   // const [open_BMM, setOpenBMM] = useState(true);
-  const changeUnit = () => {
-    return -1;
-  };
 
   let title = "";
   switch (type) {
@@ -37,17 +35,7 @@ const ComparisonHeader = ({ type, onClick }) => {
         <div className={cx("title")}>{title}</div>
       </div> */}
       <div className={cx("frame-right")}>
-        <CtaButton
-          size="small"
-          shape="round"
-          background="white"
-          icon="change"
-          border="gray"
-          onClick={changeUnit}
-          id="ChangeUnit"
-        >
-          단위
-        </CtaButton>
+        <ChangeUnitButton />
       </div>
     </div>
   );
