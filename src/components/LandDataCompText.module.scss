@@ -2,7 +2,6 @@
 
 .wrapper {
   @include textBox(auto, auto, 0px, none, none);
-  width: 200px;
   height: 25px;
 }
 
@@ -12,6 +11,13 @@
         @include txt-bold();
         @include txt-17();
     }
+}
+
+.title{
+    @include txt-regular();
+    @include txt-14();
+    line-height: 17px;
+    color: $col-txt-g3;
 }
 
 .text{
