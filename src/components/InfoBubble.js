@@ -3,6 +3,7 @@ import { col_primary, col_w } from "../util/style";
 
 import styles from "./InfoBubble.module.scss";
 import classNames from "classnames/bind";
+import useUnitType from "../hooks/useUnitType";
 
 const cx = classNames.bind(styles);
 
@@ -14,7 +15,7 @@ const InfoBubble = ({ id, data, onClick }) => {
         <div className={cx("frame")}>
           <div className={cx("title")}>{data.price}</div>
           <div>{data.date}</div>
-          <div>{data.price_per_py}</div>
+          <div className={"info-bubble-unit-field"}>{data.price_per_py}</div>
         </div>
       </div>
     </div>
