@@ -36,18 +36,22 @@ const BldgInfo = () => {
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("frame-column")}>
-        <div className={cx("frame-div2")}>
-          <BldgInfoText {...wrapped_data.price} />
-          <BldgInfoText {...wrapped_data.noc} />
+      {wrapped_data.transaction_exists ? (
+        <div className={cx("frame-column")}>
+          <div className={cx("frame-div2")}>
+            <BldgInfoText {...wrapped_data.price} />
+            <BldgInfoText {...wrapped_data.noc} />
+          </div>
+          <div className={cx("frame-div4")}>
+            <BldgInfoText {...wrapped_data.land_price_per_area} />
+            <div></div>
+            <BldgInfoText {...wrapped_data.rent} />
+            <BldgInfoText {...wrapped_data.opex} />
+          </div>
         </div>
-        <div className={cx("frame-div4")}>
-          <BldgInfoText {...wrapped_data.land_price_per_area} />
-          <div></div>
-          <BldgInfoText {...wrapped_data.rent} />
-          <BldgInfoText {...wrapped_data.opex} />
-        </div>
-      </div>
+      ) : (
+        <></>
+      )}
       <div className={cx("frame-column")}>
         <div className={cx("frame-div2")}>
           <BldgInfoText {...wrapped_data.land_title} />
