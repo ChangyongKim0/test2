@@ -129,7 +129,14 @@ const data = {
     sub_title: "강욱 빌딩",
     saved_name: "강남로 1, 210906-1",
   },
-  cards: [sample_content_data, sample_content_data, sample_content_data],
+  cards: [
+    sample_content_data,
+    sample_content_data,
+    sample_content_data,
+    sample_content_data,
+    sample_content_data,
+    sample_content_data,
+  ],
 };
 
 const MapComp = () => {
@@ -144,10 +151,21 @@ const MapComp = () => {
           <Header nav_emph="valuation" is_searchable={false} />
           <ComparisonHeader type="valuation" />
         </div>
-        <div id="container" className={cx("frame-content")}>
-          {data.cards.map((e, idx) => {
-            return <LandDataCompCard key={idx} id={idx} {...e} />;
-          })}
+        <div className={cx("frame-content")}>
+          <div className={cx("frame-title")}>
+            <LandDataCompCard id="-1" type="title" data={data.cards[0].data} />
+          </div>
+          <div className={cx("frame-content-wrap")}>
+            <div id="container" className={cx("frame-content-list")}>
+              {data.cards.map((e, idx) => {
+                return (
+                  <div key={idx} className={cx("frame-content-box")}>
+                    <LandDataCompCard key={idx} id={idx} {...e} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
       <div className={cx("frame-modal")}>
