@@ -34,7 +34,7 @@ const AssumptionCard = ({
   registerAM(
     <Overlay open={true} setOpen={setOpenAM} use_backdrop={true}>
       <AddModal
-        title="밸류에이션 값 추가"
+        title="밸류에이션 값 추가(서비스 예정)"
         onClick={{
           Add: () => {},
           Close: () => {
