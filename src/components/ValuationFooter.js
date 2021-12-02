@@ -8,6 +8,7 @@ import CtaButton from "../atom/CtaButton";
 import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
 import BookMarkModal from "./BookMarkModal";
+import downloadFile from "../functions/downloadFile";
 
 const cx = classNames.bind(styles);
 
@@ -38,7 +39,9 @@ const ValuationFooter = ({ data, onClickExtractExcel }) => {
         shape="square"
         background="white"
         icon="chart"
-        onClick={changeUnit}
+        onClick={() =>
+          downloadFile("/api/downloadExcel", "propi_엑셀로 추출하기.xlsx")
+        }
         id="ExtractExcel"
       >
         엑셀로 추출하기
