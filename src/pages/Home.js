@@ -11,6 +11,7 @@ import classNames from "classnames/bind";
 import InfoBubble from "../components/InfoBubble";
 import Header from "../components/Header";
 import { useModalStack } from "../hooks/useModal";
+import ChangeUnitButton from "../components/ChangeUnitButton";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -118,6 +119,9 @@ const Home = () => {
               setIsClicked={setIsClicked}
             />
             <AddressModal address={address} />
+          </div>
+          <div className={cx("frame-change-unit")}>
+            <ChangeUnitButton />
           </div>
         </div>
       </div>
