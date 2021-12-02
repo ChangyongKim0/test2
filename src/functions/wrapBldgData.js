@@ -469,7 +469,7 @@ const getIndivLandData = (ld) => {
         value: ld.price_list.map((e) => [
           {
             value: e,
-            value_unit: "\u00A0원/[/area]",
+            value_unit: "\u00A0원[/area]",
             value_type: "number",
           },
         ]),
