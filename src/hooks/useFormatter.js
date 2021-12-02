@@ -54,18 +54,25 @@ export const formatData = (
       return data;
     case "number":
       return _formatThousandSeperator(
-        _formatDecimalPoint(_formatTenThousandShrinker(data), 2)
+        _formatDecimalPoint(
+          _formatTenThousandShrinker(parseFloat(data.toExponential(2))),
+          2
+        )
       );
     case "number_detail":
       return _formatThousandSeperator(_formatDecimalPoint(data, 0));
     case "number_list":
-      return data.map((e, idx) => formatData(e, "number")).join(" / ");
+      return data
+        .map((e, idx) => formatData(e, "number", unit, unit_type))
+        .join(" / ");
     case "rate":
       return _formatThousandSeperator(_formatDecimalPoint(data * 100));
     case "rate_over":
       return _formatThousandSeperator(_formatDecimalPoint(data * 100));
     case "rate_list":
-      return data.map((e, idx) => formatData(e, "rate")).join(" / ");
+      return data
+        .map((e, idx) => formatData(e, "rate", unit, unit_type))
+        .join(" / ");
     case "floor_range":
       return data
         .map((e) => {
@@ -90,6 +97,9 @@ export const formatData = (
 };
 
 const _adaptUnitType = (data, unit, unit_type) => {
+  if (typeof data == typeof [0]) {
+    return data.map((e) => _adaptUnitType(e));
+  }
   switch (unit_type) {
     case "sqm":
       return data;
