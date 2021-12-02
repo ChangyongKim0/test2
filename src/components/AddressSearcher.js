@@ -6,6 +6,7 @@ import classNames from "classnames/bind";
 import UseAutocomplete from "./UseAutoComplete";
 import useBldgInfoData from "../hooks/useBldgInfoData";
 import { cloneDeep } from "lodash";
+import { ReactComponent as SearchSvg } from "../atom/SearchSvg.svg";
 
 const cx = classNames.bind(styles);
 
@@ -122,20 +123,7 @@ const AddressSearcher = () => {
           });
         }
       } else if (e.code == "Enter") {
-        handleSearchResults({
-          type: "force_activate",
-          callback: (state) => {
-            // console.log(state);
-            if (state.data.length > 0) {
-              handleBldgInfoData({
-                type: "move_update",
-                lat: parseFloat(state.data[state.focus].y),
-                lng: parseFloat(state.data[state.focus].x),
-              });
-            }
-          },
-        });
-        handleSearchResults({ type: "update", data: [] });
+        forceActivateSearchResults();
       } else if (
         e.code != "Enter" &&
         e.code != "ArrowLeft" &&
@@ -145,6 +133,23 @@ const AddressSearcher = () => {
       }
     });
   }, []);
+
+  const forceActivateSearchResults = () => {
+    handleSearchResults({
+      type: "force_activate",
+      callback: (state) => {
+        // console.log(state);
+        if (state.data.length > 0) {
+          handleBldgInfoData({
+            type: "move_update",
+            lat: parseFloat(state.data[state.focus].y),
+            lng: parseFloat(state.data[state.focus].x),
+          });
+        }
+      },
+    });
+    handleSearchResults({ type: "update", data: [] });
+  };
 
   useEffect(() => {
     const focus = search_results.focus;
@@ -198,7 +203,10 @@ const AddressSearcher = () => {
           }}
         ></input>
         {/* <UseAutocomplete /> */}
-        <div className={cx("icon")}>O.</div>
+        <SearchSvg
+          className={cx("icon")}
+          onMouseDown={forceActivateSearchResults}
+        />
       </div>
       {search_results.data.length > 0 ? (
         <div id="input_search_drop_down" className={cx("drop-down")}>
