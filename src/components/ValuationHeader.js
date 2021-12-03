@@ -10,6 +10,8 @@ import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
 import BookMarkModal from "./BookMarkModal";
 import ChangeUnitButton from "./ChangeUnitButton";
+import useCookieData from "../hooks/useCookieData";
+import useBldgInfoData from "../hooks/useBldgInfoData";
 
 const cx = classNames.bind(styles);
 
@@ -19,12 +21,16 @@ const ValuationHeader = ({
   sub_title,
   saved_name,
   onClick,
+  history,
+  save_data,
 }) => {
   //   console.log(nav_emph_list);
   // const [open_BMM, setOpenBMM] = useState(true);
   const handleSave = () => {
     return -1;
   };
+
+  const [cookie_data, handleCookieData] = useCookieData();
 
   const [open_BMM, setOpenBMM, registerBMM, modal_update] =
     useModal(useModalParam);
@@ -35,6 +41,20 @@ const ValuationHeader = ({
         onClick={{
           Close: () => {
             setOpenBMM(false);
+          },
+          Save: (id_info) => {
+            handleCookieData({
+              type: "add",
+              data: {
+                valuation_list: {
+                  ...save_data,
+                  ...id_info,
+                },
+              },
+            });
+          },
+          Go: () => {
+            history.push("/valuation/comp");
           },
         }}
         useModalParam={useModalParam}
