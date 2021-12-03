@@ -13,12 +13,23 @@ const BookMarkModal = ({ title, placeholder, onClick, useModalParam }) => {
   const [open_SSM, setOpenSSM, registerSSM, modal_update] =
     useModal(useModalParam);
 
-  useEffect(() => {
-    registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
-    console.log("registered SSM.");
-    console.log(open_SSM);
-    console.log(modal_update);
-  }, [modal_update, open_SSM]);
+  const [save_name, setSaveName] = useState("");
+
+  const idInfo = (save_name) => {
+    const save_time = Date.now();
+    return {
+      id: save_name + save_time,
+      save_name: save_name,
+      save_time: save_time,
+    };
+  };
+
+  registerSSM(<SaveSuccessModal open={true} setOpen={setOpenSSM} />);
+  // console.log("registered SSM.");
+  // console.log(open_SSM);
+  // console.log(modal_update);
+
+  useEffect(() => {}, [modal_update, open_SSM]);
 
   return (
     <div className={cx("wrapper")}>
@@ -28,9 +39,13 @@ const BookMarkModal = ({ title, placeholder, onClick, useModalParam }) => {
       </div>
       <div className={cx("input-field")}>
         <input
+          id="BMM-save-name"
           className={cx("input")}
           type="text"
           placeholder={placeholder}
+          onBlur={() =>
+            setSaveName(document.getElementById("BMM-save-name").value)
+          }
         ></input>
       </div>
       <div className={cx("btn-field")}>
@@ -38,12 +53,21 @@ const BookMarkModal = ({ title, placeholder, onClick, useModalParam }) => {
         <div className={cx("btn-list-save")}>
           <button
             onClick={() => {
+              onClick.Save(idInfo(save_name));
               setOpenSSM(true);
+              setTimeout(onClick.Close, 1000);
             }}
           >
             저장 후 닫기
           </button>
-          <button className={cx("emph")} onClick={onClick.Save}>
+          <button
+            className={cx("emph")}
+            onClick={() => {
+              onClick.Save(idInfo(save_name));
+              setOpenSSM(true);
+              setTimeout(onClick.Go, 1000);
+            }}
+          >
             저장 후 비교
           </button>
         </div>
@@ -58,6 +82,7 @@ BookMarkModal.defaultProps = {
   onClick: {
     Save: () => {},
     Close: () => {},
+    Go: () => {},
   },
   useModalParam: () => {},
 };
