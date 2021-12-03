@@ -46,7 +46,7 @@ const reduceMousePressContainer = (state, action) => {
 
 const luseModalStack = createModalStack();
 
-const Valuation = () => {
+const Valuation = ({ history }) => {
   const [modal_stack, useModalParam] = luseModalStack();
   const [unit_type, _] = useUnitType();
 
@@ -113,6 +113,8 @@ const Valuation = () => {
           <ValuationHeader
             useModalParam={useModalParam}
             {...data.valuation_header}
+            history={history}
+            save_data={{ naked_data: naked_data, mini_map_data: mini_map_data }}
           />
         </div>
         <div id="container" className={cx("frame-content")}>
