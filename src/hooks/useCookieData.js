@@ -96,6 +96,33 @@ const reduceCookieData = (state, action) => {
         new_state.data[key] = action.data[key];
       });
       return new_state;
+    case "add":
+      axios.patch("/api/cookie/add", {
+        id: new_state.id,
+        data: action.data,
+        setting: action.setting,
+      });
+      console.log("successfully added cookie_data", new_state.id);
+      Object.keys(action.data || {}).map((key) => {
+        if (new_state.data[key] == undefined) {
+          new_state.data[key] = [];
+        }
+        new_state.data[key].push(action.data[key]);
+      });
+      return new_state;
+    case "delete":
+      axios.patch("/api/cookie/delete", {
+        id: new_state.id,
+        data: action.data,
+        setting: action.setting,
+      });
+      console.log("successfully deleted cookie_data", new_state.id);
+      Object.keys(action.data || {}).map((key) => {
+        if (new_state.data[key] != undefined) {
+          new_state.data[key].filter((e) => e.id != action.data[key]);
+        }
+      });
+      return new_state;
     case "update":
       Object.keys(action.data).map((key) => {
         new_state.data[key] = action.data[key];
