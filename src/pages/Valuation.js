@@ -114,7 +114,11 @@ const Valuation = ({ history }) => {
             useModalParam={useModalParam}
             {...data.valuation_header}
             history={history}
-            save_data={{ naked_data: naked_data, mini_map_data: mini_map_data }}
+            save_data={{
+              naked_data: naked_data,
+              mini_map_data: mini_map_data,
+              valuation_header: data.valuation_header,
+            }}
           />
         </div>
         <div id="container" className={cx("frame-content")}>
