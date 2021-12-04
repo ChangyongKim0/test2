@@ -24,7 +24,9 @@ const reduceValuationData = (state, action) => {
           const [card_id, text_id, type_id] = action.id.split(".");
           new_state[card_id][text_id][type_id] = unformatData(
             action.value,
-            new_state[card_id][text_id][type_id + "_type"]
+            new_state[card_id][text_id][type_id + "_type"],
+            new_state[card_id][text_id][type_id + "_unit"],
+            action.unit_type
           );
         }
         new_state = calculateValuation(new_state, action.id);
