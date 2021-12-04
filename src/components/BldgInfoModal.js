@@ -6,6 +6,7 @@ import styles from "./BldgInfoModal.module.scss";
 import classNames from "classnames/bind";
 import { Link } from "react-router-dom";
 import useBldgInfoData from "../hooks/useBldgInfoData";
+import BookMarkButton from "../atom/BookMarkButton";
 
 const cx = classNames.bind(styles);
 
@@ -28,7 +29,11 @@ const BldgInfoModal = ({
       <div className={cx("wrapper")}>
         <div className={cx("modal")}>
           <div className={cx("frame-title")}>
-            <div className={cx("frame-left")}>save</div>
+            <div className={cx("frame-left")}>
+              <div>
+                <BookMarkButton />
+              </div>
+            </div>
             <div className={cx("frame-center")}>
               <div className={cx("title")}>
                 {bldg_info_data.data.addr || "주소 없음"}
