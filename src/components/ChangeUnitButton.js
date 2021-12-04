@@ -1,29 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // { useEffect }
 
 import styles from "./ChangeUnitButton.module.scss";
 import classNames from "classnames/bind";
 import CtaButton from "../atom/CtaButton";
 import useUnitType from "../hooks/useUnitType";
-import useToggleState from "../hooks/useToggle";
 
 const cx = classNames.bind(styles);
 
 const ChangeUnitButton = () => {
   const [unit_type, setUnitType] = useUnitType();
-  const [toggle, setToggle] = useToggleState({ is_py: true });
+  const [is_clicked, setIsClicked] = useState(false);
 
   useEffect(() => {
-    if (toggle.is_py == true) {
-      setUnitType("py");
-    } else {
-      setUnitType("sqm");
+    if (is_clicked) {
+      if (unit_type == "sqm") {
+        setUnitType("py");
+      } else {
+        setUnitType("sqm");
+      }
+      setIsClicked(false);
     }
-  }, [toggle]);
+  }, [is_clicked]);
 
-  const changeUnit = () => {
-    setToggle("is_py");
-  };
   return (
     <CtaButton
       size="small"
@@ -31,7 +30,7 @@ const ChangeUnitButton = () => {
       background="white"
       icon="change"
       border="gray"
-      onClick={changeUnit}
+      onClick={() => setIsClicked(true)}
       id="ChangeUnit"
     >
       단위
