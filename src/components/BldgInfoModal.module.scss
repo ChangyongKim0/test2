@@ -39,7 +39,7 @@
     margin-bottom: 24px;
   }
   &-left {
-    @include row(auto, auto, 0px);
+    @include row(28px, 28px, 0px);
   }
   &-center {
     @include column(auto, auto, 10px);
@@ -58,6 +58,7 @@
   }
   &-btn {
   @include box(400px, 48px, 0px, auto, $col-bgd-2);
+  filter: drop-shadow(0px -20px 5px rgba(255, 255, 255, 0.8));
   // box-shadow: 0px 0px 20px 20px $col-shd-w;
   }
 }
