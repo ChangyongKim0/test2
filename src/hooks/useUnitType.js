@@ -1,4 +1,5 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import useCookieData from "./useCookieData";
 
 export const UnitTypeContext = createContext({
   unit_type: "",
@@ -11,11 +12,19 @@ const useUnitType = () => {
 };
 
 export const UnitTypeProvider = ({ children }) => {
-  const [unit_type, setUnitType] = useState("py");
+  const [cookie_data, handleCookieData] = useCookieData();
+  const [unit_type, setUnitType] = useState("sqm");
   const value = useMemo(() => {
     console.log("unit type refreshed.");
+    handleCookieData({ type: "patch", data: { unit_type: unit_type } });
     return { unit_type, setUnitType };
   }, [unit_type, setUnitType]);
+
+  useEffect(() => {
+    if (unit_type != cookie_data.data.unit_type) {
+      setUnitType(cookie_data.data.unit_type);
+    }
+  }, [cookie_data.data.unit_type]);
 
   return (
     <UnitTypeContext.Provider value={value}>
