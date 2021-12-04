@@ -1,0 +1,20 @@
+@import "../util/style.scss";
+
+.wrapper{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.btn{
+    &-bookmark{
+        fill: $col-bgd-g5;
+        width: 100%;
+        height: 100%;
+    }
+    &-bookmark-filled{
+        fill: $col-bgd-2;
+        width: 100%;
+        height: 100%;
+    }
+}
