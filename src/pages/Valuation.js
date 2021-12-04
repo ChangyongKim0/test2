@@ -75,7 +75,12 @@ const Valuation = ({ history }) => {
 
   const handleFocus = ({ id, type, value }) => {
     console.log(id, type, value);
-    setValuationCalculator({ id: id, type: "update", value: value });
+    setValuationCalculator({
+      id: id,
+      type: "update",
+      value: value,
+      unit_type: unit_type,
+    });
   };
 
   const data = useMemo(() => {
