@@ -35,7 +35,7 @@ const unformatValuation = (formatted_data) => {
   return new_formatted_data;
 };
 
-export const unformatData = (data_old, type) => {
+export const unformatData = (data_old, type, unit, unit_type) => {
   let data = cloneDeep(data_old);
   if (data == "") {
     return data;
@@ -44,20 +44,49 @@ export const unformatData = (data_old, type) => {
     case "string":
       return data;
     case "number":
-      return _unformatTenThousandShrinker(data);
+      return _unformatUnitType(
+        _unformatTenThousandShrinker(data),
+        unit,
+        unit_type
+      );
     case "number_detail":
-      return Number(_unformatThousandSeperator(data));
+      return _unformatUnitType(
+        Number(_unformatThousandSeperator(data)),
+        unit,
+        unit_type
+      );
     case "number_list":
-      return data.split(" / ").map((e) => unformatData(e, "number"));
+      return data
+        .split(" / ")
+        .map((e) => unformatData(e, "number", unit, unit_type));
     case "rate":
       return Number(_unformatThousandSeperator(data)) / 100;
     case "rate_over":
       return Number(_unformatThousandSeperator(data)) / 100;
     case "rate_list":
-      return data.split(" / ").map((e) => unformatData(e, "rate"));
+      return data
+        .split(" / ")
+        .map((e) => unformatData(e, "rate", unit, unit_type));
     case "floor_range":
       return _unformatFloorRange(data).map((e) => _unformatFloor(e));
     default:
+      return data;
+  }
+};
+
+const _unformatUnitType = (data, unit = "", unit_type = "") => {
+  switch (unit_type) {
+    case "py":
+      if (unit.includes("[area]") || unit.includes("[parea]")) {
+        return data / 0.3025;
+      } else if (unit.includes("[/area]") || unit.includes("[/parea]")) {
+        return data * 0.3025;
+      } else {
+        return data;
+      }
+    case "sqm":
+      return data;
+    case "default":
       return data;
   }
 };
