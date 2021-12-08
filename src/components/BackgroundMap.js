@@ -21,6 +21,7 @@ import { setCookie } from "../hooks/useCookieData";
 import { formatData, formatUnit } from "../hooks/useFormatter";
 import useUnitType from "../hooks/useUnitType";
 import useToggleState from "../hooks/useToggle";
+import useCookieData from "../hooks/useCookieData";
 
 const cx = classNames.bind(styles);
 
@@ -419,6 +420,7 @@ const BackgroundMap = ({
 
   const [unit_type, _] = useUnitType();
   const [unit_update, setUnitUpdate] = useToggleState({ update: true });
+  const [cookie_data, handleCookieData] = useCookieData();
 
   const reloadInfoBubble = (unit_type) => {
     // console.log(content);
@@ -450,6 +452,10 @@ const BackgroundMap = ({
 
   useEffect(() => reloadInfoBubble(unit_type), [unit_update, unit_type]);
 
+  const isBookMarked = (pnu, cookie_data) => {
+    return cookie_data.data.bldg_list?.map((e) => e.pnu).includes(pnu);
+  };
+
   return (
     <div
       className={cx("wrapper")}
@@ -458,7 +464,7 @@ const BackgroundMap = ({
     >
       <div id="map" className={cx("map")}></div>
       {overlay.data_pushed
-        .filter((e) => e.price != -1)
+        .filter((e) => e.price != -1 || isBookMarked(e.pnu, cookie_data))
         .map((each) => (
           <InfoBubble
             key={each.id}
@@ -477,6 +483,8 @@ const BackgroundMap = ({
                 ) + formatUnit("원[/area]", unit_type),
               polygon: each.polygon,
             }}
+            tr_exists={each.price != -1}
+            is_saved={isBookMarked(each.pnu, cookie_data)}
           />
         ))}
     </div>
