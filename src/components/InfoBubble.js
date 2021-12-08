@@ -27,7 +27,7 @@ const InfoBubble = ({ id, data, onClick, is_saved, tr_exists }) => {
           <></>
         )}
         {is_saved ? (
-          <div className={cx("info-bookmark")}>
+          <div className={cx("info-bookmark", tr_exists ? "corner" : "")}>
             <BookMarkButton />
           </div>
         ) : (
