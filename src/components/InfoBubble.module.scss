@@ -30,6 +30,17 @@
   color: $col-txt-g6;
 }
 
+.info-bookmark {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+}
+
+.corner{
+  top: -9px;
+  right: -9px;
+}
+
 .title {
   @include txt-bold();
   @include txt-19();
