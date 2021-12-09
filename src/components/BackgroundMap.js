@@ -22,6 +22,7 @@ import { formatData, formatUnit } from "../hooks/useFormatter";
 import useUnitType from "../hooks/useUnitType";
 import useToggleState from "../hooks/useToggle";
 import useCookieData from "../hooks/useCookieData";
+import useOverlayReloader from "../hooks/useOverlayReloader";
 
 const cx = classNames.bind(styles);
 
@@ -63,6 +64,7 @@ const BackgroundMap = ({
 
   const [need_update_overlay, setNeedUpdateOverlay] = useState(false);
   const [bldg_info_data, handleBldgInfoData] = useBldgInfoData();
+  const [overlay_reloader, handleOverlayReloader] = useOverlayReloader();
 
   const handleKakaoListener = ({ type, id, object, mouse_event, handler }) => {
     switch (type) {
@@ -110,6 +112,7 @@ const BackgroundMap = ({
 
     handleOverlay({ type: "create", map: map, getMapState: getMapState });
     getOverlayData(map).then((data) => {
+      handleOverlayReloader({ type: "update data", data: data });
       handleOverlay({ type: "update", data: data });
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
@@ -143,6 +146,7 @@ const BackgroundMap = ({
       setTimeout(
         () =>
           getOverlayData(map).then((data) => {
+            handleOverlayReloader({ type: "update data", data: data });
             handleOverlay({ type: "update", data: data });
           }),
         50
@@ -165,6 +169,17 @@ const BackgroundMap = ({
       setNeedUpdateOverlay(false);
     }
   };
+
+  useEffect(() => {
+    if (overlay_reloader.is_activated) {
+      handleOverlay({ type: "remove all" });
+      setTimeout(
+        () => handleOverlay({ type: "update", data: overlay_reloader.data }),
+        10
+      );
+      handleOverlayReloader({ type: "deactivate" });
+    }
+  }, [overlay_reloader]);
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
@@ -450,10 +465,21 @@ const BackgroundMap = ({
     );
   };
 
+  const [pilji_list, setPiljiList] = useState([]);
+
+  useEffect(() => {
+    setPiljiList(cookie_data.data.pilji_list);
+  }, [cookie_data]);
+
   useEffect(() => reloadInfoBubble(unit_type), [unit_update, unit_type]);
 
-  const isBookMarked = (pnu, cookie_data) => {
-    return cookie_data.data.bldg_list?.map((e) => e.pnu).includes(pnu);
+  const isBookMarked = (pnu, pilji_list) => {
+    // console.log(pilji_list, pnu);
+    if (pilji_list != undefined) {
+      return pilji_list.map((e) => e.id).includes(pnu);
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -464,7 +490,7 @@ const BackgroundMap = ({
     >
       <div id="map" className={cx("map")}></div>
       {overlay.data_pushed
-        .filter((e) => e.price != -1 || isBookMarked(e.pnu, cookie_data))
+        .filter((e) => e.price != -1 || isBookMarked(e.id, pilji_list))
         .map((each) => (
           <InfoBubble
             key={each.id}
@@ -484,7 +510,7 @@ const BackgroundMap = ({
               polygon: each.polygon,
             }}
             tr_exists={each.price != -1}
-            is_saved={isBookMarked(each.pnu, cookie_data)}
+            is_saved={isBookMarked(each.id, pilji_list)}
           />
         ))}
     </div>
