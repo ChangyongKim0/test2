@@ -213,19 +213,19 @@ const BackgroundMap = ({
         const id = e.id;
         if (info_bubbles[id] != undefined) {
           info_bubbles[id].setMap(null);
-          const content = document.getElementById(id);
-          const position = info_bubbles[id].getPosition();
-          const customOverlay = new window.kakao.maps.CustomOverlay({
-            position: position,
-            content: content,
-            xAnchor: 0.5,
-            yAnchor: 1.0,
-            clickable: false,
-          });
-
-          info_bubbles[id] = customOverlay;
-          info_bubbles[id].setMap(map);
         }
+        const content = document.getElementById(id);
+        const position = e.center;
+        const customOverlay = new window.kakao.maps.CustomOverlay({
+          position: position,
+          content: content,
+          xAnchor: 0.5,
+          yAnchor: 1.0,
+          clickable: false,
+        });
+
+        info_bubbles[id] = customOverlay;
+        info_bubbles[id].setMap(map);
       });
       setInfoBubbleElements([]);
     }
