@@ -83,7 +83,7 @@ const BldgInfoModal = ({
                 {bldg_info_data.data.bldg_exists
                   ? bldg_info_data.data.bldg.bldg_info_list[
                       bldg_info_data.data.bldg_idx
-                    ].road_addr
+                    ]?.road_addr
                   : "도로명 주소 없음"}
               </div>
             </div>
