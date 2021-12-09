@@ -13,14 +13,18 @@ const reduceOverlayReloader = (state, action) => {
     case "update data":
       return { data: action.data, is_activated: state.is_activated };
     case "activate":
-      return { data: state.data, is_activated: true };
+      if (action.data != undefined) {
+        return { data: action.data, is_activated: true };
+      } else {
+        return { data: state.data, is_activated: true };
+      }
     case "deactivate":
       return { data: state.data, is_activated: false };
   }
 };
 
 export const OverlayReloaderContext = createContext({
-  overlay_reloader: "",
+  overlay_reloader: [],
   handleOverlayReloader: () => {},
 });
 
