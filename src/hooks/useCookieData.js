@@ -119,7 +119,9 @@ const reduceCookieData = (state, action) => {
       console.log("successfully deleted cookie_data", new_state.id);
       Object.keys(action.data || {}).map((key) => {
         if (new_state.data[key] != undefined) {
-          new_state.data[key].filter((e) => e.id != action.data[key]);
+          new_state.data[key] = new_state.data[key].filter(
+            (e) => e.id != action.data[key]
+          );
         }
       });
       return new_state;
