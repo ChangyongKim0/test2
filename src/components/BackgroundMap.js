@@ -65,6 +65,8 @@ const BackgroundMap = ({
   const [need_update_overlay, setNeedUpdateOverlay] = useState(false);
   const [bldg_info_data, handleBldgInfoData] = useBldgInfoData();
   const [overlay_reloader, handleOverlayReloader] = useOverlayReloader();
+  const [info_bubble_elements, setInfoBubbleElements] = useState([]);
+  const [pilji_list, setPiljiList] = useState([]);
 
   const handleKakaoListener = ({ type, id, object, mouse_event, handler }) => {
     switch (type) {
@@ -112,7 +114,6 @@ const BackgroundMap = ({
 
     handleOverlay({ type: "create", map: map, getMapState: getMapState });
     getOverlayData(map).then((data) => {
-      handleOverlayReloader({ type: "update data", data: data });
       handleOverlay({ type: "update", data: data });
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
@@ -146,7 +147,6 @@ const BackgroundMap = ({
       setTimeout(
         () =>
           getOverlayData(map).then((data) => {
-            handleOverlayReloader({ type: "update data", data: data });
             handleOverlay({ type: "update", data: data });
           }),
         50
@@ -172,11 +172,7 @@ const BackgroundMap = ({
 
   useEffect(() => {
     if (overlay_reloader.is_activated) {
-      handleOverlay({ type: "remove all" });
-      setTimeout(
-        () => handleOverlay({ type: "update", data: overlay_reloader.data }),
-        10
-      );
+      reloadInfoBubble(overlay.data, overlay_reloader.data);
       handleOverlayReloader({ type: "deactivate" });
     }
   }, [overlay_reloader]);
@@ -184,7 +180,7 @@ const BackgroundMap = ({
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
     overlay.data_pushed.map((each) => {
-      if (each.price != -1) {
+      if (each.price != -1 || isBookMarked(each.id, pilji_list)) {
         const content = document.getElementById(each.id);
         const position = each.center;
         const customOverlay = new window.kakao.maps.CustomOverlay({
@@ -205,6 +201,35 @@ const BackgroundMap = ({
       // setTimeout(() => each.polygon.setMap(map), 0);
     });
   }, [overlay.data_pushed]);
+
+  const reloadInfoBubble = (overlay_data, id_list) => {
+    const elements = overlay_data.filter((e) => id_list.includes(e.id));
+    setInfoBubbleElements(elements);
+  };
+
+  useEffect(() => {
+    if (info_bubble_elements.length != 0) {
+      info_bubble_elements.map((e) => {
+        const id = e.id;
+        if (info_bubbles[id] != undefined) {
+          info_bubbles[id].setMap(null);
+          const content = document.getElementById(id);
+          const position = info_bubbles[id].getPosition();
+          const customOverlay = new window.kakao.maps.CustomOverlay({
+            position: position,
+            content: content,
+            xAnchor: 0.5,
+            yAnchor: 1.0,
+            clickable: false,
+          });
+
+          info_bubbles[id] = customOverlay;
+          info_bubbles[id].setMap(map);
+        }
+      });
+      setInfoBubbleElements([]);
+    }
+  }, [info_bubble_elements]);
 
   useEffect(() => {
     // eslint-disable-next-line array-callback-return
@@ -284,7 +309,7 @@ const BackgroundMap = ({
         // console.log(polygons);
         // console.log(each.id, polygons[each.id]);
         // delete polygons[each.id];
-        if (each.price != -1) {
+        if (each.price != -1 || isBookMarked(each.id, pilji_list)) {
           info_bubbles[each.id].setMap(null);
           // delete info_bubbles[each.id];
         }
@@ -437,7 +462,7 @@ const BackgroundMap = ({
   const [unit_update, setUnitUpdate] = useToggleState({ update: true });
   const [cookie_data, handleCookieData] = useCookieData();
 
-  const reloadInfoBubble = (unit_type) => {
+  const reloadInfoBubbleText = (unit_type) => {
     // console.log(content);
     Array.from(document.getElementsByClassName("info-bubble-unit-field")).map(
       (e) => {
@@ -465,13 +490,21 @@ const BackgroundMap = ({
     );
   };
 
-  const [pilji_list, setPiljiList] = useState([]);
-
   useEffect(() => {
     setPiljiList(cookie_data.data.pilji_list);
+    if (cookie_data.data.pilji_list != undefined) {
+      handleOverlayReloader({
+        type: "activate",
+        data: cookie_data.data.pilji_list.map((e) => e.id),
+      });
+    }
   }, [cookie_data]);
 
-  useEffect(() => reloadInfoBubble(unit_type), [unit_update, unit_type]);
+  useEffect(() => {
+    console.log(Array.from(Object.keys(info_bubbles)));
+    console.log(overlay.data);
+    reloadInfoBubble(overlay.data, Array.from(Object.keys(info_bubbles)));
+  }, [unit_update, unit_type]);
 
   const isBookMarked = (pnu, pilji_list) => {
     // console.log(pilji_list, pnu);
@@ -480,6 +513,26 @@ const BackgroundMap = ({
     } else {
       return false;
     }
+  };
+
+  const createInfoBubble = (each) => {
+    return (
+      <InfoBubble
+        key={each.id}
+        id={each.id}
+        handler={handlePolygon}
+        data={{
+          price: formatData(each.price, "number"),
+          date: "'" + each.tr_date.slice(2, 4) + "." + each.tr_date.slice(4, 6),
+          price_per_py:
+            formatData(each.price_per_area, "number", "원[/area]", unit_type) +
+            formatUnit("원[/area]", unit_type),
+          polygon: each.polygon,
+        }}
+        tr_exists={each.price != -1}
+        is_saved={isBookMarked(each.id, pilji_list)}
+      />
+    );
   };
 
   return (
@@ -491,28 +544,11 @@ const BackgroundMap = ({
       <div id="map" className={cx("map")}></div>
       {overlay.data_pushed
         .filter((e) => e.price != -1 || isBookMarked(e.id, pilji_list))
-        .map((each) => (
-          <InfoBubble
-            key={each.id}
-            id={each.id}
-            handler={handlePolygon}
-            data={{
-              price: formatData(each.price, "number"),
-              date:
-                "'" + each.tr_date.slice(2, 4) + "." + each.tr_date.slice(4, 6),
-              price_per_py:
-                formatData(
-                  each.price_per_area,
-                  "number",
-                  "원[/area]",
-                  unit_type
-                ) + formatUnit("원[/area]", unit_type),
-              polygon: each.polygon,
-            }}
-            tr_exists={each.price != -1}
-            is_saved={isBookMarked(each.id, pilji_list)}
-          />
-        ))}
+        .map((each) => createInfoBubble(each))}
+      {info_bubble_elements.map((each) => {
+        // console.log(each);
+        return createInfoBubble(each);
+      })}
     </div>
   );
 };
