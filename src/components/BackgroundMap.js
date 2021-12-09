@@ -118,9 +118,9 @@ const BackgroundMap = ({
     });
     // window.kakao.maps.event.addListener(map, "click", onClick);
     window.kakao.maps.event.addListener(map, "bounds_changed", onCenterChanged);
-    window.kakao.maps.event.addListener(map, "idle", () =>
-      setTimeout(() => setUnitUpdate("update"), 1000)
-    );
+    // window.kakao.maps.event.addListener(map, "idle", () =>
+    //   setTimeout(() => setUnitUpdate("update"), 1000)
+    // );
     pushAddress(getMapState(), handleAddress);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -459,36 +459,36 @@ const BackgroundMap = ({
   };
 
   const [unit_type, _] = useUnitType();
-  const [unit_update, setUnitUpdate] = useToggleState({ update: true });
+  // const [unit_update, setUnitUpdate] = useToggleState({ update: true });
   const [cookie_data, handleCookieData] = useCookieData();
 
-  const reloadInfoBubbleText = (unit_type) => {
-    // console.log(content);
-    Array.from(document.getElementsByClassName("info-bubble-unit-field")).map(
-      (e) => {
-        let price_per_area = parseFloat(
-          e.innerHTML.replace(/,/g, "").replace(/[^0-9.]/g, "")
-        );
-        if (e.innerHTML.includes("만")) {
-          price_per_area *= 10000;
-        } else if (e.innerHTML.includes("억")) {
-          price_per_area *= 100000000;
-        } else if (e.innerHTML.includes("조")) {
-          price_per_area *= 1000000000000;
-        }
-        const previous_unit = e.innerHTML.replace(/.*\//g, "");
-        if (previous_unit == "평" && unit_type == "sqm") {
-          e.innerHTML =
-            formatData(price_per_area * 0.3025, "number") +
-            formatUnit("원[/area]", unit_type);
-        } else if (previous_unit == "㎡" && unit_type == "py") {
-          e.innerHTML =
-            formatData(price_per_area / 0.3025, "number") +
-            formatUnit("원[/area]", unit_type);
-        }
-      }
-    );
-  };
+  // const reloadInfoBubbleText = (unit_type) => {
+  //   // console.log(content);
+  //   Array.from(document.getElementsByClassName("info-bubble-unit-field")).map(
+  //     (e) => {
+  //       let price_per_area = parseFloat(
+  //         e.innerHTML.replace(/,/g, "").replace(/[^0-9.]/g, "")
+  //       );
+  //       if (e.innerHTML.includes("만")) {
+  //         price_per_area *= 10000;
+  //       } else if (e.innerHTML.includes("억")) {
+  //         price_per_area *= 100000000;
+  //       } else if (e.innerHTML.includes("조")) {
+  //         price_per_area *= 1000000000000;
+  //       }
+  //       const previous_unit = e.innerHTML.replace(/.*\//g, "");
+  //       if (previous_unit == "평" && unit_type == "sqm") {
+  //         e.innerHTML =
+  //           formatData(price_per_area * 0.3025, "number") +
+  //           formatUnit("원[/area]", unit_type);
+  //       } else if (previous_unit == "㎡" && unit_type == "py") {
+  //         e.innerHTML =
+  //           formatData(price_per_area / 0.3025, "number") +
+  //           formatUnit("원[/area]", unit_type);
+  //       }
+  //     }
+  //   );
+  // };
 
   useEffect(() => {
     setPiljiList(cookie_data.data.pilji_list);
@@ -501,10 +501,10 @@ const BackgroundMap = ({
   }, [cookie_data]);
 
   useEffect(() => {
-    console.log(Array.from(Object.keys(info_bubbles)));
-    console.log(overlay.data);
+    // console.log(Array.from(Object.keys(info_bubbles)));
+    // console.log(overlay.data);
     reloadInfoBubble(overlay.data, Array.from(Object.keys(info_bubbles)));
-  }, [unit_update, unit_type]);
+  }, [unit_type]);
 
   const isBookMarked = (pnu, pilji_list) => {
     // console.log(pilji_list, pnu);
