@@ -48,7 +48,7 @@ const BldgInfoModal = ({
         },
       });
     }
-    handleOverlayReloader({ type: "activate" });
+    handleOverlayReloader({ type: "activate", data: [bldg_info_data.pnu] });
   };
 
   useEffect(() => {
