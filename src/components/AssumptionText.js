@@ -97,7 +97,7 @@ const AssumptionText = ({
                 onBlur={onBlur}
               ></input>
             ) : (
-              <div className={cx("text")}>{data.value}</div>
+              <div className={cx("text")}><div>{data.value}</div></div>
             )}
             <div className={cx("unit")}>{data.value_unit}</div>
           </div>
