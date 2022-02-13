@@ -26,6 +26,7 @@ import useEnterAsTab from "../hooks/useEnterAsTab";
 import useValuationCalculator from "../hooks/useValuationCalculator";
 import useUnitType from "../hooks/useUnitType";
 import formatValuation from "../data/formatValuation";
+import useBldgInfoData from "../hooks/useBldgInfoData";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -47,10 +48,12 @@ const reduceMousePressContainer = (state, action) => {
 const luseModalStack = createModalStack();
 
 const Valuation = ({ history }) => {
+  
   const [modal_stack, useModalParam] = luseModalStack();
   const [unit_type, _] = useUnitType();
 
   const [naked_data, setValuationCalculator] = useValuationCalculator();
+  const [bldg_info_data, _1] = useBldgInfoData();
 
   const mini_map_data = {
     level: 3,
@@ -69,9 +72,10 @@ const Valuation = ({ history }) => {
   //   ""
   // );
 
-  // useLayoutEffect(() => {
-  //   setValuationCalculator({ type: "create", data: formatted_data });
-  // }, []);
+  useLayoutEffect(() => {
+    setValuationCalculator({ type: "update base data", data: bldg_info_data.data, id: "base" });
+    console.log(bldg_info_data);
+  }, []);
 
   const handleFocus = ({ id, type, value }) => {
     console.log(id, type, value);
@@ -86,8 +90,12 @@ const Valuation = ({ history }) => {
   const data = useMemo(() => {
     return {
       valuation_header: {
-        title: "서울시 강남구 강남로 1",
-        sub_title: "강욱 빌딩",
+        title: bldg_info_data.data.addr || "주소 없음",
+        sub_title: bldg_info_data.data.bldg_exists
+                  ? bldg_info_data.data.bldg.bldg_info_list[
+                      bldg_info_data.data.bldg_idx
+                    ]?.road_addr
+                  : "도로명 주소 없음",
         saved_name: "강남로 1, 210906-1",
       },
       cards: [
