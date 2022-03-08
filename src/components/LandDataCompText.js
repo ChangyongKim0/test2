@@ -4,6 +4,8 @@ import React from "react";
 import styles from "./LandDataCompText.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
+import useUnitType from "../hooks/useUnitType";
+import { formatData, formatUnit } from "../hooks/useFormatter";
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +17,23 @@ const LandDataCompText = ({
   force_use_tooltip,
   type,
 }) => {
+
+  const [unit_type, _] = useUnitType();
+
+  try {
+    data.value = formatData(
+      data.value,
+      data.unit_type,
+      data.unit,
+      unit_type,
+    );
+  } catch {
+    data.value = "오류";
+  }
+  data.unit = formatUnit(
+    data.unit,
+    unit_type
+  );
   return (
     <div className={cx("wrapper")}>
       <ToolTip enable={force_use_tooltip || use_tooltip} data={tooltip}>

@@ -4,6 +4,8 @@ import React from "react";
 import styles from "./ValuationCompText.module.scss";
 import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
+import { formatData, formatUnit } from "../hooks/useFormatter";
+import useUnitType from "../hooks/useUnitType";
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +16,24 @@ const ValuationCompText = ({
   tooltip,
   style,
 }) => {
+
+  const [unit_type, _] = useUnitType();
+
+  try {
+    data.value = formatData(
+      data_value,
+      data.unit_type,
+      data.unit,
+      unit_type
+    );
+  } catch {
+    data.value = err_text;
+  }
+  data.unit = formatUnit(
+    data.unit,
+    unit_type
+  );
+  
   return (
     <div className={cx("wrapper")}>
       <div className={cx("frame-title")}>

@@ -6,9 +6,13 @@ import classNames from "classnames/bind";
 import ToolTip from "./ToolTip";
 import ValuationCompText from "./ValuationCompText";
 
+
 const cx = classNames.bind(styles);
 
 const ValuationCompCard = ({ data, style, handleClick, force_use_tooltip }) => {
+
+
+  
   return (
     <div className={cx("wrapper", style)}>
       <div className={cx("frame-content")}>
