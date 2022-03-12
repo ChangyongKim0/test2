@@ -117,7 +117,10 @@ const _adaptUnitType = (data, unit, unit_type) => {
 };
 
 const _formatThousandSeperator = (data) => {
-  return data.toString().replace(/(?<!\.\d+)\B(?=(\d{3})+(?!\d))/g, ",");
+  // return data.toString().replace(/(?<!\.\d+)\B(?=(\d{3})+(?!\d))/g, ",");
+  const seperated_number = data.toString().split(".");
+  seperated_number[0] = seperated_number[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return seperated_number.join(".");
 };
 
 const _formatTenThousandShrinker = (number) => {
@@ -138,22 +141,22 @@ const _formatTenThousandShrinker = (number) => {
   }
 };
 
-const _formatDecimalPointOld = (data, position = 1) => {
-  let regex = /./g;
-  switch (position.toString) {
-    case "0":
-      regex = /\.\d+/g;
-    case "1":
-      regex = /(?<=\.\d)\d+/g;
-    case "2":
-      regex = /(?<=\.\d{2})\d+/g;
-    case "3":
-      regex = /(?<=\.\d{3})\d+/g;
-    default:
-      regex = /-/;
-  }
-  return data.toString().replace(regex, "");
-};
+// const _formatDecimalPointOld = (data, position = 1) => {
+//   let regex = /./g;
+//   switch (position.toString) {
+//     case "0":
+//       regex = /\.\d+/g;
+//     case "1":
+//       regex = /(?<=\.\d)\d+/g;
+//     case "2":
+//       regex = /(?<=\.\d{2})\d+/g;
+//     case "3":
+//       regex = /(?<=\.\d{3})\d+/g;
+//     default:
+//       regex = /-/;
+//   }
+//   return data.toString().replace(regex, "");
+// };
 
 const _formatDecimalPoint = (data, position = 1) => {
   const num_data = data.toString().match(/[-0-9.]+/g)[0];

@@ -19,20 +19,20 @@ const ValuationCompText = ({
 
   const [unit_type, _] = useUnitType();
 
-  try {
-    data.value = formatData(
-      data_value,
-      data.unit_type,
-      data.unit,
-      unit_type
-    );
-  } catch {
-    data.value = err_text;
-  }
-  data.unit = formatUnit(
-    data.unit,
-    unit_type
-  );
+  // try {
+  //   data.value = formatData(
+  //     data_value,
+  //     data.unit_type,
+  //     data.unit,
+  //     unit_type
+  //   );
+  // } catch {
+  //   data.value = err_text;
+  // }
+  // data.unit = formatUnit(
+  //   data.unit,
+  //   unit_type
+  // );
   
   return (
     <div className={cx("wrapper")}>
