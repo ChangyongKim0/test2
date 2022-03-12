@@ -23,6 +23,7 @@ import useUnitType from "../hooks/useUnitType";
 import useToggleState from "../hooks/useToggle";
 import useCookieData from "../hooks/useCookieData";
 import useOverlayReloader from "../hooks/useOverlayReloader";
+import { API_URI } from "../src_shortcut";
 
 const cx = classNames.bind(styles);
 
@@ -333,7 +334,7 @@ const BackgroundMap = ({
       let new_polygon = overlay.clicked_data.polygon;
       setTimeout(() => {
         axios
-          .put("/api/bldgInfo", {
+          .put(API_URI + "bldgInfo", {
             id: overlay.clicked_data.id,
             latlng: overlay.clicked_data.latlng,
           })

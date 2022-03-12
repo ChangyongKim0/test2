@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URI } from "../src_shortcut";
 import { _default, _center } from "../util/alias";
 import { col_secondary } from "../util/style";
 
@@ -226,7 +227,7 @@ const getOverlayData = async (map) => {
   var max_lat = bounds.getNorthEast().getLat();
   var max_lng = bounds.getNorthEast().getLng();
   console.log("request new overlay data.");
-  const map_data = await axios.put("/api/mapInfo", {
+  const map_data = await axios.put(API_URI + "mapInfo", {
     min_lat: min_lat,
     min_lng: min_lng,
     max_lat: max_lat,

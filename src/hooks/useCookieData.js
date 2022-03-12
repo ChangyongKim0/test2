@@ -1,11 +1,12 @@
 import axios from "axios";
-import {
+import React, {
   createContext,
   useContext,
   useReducer,
   useMemo,
   useEffect,
 } from "react";
+import { API_URI } from "../src_shortcut";
 
 export const CookieDataContext = createContext({
   cookie_data: { data: {} },
@@ -86,7 +87,7 @@ const reduceCookieData = (state, action) => {
       new_state[action.name] = null;
       return new_state;
     case "patch":
-      axios.patch("/api/cookie", {
+      axios.patch(API_URI + "cookie", {
         id: new_state.id,
         data: action.data,
         setting: action.setting,
@@ -97,7 +98,7 @@ const reduceCookieData = (state, action) => {
       });
       return new_state;
     case "add":
-      axios.patch("/api/cookie/add", {
+      axios.patch(API_URI + "cookie/add", {
         id: new_state.id,
         data: action.data,
         setting: action.setting,
@@ -111,7 +112,7 @@ const reduceCookieData = (state, action) => {
       });
       return new_state;
     case "delete":
-      axios.patch("/api/cookie/delete", {
+      axios.patch(API_URI + "cookie/delete", {
         id: new_state.id,
         data: action.data,
         setting: action.setting,
@@ -173,7 +174,7 @@ export const CookieDataProvider = ({ children }) => {
   useEffect(() => {
     // handleCookieData({ type: "delete_cookie", name: "id" });
     handleCookieData({ type: "create" });
-    axios.put("/api/cookie", { id: getCookie("id") }).then((request) => {
+    axios.put(API_URI + "cookie", { id: getCookie("id") }).then((request) => {
       console.log("cookie id", cookie_data);
       handleCookieData({
         type: "update",

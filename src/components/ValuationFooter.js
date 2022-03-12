@@ -9,6 +9,7 @@ import SaveSuccessModal from "./SaveSuccessModal";
 import Overlay from "./Overlay";
 import BookMarkModal from "./BookMarkModal";
 import downloadFile from "../functions/downloadFile";
+import { API_URI } from "../src_shortcut";
 
 const cx = classNames.bind(styles);
 
@@ -40,7 +41,7 @@ const ValuationFooter = ({ data, onClickExtractExcel }) => {
         background="white"
         icon="chart"
         onClick={() =>
-          downloadFile("/api/downloadExcel", "propi_엑셀로 추출하기.xlsx")
+          downloadFile(API_URI + "downloadExcel", "propi_엑셀로 추출하기.xlsx")
         }
         id="ExtractExcel"
       >
