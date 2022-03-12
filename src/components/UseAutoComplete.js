@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React, { useEffect } from "react";
-import useAutocomplete from "@material-ui/lab/useAutocomplete";
+import useAutocomplete from "@mui/lab/useAutocomplete";
 
 import styles from "./UseAutoComplete.module.scss";
 import classNames from "classnames/bind";
