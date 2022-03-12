@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import React, { useReducer, useState } from "react";
 import useToggleState from "./useToggle";
 
 const reduceModalStack = (old_state, action) => {

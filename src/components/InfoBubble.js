@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactComponent as InfoBubbleSvg } from "../atom/InfoBubbleSvg.svg";
 import { col_primary, col_w } from "../util/style";
 
