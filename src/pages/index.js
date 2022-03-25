@@ -9,3 +9,4 @@ export { default as ValuationComp } from "./ValuationComp";
 export { default as TestPage } from "./TestPage";
 export { default as Home } from "./Home";
 export { default as MapComp } from "./MapComp";
+export { default as NotFound } from "./NotFound";

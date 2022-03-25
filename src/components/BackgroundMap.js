@@ -108,8 +108,10 @@ const BackgroundMap = ({
         bldg_info_data.lng
       ), //지도의 중심좌표.
       level: bldg_info_data.level, //지도의 레벨(확대, 축소 정도)
+      mapTypeId: window.kakao.maps.MapTypeId.ROADMAP,
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    // map.addOverlayMapTypeId(window.kakao.maps.MapTypeId.USE_DISTRICT) // 지적현황도 내용
     var zoomControl = new window.kakao.maps.ZoomControl();
     map.addControl(zoomControl, window.kakao.maps.ControlPosition.BOTTOMRIGHT);
 
@@ -343,6 +345,7 @@ const BackgroundMap = ({
             handleBldgInfoData({
               type: "update",
               pnu: overlay.clicked_data.id,
+              latlng: overlay.clicked_data.latlng,
               data: res.data,
             });
           });

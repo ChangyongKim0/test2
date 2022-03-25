@@ -1,0 +1,15 @@
+@import "../util/style.scss";
+
+.wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  @include column(auto, auto, 10px);
+  background-color: $col-bgd-w;
+  justify-content: center;
+}
+
+.text{
+    @include txt-bold;
+    @include txt-14;
+}

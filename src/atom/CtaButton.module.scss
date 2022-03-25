@@ -25,8 +25,8 @@
     @include row(auto, 25px, 7.5px);
   }
   &-big{
-    padding: 10px 0px;
-    width: 300px;
+    padding: 10px 10px;
+    // width: 300px;
     & *{
     @include txt-19;}
     @include row(auto, 28px, 10px);

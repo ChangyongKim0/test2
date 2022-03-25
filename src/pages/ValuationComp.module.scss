@@ -39,7 +39,7 @@
     };
   };
   &-column{
-    @include column(auto, auto, 25px);
+    @include column(100%, auto, 25px);
     height: 100%;
     > :last-child{
       height: auto;
@@ -49,4 +49,20 @@
       }
     }
   };
+  &-row{
+    @include row(auto, auto, 10px);
+    > :first-child{
+      width: 100%;
+    }
+  }
+}
+
+.btn {
+    &-close {
+        width: 40px;
+        stroke: $col-brd-g8;
+        stroke-width: 2px;
+        stroke-opacity: 1;
+        cursor: pointer;
+    }
 }

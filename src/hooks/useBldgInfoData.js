@@ -45,12 +45,18 @@ const reduceBldgInfoData = (state, action) => {
       return new_state;
     case "update":
       new_state.pnu = action.pnu;
+      new_state.latlng = action.latlng || state.latlng;
       new_state.data = action.data;
+      new_state.saved_name = action.saved_name || state.saved_name;
       new_state.handleCookieData({
         type: "patch",
-        data: { pnu: action.pnu },
+        data: { pnu: action.pnu, latlng: action.latlng },
       });
       setCookie("pnu", new_state.pnu, 365);
+      setCookie("latlng", new_state.latlng, 365);
+      return new_state;
+    case "save_update":
+      new_state.saved_name = action.saved_name;
       return new_state;
     case "location_update":
       new_state.pnu = action.pnu || state.pnu;

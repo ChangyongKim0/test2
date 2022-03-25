@@ -1,0 +1,12 @@
+@import "../util/style.scss";
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.popup {
+    width: 90vw;
+    height: 80vh;
+    box-shadow: 4px 6px 22px rgba(0, 0, 0, 0.3);
+}

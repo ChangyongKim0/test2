@@ -31,13 +31,15 @@ const ValuationHeader = ({
   };
 
   const [cookie_data, handleCookieData] = useCookieData();
-
+  const [_, handleBldgInfoData] = useBldgInfoData();
   const [open_BMM, setOpenBMM, registerBMM, modal_update] =
     useModal(useModalParam);
 
   registerBMM(
     <Overlay open={true} setOpen={setOpenBMM} use_backdrop={true}>
       <BookMarkModal
+        title="밸류에이션 저장하기"
+        placeholder="저장할 이름을 써주세요"
         onClick={{
           Close: () => {
             setOpenBMM(false);
@@ -52,6 +54,10 @@ const ValuationHeader = ({
                 },
               },
             });
+            handleBldgInfoData({
+              type: "save_update",
+              saved_name: id_info.save_name,
+            })
           },
           Go: () => {
             history.push("/valuation/comp");

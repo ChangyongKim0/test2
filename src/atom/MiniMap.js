@@ -20,10 +20,10 @@ const MiniMap = ({ pos_list, level, id }) => {
     };
     map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
     const polygon = convertPosList(map, pos_list);
-    polygon.setOptions({ fillColor: col_secondary, fillOpacity: 0.5 });
+    polygon.setOptions({ fillColor: col_secondary, fillOpacity: 0.7});
     // window.kakao.maps.event.addListener(map, "click", onClick);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pos_list]);
 
   return (
     <div className={cx("wrapper")}>

@@ -21,6 +21,12 @@ import useCookieData from "../hooks/useCookieData";
 import useUnitType from "../hooks/useUnitType";
 import wrapValuationComp from "../data/wrapValucationComp";
 import formatValuation from "../data/formatValuation";
+import { ReactComponent as CloseSvg } from "../atom/CloseSvg.svg";
+import axios from "axios";
+import { API_URI } from "../src_shortcut";
+import useBldgInfoData from "../hooks/useBldgInfoData";
+import useValuationCalculator from "../hooks/useValuationCalculator";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 // var mapDiv = document.getElementById('map');
@@ -46,6 +52,11 @@ const wrapDataFromCookie = (cookie_data, unit_type) => {
     return cookie_data.data.valuation_list.map((e) => {
       return {
         saved_name: e.save_name,
+        id: e.id,
+        pnu: e.mini_map_data.pnu,
+        latlng: e.mini_map_data.latlng,
+        naked_data: e.naked_data,
+        saved_name: e.save_name,
         content: wrapValuationComp(
           formatValuation(e.naked_data, unit_type),
           e.valuation_header.title
@@ -59,6 +70,8 @@ const ValuationComp = () => {
   const [modal_stack, useModalParam] = useModalStack();
   const [cookie_data, handleCookieData] = useCookieData();
   const [unit_type, _] = useUnitType();
+  const [_2, handleBldgInfoData] = useBldgInfoData();
+  const [_3, setValuationCalculator] = useValuationCalculator();
 
   useDragScroll("container", () => {});
 
@@ -73,14 +86,44 @@ const ValuationComp = () => {
           {wrapDataFromCookie(cookie_data, unit_type).map((e, idx) => {
             return (
               <div className={cx("frame-column")} key={idx}>
-                <CtaButton
-                  size="big"
-                  background="transparent"
-                  icon="chart"
-                  is_clickable={false}
-                >
-                  {e.saved_name}
-                </CtaButton>
+                  <CloseSvg className={cx("btn-close")} onClick={()=>{
+                    console.log(e.id);
+                    handleCookieData({
+                    type: "delete",
+                    data: {
+                      valuation_list: e.id,
+                    }
+                  });}}/>
+                  <Link to="/valuation">
+                    <CtaButton
+                      size="big"
+                      border="gray"                  
+                      background="white"
+                      icon="chart"
+                      is_clickable={true}
+                      onClick={()=>{
+                        axios.put(API_URI + "bldgInfo", {
+                          id: e.pnu,
+                          latlng: e.latlng,
+                        }).then((res) => {
+                          handleBldgInfoData({
+                            type: "update",
+                            pnu: e.pnu,
+                            latlng: e.latlng,
+                            data: res.data,
+                            saved_name: e.saved_name,
+                          });
+                        });
+                        setValuationCalculator({
+                          type: "create",
+                          data: e.naked_data,
+                          id: "",
+                        });
+                      }}
+                    >
+                      {e.saved_name}
+                    </CtaButton>
+                  </Link>
                 <div>
                   <ValuationCompCard key={idx} {...e.content} />
                 </div>

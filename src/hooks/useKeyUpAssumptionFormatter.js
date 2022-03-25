@@ -4,11 +4,10 @@ const useKeyUpAssumptionFormatter = (id_value, id_base, need_update = []) => {
   let input_value = "";
   let input_base = "";
 
-  useEffect(() => {
+
     input_value = document.getElementById(id_value);
     input_base = document.getElementById(id_base);
     console.log("element updated.");
-  }, need_update);
 
   const handleKeyUp = (self_type, type, e) => {
     let self = "";
@@ -23,6 +22,7 @@ const useKeyUpAssumptionFormatter = (id_value, id_base, need_update = []) => {
     // console.log(e.target.selectionStart);
     const pos = e.target.selectionStart;
     const temp = self.value;
+    console.log(self);
     console.log(temp);
     console.log(temp.split("."));
     switch (type) {

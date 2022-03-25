@@ -79,7 +79,7 @@ const convertPosList = (map, pos_list) => {
     i += 2;
   }
   let polygon = new window.kakao.maps.Polygon({
-    // map: map, // 다각형을 표시할 지도 객체
+    map: map, // 다각형을 표시할 지도 객체
     path: path,
     strokeWeight: 0,
     fillColor: "#fff",
